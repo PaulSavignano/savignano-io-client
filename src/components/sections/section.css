@@ -1,0 +1,48 @@
+.section-edit-button {
+  margin: 8px;
+}
+.section-edit-button > button {
+  background-color: rgb(255,255,255) !important;
+}
+
+.AdminSectionEditButtons {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+}
+
+
+.section-container {
+  position: relative;
+}
+
+.AdminSection, .Section {
+  display: flex;
+}
+
+.AutoPlaySwipeableViews > div {
+  display: flex;
+  flex-flow: column;
+  justify-content: center
+}
+
+
+.cross-fade-enter {
+  opacity: 0;
+}
+.cross-fade-enter.cross-fade-enter-active {
+  opacity: 1;
+  transition: opacity 2s ease-in;
+}
+.cross-fade-exit {
+  opacity: 1;
+}
+.cross-fade-exit.cross-fade-exit-active {
+  opacity: 0;
+  transition: opacity 2s ease-in;
+}
