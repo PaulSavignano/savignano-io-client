@@ -5,8 +5,7 @@ import { Card } from 'material-ui/Card'
 import RaisedButton from 'material-ui/RaisedButton'
 
 import history from '../../containers/routers/history'
-import renderSuccessableTextField from '../../components/fields/renderSuccessableTextField'
-import { fetchUpdate, fetchDelete } from '../../actions/pages'
+import AdminPagesItemForm from './AdminPagesItemForm'
 
 class AdminPagesItem extends Component {
   state = {
@@ -16,21 +15,15 @@ class AdminPagesItem extends Component {
     const { item: { slug }} = this.props
     history.push(`/admin/pages/${slug}`)
   }
-  handleDelete = () => {
-    const { dispatch, item: { _id }} = this.props
-    if (window.confirm('Are you sure you want to delete this page?')) {
-      return dispatch(fetchDelete(_id))
-    }
-  }
   handleMouseEnter = () => this.setState({ elevation: 4 })
   handleMouseLeave = () => this.setState({ elevation: 1 })
-  handleFormSubmit = (values) => {
-    const { dirty, dispatch, item: { _id }} = this.props
-    if (dirty) return dispatch(fetchUpdate(_id, { type: 'UPDATE_VALUES', values }))
-  }
   render() {
     const {
-      handleSubmit,
+      item: {
+        values: { name },
+        _id,
+        slug
+      }
     } = this.props
     return (
       <Card
@@ -38,17 +31,9 @@ class AdminPagesItem extends Component {
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
         className="card"
-      >
-        <form
-          onBlur={handleSubmit(this.handleFormSubmit)}
-          style={{ display: 'flex', flexFlow: 'row wrap', alignItems: 'center', padding: '8px 8px 16px 8px' }}
-        >
-          <Field
-            name="name"
-            label="Name"
-            type="text"
-            component={renderSuccessableTextField}
-          />
+      >{slug === 'home' ?
+        <div className="admin-pages-item-home">
+          <div className="admin-pages-item-name">Home</div>
           <div>
             <RaisedButton
               onTouchTap={this.handleNavigation}
@@ -57,16 +42,16 @@ class AdminPagesItem extends Component {
               style={{ margin: 4 }}
               primary={true}
             />
-            <RaisedButton
-              onTouchTap={this.handleDelete}
-              type="button"
-              label="X"
-              className="delete-button"
-              style={{ margin: 4 }}
-              primary={true}
-            />
           </div>
-        </form>
+        </div>
+      :
+      <AdminPagesItemForm
+        handleNavigation={this.handleNavigation}
+        _id={_id}
+        initialValues={{ name }}
+        form={`page-${slug}-name-form`}
+      />
+      }
       </Card>
     )
   }
@@ -76,4 +61,4 @@ AdminPagesItem.propTypes = {
   item: PropTypes.object.isRequired,
 }
 
-export default reduxForm({})(AdminPagesItem)
+export default AdminPagesItem

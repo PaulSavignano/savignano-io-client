@@ -1,4 +1,4 @@
-export const type = 'ARTICLE'
+export const type = 'SWIPEABLE'
 
 const START_PLAY = `START_PLAY_${type}`
 const STOP_PLAY = `STOP_PLAY_${type}`

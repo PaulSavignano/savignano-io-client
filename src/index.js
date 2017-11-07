@@ -17,8 +17,6 @@ import { fetchUser } from './actions/user'
 
 const store = configureStore()
 
-console.log(process.env)
-
 const accessToken = localStorage.getItem('x-access-token')
 if (accessToken) {
   store.dispatch(fetchUser())

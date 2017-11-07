@@ -1,0 +1,22 @@
+.admin-pages-item {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  padding: 8px 8px 16px 8px;
+}
+
+.admin-pages-item-home {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 8px 16px 8px;
+}
+
+.admin-pages-item-name {
+  margin: 8px 8px 16px
+}
+
+.admin-pages-item-button {
+  align-self: flex-end;
+}

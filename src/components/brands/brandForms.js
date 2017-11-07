@@ -1,11 +1,4 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-
-import brandContainer from '../../containers/brands/brandContainer'
-import BrandAdd from './BrandAdd'
-import BrandForm from './BrandForm'
-
-const formFields = [{
+const brandForms = [{
   name: 'appBar',
   fields: [
     { name: 'backgroundColor', type: 'text' },
@@ -191,68 +184,4 @@ const formFields = [{
   ]
 }]
 
-const BrandAdmin = ({
-  brand: {
-    _id,
-    appBar,
-    articleStyle,
-    body,
-    business,
-    cardStyle,
-    footer,
-    heroStyle,
-    palette,
-    productStyle,
-    typography,
-  },
-  dispatch
-}) => {
-  const forms = [
-    appBar,
-    articleStyle,
-    body,
-    business,
-    cardStyle,
-    footer,
-    heroStyle,
-    palette,
-    productStyle,
-    typography,
-  ]
-  return (
-    <div className="page">
-      {_id ?
-        <section className="section-margin">
-          {forms.map((form, i) => {
-            const { backgroundImage, image, values } = form
-            return (
-              <BrandForm
-                _id={_id}
-                backgroundColor={palette.values.canvasColor}
-                backgroundImage={backgroundImage}
-                dispatch={dispatch}
-                key={i}
-                image={image}
-                fields={formFields[i].fields}
-                fontFamily={typography.values.fontFamily}
-                form={formFields[i].name}
-                initialValues={values}
-              />
-            )
-          })}
-        </section>
-      :
-      <BrandAdd
-        dispatch={dispatch}
-      />
-      }
-    </div>
-  )
-}
-
-BrandAdmin.propTypes = {
-  brand: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired
-}
-
-export default brandContainer(BrandAdmin)
+export default brandForms

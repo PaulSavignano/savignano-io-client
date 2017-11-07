@@ -4,15 +4,17 @@ import { Link, withRouter } from 'react-router-dom'
 import { ListItem } from 'material-ui/List'
 import IconButton from 'material-ui/IconButton'
 
-import DrawerPageLink from './DrawerPageLink'
+import CartIcon from '../icons/CartIcon'
 import DrawerAdminPageLink from './DrawerAdminPageLink'
+import DrawerBrandLinks from './DrawerBrandLinks'
+import DrawerPageLink from './DrawerPageLink'
+import SearchIcon from '../icons/SearchIcon'
 import UserButtons from './UserButtons'
-import CartIcon from './CartIcon'
 import { toggleDrawer } from '../../actions/drawer'
 import { searchToggle } from '../../actions/search'
 
 class DrawerNavigation extends Component {
-  handleCloseDrawer = () => this.props.dispatch(toggleDrawer())
+  handleDrawerClose = () => this.props.dispatch(toggleDrawer())
   handleSearchToggle = () => {
     const { dispatch, searchOpen } = this.props
     dispatch(toggleDrawer())
@@ -20,6 +22,7 @@ class DrawerNavigation extends Component {
   }
   render() {
     const {
+      brandId,
       cartQty,
       dispatch,
       firstName,
@@ -54,18 +57,30 @@ class DrawerNavigation extends Component {
           nestedItems={[
             <ListItem
               key={1}
-              primaryText="Brand"
-              onTouchTap={this.handleCloseDrawer}
-              containerElement={<Link to="/admin/brand"/>}
+              primaryText="apiConfig"
+              onTouchTap={this.handleDrawerClose}
+              containerElement={<Link to="/admin/api-config"/>}
             />,
             <ListItem
               key={2}
-              primaryText="Orders"
-              onTouchTap={this.handleCloseDrawer}
-              containerElement={<Link to="/admin/orders"/>}
+              primaryText="Brand"
+              initiallyOpen={false}
+              primaryTogglesNestedList={true}
+              nestedItems={[
+                <DrawerBrandLinks
+                  key={1}
+                  handleDrawerClose={this.handleDrawerClose}
+                />
+              ]}
             />,
             <ListItem
               key={3}
+              primaryText="Orders"
+              onTouchTap={this.handleDrawerClose}
+              containerElement={<Link to="/admin/orders"/>}
+            />,
+            <ListItem
+              key={4}
               primaryText="Pages"
               initiallyOpen={true}
               primaryTogglesNestedList={true}
@@ -74,16 +89,16 @@ class DrawerNavigation extends Component {
                 <ListItem
                   key={1}
                   primaryText="Edit Pages"
-                  onTouchTap={this.handleCloseDrawer}
+                  onTouchTap={this.handleDrawerClose}
                   containerElement={<Link to="/admin/pages"/>}
                 />
               ]}
             />,
             isOwner ?
               <ListItem
-                key={4}
+                key={5}
                 primaryText="Users"
-                onTouchTap={this.handleCloseDrawer}
+                onTouchTap={this.handleDrawerClose}
                 containerElement={<Link to="/admin/users"/>}
               />
             : null
@@ -94,12 +109,12 @@ class DrawerNavigation extends Component {
           dispatch={dispatch}
           firstName={firstName}
           history={history}
-          onSelect={this.handleCloseDrawer}
+          onSelect={this.handleDrawerClose}
         />
         {cartQty &&
           <ListItem
             key={5}
-            onTouchTap={this.handleCloseDrawer}
+            onTouchTap={this.handleDrawerClose}
             style={{ height: 48}}
             children={
               <CartIcon
@@ -122,8 +137,9 @@ class DrawerNavigation extends Component {
           children={
             <IconButton
               key={1}
-              iconClassName="fa fa-search"
-              iconStyle={{ verticalAlign: 'middle', fontSize: 16 }}
+              children={
+                <SearchIcon className="material-icons drawer-search-icon"/>
+              }
             />
           }
         />

@@ -16,9 +16,9 @@ const Head = ({
     {name && <title>{name}</title>}
     {description && <meta name="description" content={description} />}
     {keywords && <meta name="keywords" content={keywords} />}
-    {image && image.src ? <link rel="apple-touch-icon" sizes="180x180" href={image.src} /> : null }
-    {image && image.src ? <link rel="icon" type="image/png" href={image.src} sizes="32x32" /> : null}
-    {image && image.src ? <link rel="icon" type="image/png" href={image.src} sizes="16x16" /> : null }
+    {image && image.src ? <link rel="apple-touch-icon" sizes="180x180" href={`${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}`} /> : null }
+    {image && image.src ? <link rel="icon" type="image/png" href={`${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}`} sizes="32x32" /> : null}
+    {image && image.src ? <link rel="icon" type="image/png" href={`${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}`} sizes="16x16" /> : null }
     <link rel="canonical" href={window.location.hostname} />
   </Helmet>
 )

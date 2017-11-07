@@ -16,7 +16,6 @@ class Page extends Component {
       if (hash) return this.scrollToId(hash)
       window.scrollTo(0, 0)
     }
-
   }
   scrollToId = (hash) => {
     const id = hash.replace('#', '')
@@ -25,6 +24,7 @@ class Page extends Component {
   }
   render() {
     const {
+      brandId,
       dispatch,
       page: {
         _id,

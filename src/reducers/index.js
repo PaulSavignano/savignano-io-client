@@ -1,24 +1,26 @@
 import { combineReducers } from 'redux'
-import { reducer as reduxForm } from 'redux-form'
+import { reducer as formReducer } from 'redux-form'
 
-import brand from '../reducers/brand'
-import carts from '../reducers/carts'
-import drawer from '../reducers/drawer'
-import editItem from '../reducers/editItem'
-import orders from '../reducers/orders'
-import pages from '../reducers/pages'
-import products from '../reducers/products'
-import search from '../reducers/search'
-import swipeables from '../reducers/swipeables'
-import user from '../reducers/user'
-import users from '../reducers/users'
+import apiConfig from './apiConfig'
+import brand from './brand'
+import carts from './carts'
+import drawer from './drawer'
+import editItem from './editItem'
+import orders from './orders'
+import pages from './pages'
+import products from './products'
+import search from './search'
+import swipeables from './swipeables'
+import user from './user'
+import users from './users'
 
 const rootReducer = combineReducers({
+  apiConfig,
   brand,
   carts,
   drawer,
   editItem,
-  form: reduxForm,
+  form: formReducer,
   orders,
   pages,
   products,

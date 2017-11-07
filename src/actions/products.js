@@ -1,10 +1,11 @@
 import { SubmissionError } from 'redux-form'
 
-import api from '../api'
 import handleAuthFetch from '../utils/handleAuthFetch'
 import * as pageActions from './pages'
 import { startEdit, stopEdit } from './editItem'
 
+const api = process.env.REACT_APP_API_ENDPOINT
+const clientName = process.env.REACT_APP_CLIENT_NAME
 export const type = 'PRODUCT'
 const route = 'products'
 
@@ -23,7 +24,7 @@ const fetchAddSuccess = (item) => ({ type: ADD, item })
 export const fetchAdd = (add) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}`,
+      path: `${api}/${route}/${clientName}`,
       method: 'POST',
       body: add
     })
@@ -34,7 +35,7 @@ export const fetchAdd = (add) => {
       return dispatch(startEdit({ item: editItem, kind: 'PRODUCT' }))
     })
     .catch(error => {
-      console.log(error)
+      console.error(error)
       dispatch(fetchFailure(error))
       throw new SubmissionError({ ...error, _error: 'Update failed!' })
     })
@@ -47,7 +48,7 @@ const fetchProductsSuccess = (items) => ({ type: RECEIVE, items })
 export const fetchProducts = () => {
   return (dispatch, getState) => {
     dispatch(fetchProductsRequest())
-    return fetch(`${api}/${route}`, {
+    return fetch(`${api}/${route}/${clientName}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -59,7 +60,7 @@ export const fetchProducts = () => {
         dispatch(fetchProductsSuccess(json))
       })
       .catch(error => {
-        console.log(error)
+        console.error(error)
         dispatch(fetchFailure(error))
       })
   }
@@ -70,7 +71,7 @@ const fetchUpdateSuccess = (item) => ({ type: UPDATE, item })
 export const fetchUpdate = ({ path, update }) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/${path}`,
+      path: `${api}/${route}/${clientName}/${path}`,
       method: 'PATCH',
       body: update
     })
@@ -94,7 +95,7 @@ const fetchDeleteSuccess = (_id) => ({ type: DELETE, _id })
 export const fetchDelete = (_id) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/${_id}`,
+      path: `${api}/${route}/${clientName}/${_id}`,
       method: 'DELETE',
       body: null
     })

@@ -127,5 +127,6 @@ ContactFormContent.propTypes = {
 
 export default reduxForm({
   form: 'contact',
-  validate
+  validate,
+  destroyOnUnmount: false
 })(ContactFormContent)

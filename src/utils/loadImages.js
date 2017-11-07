@@ -1,17 +1,21 @@
-const loadImage = (url) => {
+const loadImage = (src) => {
   return new Promise((resolve, reject) => {
+    let loaded = true
     const img = new Image()
-    const src = url
-    img.src = src
+    img.src = `${process.env.REACT_APP_IMAGE_ENDPOINT}${src}`
     if (img.complete) {
-      return resolve(img)
+      return resolve({ img, loaded })
     }
-    img.onload = () => resolve(img)
+    img.onload = () => {
+      loaded = false
+      resolve({ img, loaded })
+    }
   })
 }
 
-const loadImages = (urls) => {
-  const promises = urls.map(url => loadImage(url));
+const loadImages = (srcs) => {
+  console.log(srcs)
+  const promises = srcs.map(src => loadImage(src));
   return Promise.all(promises).catch((err) => {
       console.warn(err.message)
   })

@@ -64,16 +64,6 @@ class SuccessableButton extends Component {
       })
     }
 
-    if (disabled !== this.props.disabled) {
-      this.state.timeoutId && clearTimeout(this.state.timeoutId)
-      this.setState({
-        background: backgroundColor,
-        disabled,
-        label,
-        timeoutId: null
-      })
-    }
-
     if (submitSucceeded !== this.props.submitSucceeded) {
       this.state.timeoutId && clearTimeout(this.state.timeoutId)
       const timeoutId = setTimeout(() => {
@@ -92,6 +82,37 @@ class SuccessableButton extends Component {
         disabled: false,
         label: successLabel,
         timeoutId
+      })
+    }
+
+    if (disabled !== this.props.disabled && submitSucceeded) {
+      this.state.timeoutId && clearTimeout(this.state.timeoutId)
+      const timeoutId = setTimeout(() => {
+        clearTimeout(this.state.timeoutId)
+        this.setState({
+          background: backgroundColor,
+          disabled: true,
+          label,
+          submitting: false,
+          timeoutId: null
+        })
+        reset && reset()
+      }, 5000)
+      return this.setState({
+        background: 'rgb(76, 175, 80)',
+        disabled: false,
+        label: successLabel,
+        timeoutId
+      })
+    }
+
+    if (disabled !== this.props.disabled) {
+      this.state.timeoutId && clearTimeout(this.state.timeoutId)
+      this.setState({
+        background: backgroundColor,
+        disabled,
+        label,
+        timeoutId: null
       })
     }
 

@@ -36,6 +36,7 @@ class Header extends Component {
           textShadow
         }
       },
+      brandId,
       cartQty,
       dispatch,
       drawer,
@@ -124,6 +125,7 @@ class Header extends Component {
           </Paper>
           {firstName && <div className="drawer-user">Hello, {firstName}</div>}
           <DrawerNavigation
+            brandId={brandId}
             cartQty={cartQty}
             color={navColor}
             dispatch={dispatch}
@@ -141,6 +143,7 @@ class Header extends Component {
 
 Header.propTypes = {
   appBar: PropTypes.object.isRequired,
+  brandId: PropTypes.string,
   cartQty: PropTypes.number,
   dispatch: PropTypes.func.isRequired,
   drawer: PropTypes.object.isRequired,

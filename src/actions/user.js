@@ -1,10 +1,11 @@
 import { SubmissionError } from 'redux-form'
 
-import api from '../api'
 import handleAuthFetch from '../utils/handleAuthFetch'
 import { fetchOrdersSuccess } from './orders'
 import { fetchUsersSuccess, fetchDeleteSuccess as usersDeleteSuccess } from './users'
 
+const api = process.env.REACT_APP_API_ENDPOINT
+const clientName = process.env.REACT_APP_CLIENT_NAME
 export const type = 'USER'
 const route = 'users'
 
@@ -26,7 +27,7 @@ const fetchFailure = (error) => {
 const fetchAddSuccess = (item) => ({ type: ADD, item })
 export const fetchAdd = (values) => {
   return (dispatch, getState) => {
-    return fetch(`${api}/${route}`, {
+    return fetch(`${api}/${route}/${clientName}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -61,7 +62,7 @@ export const fetchUser = () => {
   return (dispatch) => {
     dispatch(fetchUserRequest())
     return handleAuthFetch({
-      path: `${api}/${route}`,
+      path: `${api}/${route}/${clientName}`,
       method: 'GET',
       body: null
     })
@@ -72,7 +73,7 @@ export const fetchUser = () => {
       return dispatch(fetchUserSuccess(user))
     })
     .catch(error => {
-      console.log(error)
+      console.error(error)
       localStorage.removeItem('x-access-token')
       localStorage.removeItem('x-refresh-token')
       dispatch({ type: 'DELETE_USER' })
@@ -92,7 +93,7 @@ export const fetchUpdateSuccess = (item) => {
 export const fetchUpdate = (update) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}`,
+      path: `${api}/${route}/${clientName}`,
       method: 'PATCH',
       body: update
     })
@@ -114,7 +115,7 @@ const fetchDeleteSuccess = () => ({ type: DELETE })
 export const fetchDelete = () => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}`,
+      path: `${api}/${route}/${clientName}`,
       method: 'DELETE',
       body: null
     })
@@ -125,7 +126,7 @@ export const fetchDelete = () => {
       dispatch(usersDeleteSuccess(json))
     })
     .catch(error => {
-      console.log(error)
+      console.error(error)
       dispatch(fetchFailure(error))
     })
   }
@@ -151,7 +152,7 @@ export const redirectUser = (path) => {
 
 export const fetchSignin = ({ history, values }) => {
   return (dispatch, getState) => {
-    return fetch(`${api}/users/signin`, {
+    return fetch(`${api}/${route}/${clientName}/signin`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -179,7 +180,7 @@ export const fetchSignin = ({ history, values }) => {
         return history.push('/')
       })
       .catch(error => {
-        console.log(error)
+        console.error(error)
         dispatch(fetchFailure(error))
         throw new SubmissionError({ ...error, _error: Object.values(error)[0] })
       })
@@ -205,7 +206,7 @@ export const signout = (history) => {
 const fetchRecoverySuccess = (message) => ({ type: 'RECOVER_USER', message })
 export const fetchRecovery = ({ email }) => {
   return function(dispatch, getState) {
-    return fetch(`${api}/users/recovery`, {
+    return fetch(`${api}/${route}/${clientName}/recovery`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -227,7 +228,7 @@ export const fetchRecovery = ({ email }) => {
 
 export const fetchReset = ({ password }, resetToken) => {
   return (dispatch, getState) => {
-    return fetch(`${api}/users/reset/${resetToken}`, {
+    return fetch(`${api}/${route}/${clientName}/reset/${resetToken}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -249,7 +250,7 @@ export const fetchReset = ({ password }, resetToken) => {
         return dispatch(fetchUserSuccess(user))
       })
       .catch(error => {
-        console.log(error)
+        console.error(error)
         dispatch(fetchFailure({ error: 'invalid reset token' }))
         throw new SubmissionError({ ...error, _error: 'Reset failed' })
       })
@@ -260,7 +261,7 @@ export const fetchReset = ({ password }, resetToken) => {
 const fetchContactSuccess = (values) => ({ type: 'CONTACT_USER', values })
 export const fetchContact = (values) => {
   return function(dispatch, getState) {
-    return fetch(`${api}/users/contact`, {
+    return fetch(`${api}/${route}/${clientName}/contact`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values)
@@ -280,7 +281,7 @@ export const fetchContact = (values) => {
 const fetchRequestEstimateSuccess = (values) => ({ type: 'CONTACT_USER', values })
 export const fetchRequestEstimate = (values) => {
   return function(dispatch, getState) {
-    return fetch(`${api}/users/request-estimate`, {
+    return fetch(`${api}/${route}/${clientName}/request-estimate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values)

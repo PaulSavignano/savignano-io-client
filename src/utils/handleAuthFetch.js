@@ -30,7 +30,7 @@ const handleAuthFetch = ({ path, method, body: fetchBody }) => {
       localStorage.removeItem('x-access-token')
       localStorage.removeItem('x-refresh-token')
     }
-    Promise.reject(error)
+    return Promise.reject(error)
   })
 }
 

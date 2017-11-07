@@ -22,9 +22,9 @@ class CartIcon extends Component {
             badgeStyle={badgeStyle}
           >
             <FontIcon
-              className="fa fa-shopping-cart"
+              className="material-icons shopping-cart"
               style={{ color }}
-            />
+            >shopping_cart</FontIcon>
           </Badge>
         }
         containerElement={<Link to="/user/cart"/>}

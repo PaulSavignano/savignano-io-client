@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
+import './header.css'
 import { withRouter } from 'react-router-dom'
 
 const headerContainer = (ComposedComponent) => {
@@ -45,6 +46,7 @@ const headerContainer = (ComposedComponent) => {
   }
   const mapStateToProps = ({
     brand: {
+      _id: brandId,
       appBar,
       business: { values: { phone }},
       isFetching: brandIsFetching,
@@ -58,6 +60,7 @@ const headerContainer = (ComposedComponent) => {
     user: { isFetching: userIsFetching, roles, values: { firstName }},
   }) => ({
     appBar,
+    brandId,
     cartQty,
     drawer,
     firstName,
@@ -72,6 +75,7 @@ const headerContainer = (ComposedComponent) => {
   })
   HeaderContainer.propTypes = {
     appBar: PropTypes.object.isRequired,
+    brandId: PropTypes.string,
     cartQty: PropTypes.number,
     dispatch: PropTypes.func.isRequired,
     drawer: PropTypes.object.isRequired,

@@ -2,23 +2,23 @@ import React, { Component } from 'react'
 import RaisedButton from 'material-ui/RaisedButton'
 
 import H2 from '../typography/H2'
-import { fetchAdd } from '../../actions/brand'
+import { fetchAdd } from '../../actions/apiConfig'
 
-class BrandAdd extends Component {
-  handleBrandAdd = () => {
+class ApiConfigAdd extends Component {
+  handleApiConfigAdd = () => {
     this.props.dispatch(fetchAdd())
   }
   render() {
     return (
       <section className="section-margin brand-add-page">
-        <H2>Let's set up your brand!</H2>
+        <H2>Let's set up your api config!</H2>
         <RaisedButton
-          onTouchTap={this.handleBrandAdd}
-          label="Add Brand"
+          onTouchTap={this.handleApiConfigAdd}
+          label="Add Api Config"
         />
       </section>
     )
   }
 }
 
-export default BrandAdd
+export default ApiConfigAdd

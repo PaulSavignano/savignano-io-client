@@ -1,24 +1,23 @@
 import { SubmissionError } from 'redux-form'
 
 import handleAuthFetch from '../utils/handleAuthFetch'
-import { fetchProducts } from './products'
-import { stopEdit } from './editItem'
 
 const api = process.env.REACT_APP_API_ENDPOINT
 const clientName = process.env.REACT_APP_CLIENT_NAME
-export const type = 'PAGE'
-const route = 'pages'
+export const type = 'API_CONFIG'
+const route = 'api-configs'
 
 const ADD = `ADD_${type}`
-const REQUEST = `REQUEST_${type}S`
-const RECEIVE = `RECEIVE_${type}S`
+const REQUEST = `REQUEST_${type}`
+const RECEIVE = `RECEIVE_${type}`
 const UPDATE = `UPDATE_${type}`
 const DELETE = `DELETE_${type}`
 const ERROR = `ERROR_${type}`
 
+const fetchFailure = (error) => ({ type: ERROR, error })
+
 // Create
 export const fetchAddSuccess = (item) => ({ type: ADD, item })
-const fetchAddFailure = (error) => ({ type: ERROR, error })
 export const fetchAdd = (add) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
@@ -28,7 +27,7 @@ export const fetchAdd = (add) => {
     })
     .then(json => dispatch(fetchAddSuccess(json)))
     .catch(error => {
-      dispatch(fetchAddFailure(error))
+      dispatch(fetchFailure(error))
       throw new SubmissionError({ ...error, _error: 'Update failed!' })
     })
   }
@@ -37,27 +36,23 @@ export const fetchAdd = (add) => {
 
 
 // Read
-const fetchPagesRequest = () => ({ type: REQUEST })
-const fetchPagesSuccess = (items) => ({ type: RECEIVE, items })
-const fetchPagesFailure = (error) => ({ type: ERROR, error })
-export const fetchPages = () => {
+const fetchApiConfigRequest = () => ({ type: REQUEST })
+const fetchApiConfigSuccess = (item) => ({ type: RECEIVE, item })
+export const fetchApiConfig = () => {
   return (dispatch, getState) => {
-    dispatch(fetchPagesRequest())
-    return fetch(`${api}/${route}/${clientName}`, {
+    dispatch(fetchApiConfigRequest())
+    return handleAuthFetch({
+      path: `${api}/${route}/${clientName}`,
       method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      }
+      body: null
     })
-      .then(res => res.json())
-      .then(json => {
-        if (json.error) return Promise.reject(json.error)
-        dispatch(fetchPagesSuccess(json))
-      })
-      .catch(error => {
-        console.error(error)
-        dispatch(fetchPagesFailure(error))
-      })
+    .then(json => {
+      dispatch(fetchApiConfigSuccess(json))
+    })
+    .catch(error => {
+      console.error(error)
+      dispatch(fetchFailure(error))
+    })
   }
 }
 
@@ -65,20 +60,18 @@ export const fetchPages = () => {
 
 // Update
 export const fetchUpdateSuccess = (item) => ({ type: UPDATE, item })
-const fetchUpdateFailure = (error) => ({ type: ERROR, error })
-export const fetchUpdate = ({ path, update }) => {
+export const fetchUpdate = ({ _id, values }) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/${clientName}/${path}`,
+      path: `${api}/${route}/${clientName}/${_id}`,
       method: 'PATCH',
-      body: update
+      body: { values }
     })
     .then(json => {
       dispatch(fetchUpdateSuccess(json))
-      dispatch(stopEdit())
     })
     .catch(error => {
-      dispatch(fetchUpdateFailure(error))
+      dispatch(fetchFailure(error))
       throw new SubmissionError({ ...error, _error: 'Update failed!' })
     })
   }
@@ -87,8 +80,8 @@ export const fetchUpdate = ({ path, update }) => {
 
 
 // Delete
-const fetchDeleteSuccess = (_id) => ({ type: DELETE, _id })
-const fetchDeleteFailure = (error) => ({ type: ERROR, error })
+export const deleteState = () => ({ type: DELETE })
+const fetchDeleteSuccess = (_id) => ({ type: DELETE })
 export const fetchDelete = (_id) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
@@ -97,11 +90,10 @@ export const fetchDelete = (_id) => {
       body: null
     })
     .then(json => {
-      dispatch(fetchProducts())
       dispatch(fetchDeleteSuccess(json._id))
     })
     .catch(error => {
-      dispatch(fetchDeleteFailure(error))
+      dispatch(fetchFailure(error))
       throw new SubmissionError({ ...error, _error: 'Delete failed!' })
     })
   }

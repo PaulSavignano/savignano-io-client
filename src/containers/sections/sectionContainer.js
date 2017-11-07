@@ -9,18 +9,29 @@ import loadImages from '../../utils/loadImages'
 const sectionContainer = (ComposedComponent) => {
   class SectionContainer extends Component {
     state = {
+      imagesLoaded: true,
       loadingImages: true
     }
-    componentWillMount() {
+    componentDidMount() {
+      console.log('section mounted')
       const { item } = this.props
       const sectionImages = getSectionImages(item)
       if (sectionImages.length) {
-        return loadImages(sectionImages).then(() => this.setState({ loadingImages: false }))
+        return loadImages(sectionImages).then((result) => {
+          const imagesLoaded = result.some(r => !r.loaded)
+          this.setState({ imagesLoaded, loadingImages: false })
+        })
       }
       return this.setState({ loadingImages: false })
     }
+    componentWillUnmount() {
+      console.log('section unmounted')
+    }
     render() {
-      const { loadingImages } = this.state
+      const {
+        imagesLoaded,
+        loadingImages
+      } = this.state
       const {
         autoplay,
         dispatch,
@@ -51,7 +62,7 @@ const sectionContainer = (ComposedComponent) => {
         pageSlug,
         propsForParent: {
           style: {
-            backgroundImage: backgroundImage.src && `url(${backgroundImage.src})`,
+            backgroundImage: backgroundImage.src && `url(${process.env.REACT_APP_IMAGE_ENDPOINT}${backgroundImage.src})`,
             backgroundColor,
             backgroundPosition
           },
@@ -79,19 +90,22 @@ const sectionContainer = (ComposedComponent) => {
         entered:  { opacity: 1 },
       }
       return (
-        <Transition
-          in={!loadingImages} 
-          timeout={300}
-        >
-          {(state) => (
-            <div style={{
-              ...defaultStyle,
-              ...transitionStyles[state]
-            }}>
-              <ComposedComponent {...props} />
-            </div>
-          )}
-        </Transition>
+        imagesLoaded ?
+          <ComposedComponent {...props} />
+          :
+          <Transition
+            in={!loadingImages}
+            timeout={300}
+          >
+            {(state) => (
+              <div style={{
+                ...defaultStyle,
+                ...transitionStyles[state]
+              }}>
+                <ComposedComponent {...props} />
+              </div>
+            )}
+          </Transition>
       )
     }
   }

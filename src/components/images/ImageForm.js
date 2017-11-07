@@ -44,7 +44,7 @@ class ImageForm extends Component {
   handleImage = (image) => {
     if (image && image.src) {
       this.setState({
-        src: image.src,
+        src: `${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}`,
         width: image.width,
         height: image.height,
         maxWidth: image.width,

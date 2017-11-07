@@ -7,10 +7,12 @@ import withTracker from '../../containers/google-analytics/withTracker'
 import AdminOrderPage from '../orders/AdminOrderPage'
 import AdminOrderDetailPage from '../orders/AdminOrderDetailPage'
 import AdminPage from '../pages/AdminPage'
-import AdminPages from '../pages/AdminPages'
+import AdminPagesListPage from '../pages/AdminPagesListPage'
 import AdminUsersPage from '../users/AdminUsersPage'
 import AdminUsersEditUserPage from '../../containers/users/AdminUsersEditUserPage'
-import BrandAdmin from '../brands/BrandAdmin'
+import ApiConfigPage from '../apiConfig/ApiConfigPage'
+import BrandAdminPage from '../brands/BrandAdminPage'
+import BrandAdminAddPage from '../brands/BrandAdminAddPage'
 import CartPage from '../cart/CartPage'
 import NotFoundPage from '../not-found/NotFoundPage'
 import OrderAdd from '../orders/OrderAdd'
@@ -29,10 +31,13 @@ const Routes = () => (
   <Switch>
     <Route exact path="/" component={withTracker(Page)} />
     <Route exact path="/:slug" component={withTracker(Page)} />
-    <PrivateRoute exact path="/admin/brand" requiredRoles={['admin']} component={BrandAdmin} />
+    <PrivateRoute exact path="/admin/brand/:brandItem" requiredRoles={['admin']} component={BrandAdminPage} />
+    <PrivateRoute exact path="/admin/add-brand" requiredRoles={['admin']} component={BrandAdminAddPage} />
+    <PrivateRoute exact path="/admin/api-config" requiredRoles={['admin']} component={ApiConfigPage} />
+
     <PrivateRoute exact path="/admin/orders" requiredRoles={['admin']} component={AdminOrderPage} />
     <PrivateRoute exact path="/admin/orders/:orderId" requiredRoles={['admin']} component={AdminOrderDetailPage} />
-    <PrivateRoute exact path="/admin/pages" requiredRoles={['admin']} component={AdminPages} />
+    <PrivateRoute exact path="/admin/pages" requiredRoles={['admin']} component={AdminPagesListPage} />
     <PrivateRoute exact path="/admin/pages/:slug" requiredRoles={['admin']} component={withRouter(AdminPage)} />
     <PrivateRoute exact path="/admin/users" requiredRoles={['owner']} component={AdminUsersPage} />
     <PrivateRoute exact path="/admin/users/edit/:userId" requiredRoles={['owner']} component={withRouter(AdminUsersEditUserPage)} />

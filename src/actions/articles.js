@@ -1,10 +1,11 @@
 import { SubmissionError } from 'redux-form'
 
-import api from '../api'
 import handleAuthFetch from '../utils/handleAuthFetch'
 import * as pageActions from './pages'
 import { startEdit, stopEdit } from './editItem'
 
+const api = process.env.REACT_APP_API_ENDPOINT
+const clientName = process.env.REACT_APP_CLIENT_NAME
 export const type = 'ARTICLE'
 const route = 'articles'
 const ERROR = `ERROR_${type}`
@@ -13,7 +14,7 @@ const ERROR = `ERROR_${type}`
 export const fetchAdd = (add) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}`,
+      path: `${api}/${route}/${clientName}`,
       method: 'POST',
       body: add
     })
@@ -23,7 +24,7 @@ export const fetchAdd = (add) => {
       return dispatch(startEdit({ item: editItem, kind: 'ARTICLE' }))
     })
     .catch(error => {
-      console.log(error)
+      console.error(error)
       dispatch({ type: ERROR, error })
       throw new SubmissionError({ ...error, _error: 'Update failed!' })
     })
@@ -33,7 +34,7 @@ export const fetchAdd = (add) => {
 export const fetchUpdate = ({ path, update }) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/${path}`,
+      path: `${api}/${route}/${clientName}/${path}`,
       method: 'PATCH',
       body: update
     })
@@ -43,7 +44,7 @@ export const fetchUpdate = ({ path, update }) => {
       dispatch(stopEdit())
     })
     .catch(error => {
-      console.log(error)
+      console.error(error)
       dispatch({ type: ERROR, error })
       throw new SubmissionError({ ...error, _error: 'Update failed!' })
     })
@@ -56,7 +57,7 @@ export const fetchUpdate = ({ path, update }) => {
 export const fetchDelete = (_id) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/${_id}`,
+      path: `${api}/${route}/${clientName}/${_id}`,
       method: 'DELETE',
       body: null
     })

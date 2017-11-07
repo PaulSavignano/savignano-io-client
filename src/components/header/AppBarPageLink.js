@@ -45,44 +45,43 @@ class AppBarPageLink extends Component {
     } = this.props
     const pageSectionLinks = page.sections.filter(section => section.values.pageLink)
     return (
-        <FlatButton
-          onMouseEnter={this.handleButtonMouseEnter}
-          onMouseLeave={this.handleButtonMouseLeave}
-          style={{ color, minWidth: 'none', margin: '0 16px' }}
-          labelStyle={{ padding: '0 0 2px 0', fontFamily }}
-          label={page.values.name}
-          hoverColor="none"
-          containerElement={<NavLink to={`/${page.slug}`} activeClassName="active-nav"/>}
-          children={
-            pageSectionLinks.length ?
-              <Popover
-                key={1}
-                useLayerForClickAway={false}
-                open={this.state.openMenu}
-                anchorEl={this.state.anchorEl}
-                anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-                targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                onRequestClose={() => this.setState({ openMenu: false })}
-                animation={PopoverAnimationVertical}
+      <FlatButton
+        onMouseEnter={this.handleButtonMouseEnter}
+        onMouseLeave={this.handleButtonMouseLeave}
+        style={{ color, minWidth: 'none', margin: '0 16px' }}
+        labelStyle={{ padding: '0 0 2px 0', fontFamily }}
+        label={page.values.name}
+        hoverColor="none"
+        containerElement={<NavLink to={`/${page.slug}`} activeClassName="active-nav" />}
+        children={
+          pageSectionLinks.length ?
+            <Popover
+              key={1}
+              useLayerForClickAway={false}
+              open={this.state.openMenu}
+              anchorEl={this.state.anchorEl}
+              anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+              targetOrigin={{horizontal: 'left', vertical: 'top'}}
+              onRequestClose={() => this.setState({ openMenu: false })}
+              animation={PopoverAnimationVertical}
+            >
+              <Menu
+                onMouseEnter={this.handleMenuMouseEnter}
+                onMouseLeave={this.handleMenuMouseLeave}
               >
-                <Menu
-                  onMouseEnter={this.handleMenuMouseEnter}
-                  onMouseLeave={this.handleMenuMouseLeave}
-                >
-                  {pageSectionLinks.map(link => (
-                    <AppBarSectionLink
-                      dispatch={dispatch}
-                      key={link._id}
-                      link={link}
-                      page={page}
-                      onCloseMenu={this.handleCloseMenu}
-                    />
-                  ))}
-                </Menu>
-              </Popover>
-            : null
-          }
-        />
+                {pageSectionLinks.map(link => (
+                  <AppBarSectionLink
+                    dispatch={dispatch}
+                    key={link._id}
+                    link={link}
+                    page={page}
+                    onCloseMenu={this.handleCloseMenu}
+                  />
+                ))}
+              </Menu>
+            </Popover>
+          : null
+        }/>
       )
     }
   }

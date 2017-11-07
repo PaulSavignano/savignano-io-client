@@ -6,12 +6,14 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
 injectTapEventPlugin()
 
-const Theme = ({ children, isFetching, theme }) => (
-  isFetching ? null :
-  <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
-    {children}
-  </MuiThemeProvider>
-)
+const Theme = ({ children, isFetching, theme }) => {
+  return (
+    isFetching ? null :
+    <MuiThemeProvider muiTheme={getMuiTheme(theme)}>
+      {children}
+    </MuiThemeProvider>
+  )
+}
 
 const mapStateToProps = ({
   brand: {

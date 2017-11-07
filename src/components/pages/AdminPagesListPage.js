@@ -5,7 +5,7 @@ import pagesContainer from '../../containers/pages/pagesContainer'
 import AdminPagesAdd from './AdminPagesAdd'
 import AdminPagesItem from './AdminPagesItem'
 
-const AdminPages = ({
+const AdminPagesListPage = ({
   dispatch,
   pages
 }) => (
@@ -24,9 +24,9 @@ const AdminPages = ({
   </div>
 )
 
-AdminPages.propTypes = {
+AdminPagesListPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   pages: PropTypes.array.isRequired
 }
 
-export default pagesContainer(AdminPages)
+export default pagesContainer(AdminPagesListPage)

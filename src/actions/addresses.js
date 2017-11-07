@@ -1,10 +1,11 @@
 import { SubmissionError } from 'redux-form'
 
-import api from '../api'
 import handleAuthFetch from '../utils/handleAuthFetch'
 import * as userActions from './user'
 import * as usersActions from './users'
 
+const api = process.env.REACT_APP_API_ENDPOINT
+const clientName = process.env.REACT_APP_CLIENT_NAME
 export const type = 'ADDRESS'
 const route = 'addresses'
 
@@ -17,7 +18,7 @@ const fetchFailure = (error) => ({ type: ERROR, error })
 export const fetchAdd = (add) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}`,
+      path: `${api}/${route}/${clientName}`,
       method: 'POST',
       body: add
     })
@@ -35,7 +36,7 @@ export const fetchAdd = (add) => {
 export const fetchAdminAdd = (userId, add) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/admin/${userId}`,
+      path: `${api}/${route}/${clientName}/admin/${userId}`,
       method: 'POST',
       body: add
     })
@@ -43,7 +44,7 @@ export const fetchAdminAdd = (userId, add) => {
       return dispatch(usersActions.fetchUpdateSuccess(json))
     })
     .catch(error => {
-      console.log(error)
+      console.error(error)
       dispatch(fetchFailure(error))
       throw new SubmissionError({ ...error, _error: 'Update failed!' })
     })
@@ -54,7 +55,7 @@ export const fetchAdminAdd = (userId, add) => {
 export const fetchUpdate = (_id, update) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/${_id}`,
+      path: `${api}/${route}/${clientName}/${_id}`,
       method: 'PATCH',
       body: update
     })
@@ -71,7 +72,7 @@ export const fetchUpdate = (_id, update) => {
 export const fetchAdminUpdate = (_id, update) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/admin/${_id}`,
+      path: `${api}/${route}/${clientName}/admin/${_id}`,
       method: 'PATCH',
       body: update
     })
@@ -91,7 +92,7 @@ export const fetchAdminUpdate = (_id, update) => {
 export const fetchDelete = (_id) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/${_id}`,
+      path: `${api}/${route}/${clientName}/${_id}`,
       method: 'DELETE',
       body: null
     })
@@ -100,7 +101,7 @@ export const fetchDelete = (_id) => {
       return dispatch(userActions.fetchUpdateSuccess(user))
     })
     .catch(error => {
-      console.log(error)
+      console.error(error)
       dispatch(fetchFailure(error))
       throw new SubmissionError({ ...error, _error: 'Delete failed!' })
     })
@@ -111,7 +112,7 @@ export const fetchDelete = (_id) => {
 export const fetchAdminDelete = (userId, _id) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/admin/${userId}/${_id}`,
+      path: `${api}/${route}/${clientName}/admin/${userId}/${_id}`,
       method: 'DELETE',
       body: null
     })

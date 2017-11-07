@@ -20,7 +20,7 @@ const footerContainer = (ComposedComponent) => {
       const propsForParent = {
         style: {
           backgroundColor,
-          backgroundImage: backgroundImage && backgroundImage.src && `url(${backgroundImage.src})`,
+          backgroundImage: backgroundImage && backgroundImage.src && `url(${process.env.REACT_APP_IMAGE_ENDPOINT}${backgroundImage.src})`,
           borderBottom,
           borderTop
         },

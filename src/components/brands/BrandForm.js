@@ -163,13 +163,13 @@ class BrandForm extends Component {
         }))
     }
   }
+
   componentWillReceiveProps({ pristine }) {
     if (pristine !== this.props.pristine) this.setState({ disabled: pristine })
   }
   setImageFormRef = (imageEditor) => this.imageEditor = imageEditor
   setBackgroundImageFormRef = (backgroundImageEditor) => this.backgroundImageEditor = backgroundImageEditor
   render() {
-    const { disabled } = this.state
     const {
       _id,
       backgroundColor,
@@ -231,7 +231,7 @@ class BrandForm extends Component {
           {error && <div className="error">{error}</div>}
           <div className="button-container">
             <SuccessableButton
-              disabled={disabled}
+              disabled={this.state.disabled}
               error={error}
               imageEdit={this.state.imageEdit}
               label={`update ${form}`}
@@ -257,6 +257,7 @@ BrandForm.propTypes = {
   fontFamily: PropTypes.string.isRequired,
   form: PropTypes.string.isRequired,
   image: PropTypes.object,
+  initialValues: PropTypes.object.isRequired,
 }
 
-export default reduxForm({ enableReinitialize: true })(BrandForm)
+export default reduxForm({ destroyOnUnmount: false })(BrandForm)

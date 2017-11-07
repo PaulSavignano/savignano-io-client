@@ -1,8 +1,11 @@
 import { SubmissionError } from 'redux-form'
 
-import api from '../api'
 import handleAuthFetch from '../utils/handleAuthFetch'
+import { fetchAddSuccess as fetchApiConfigAddSuccess } from './apiConfig'
+import { fetchAddSuccess as fetchAddPageSuccess } from './pages'
 
+const api = process.env.REACT_APP_API_ENDPOINT
+const clientName = process.env.REACT_APP_CLIENT_NAME
 export const type = 'BRAND'
 const route = 'brands'
 
@@ -19,11 +22,16 @@ const fetchAddFailure = (error) => ({ type: ERROR, error })
 export const fetchAdd = (add) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}`,
+      path: `${api}/${route}/${clientName}`,
       method: 'POST',
       body: add
     })
-    .then(json => dispatch(fetchAddSuccess(json)))
+    .then(json => {
+      const { apiConfig, brand, page } = json
+      dispatch(fetchApiConfigAddSuccess(apiConfig))
+      dispatch(fetchAddSuccess(brand))
+      dispatch(fetchAddPageSuccess(page))
+    })
     .catch(error => {
       dispatch(fetchAddFailure(error))
       throw new SubmissionError({ ...error, _error: 'Update failed!' })
@@ -40,7 +48,7 @@ const fetchBrandFailure = (error) => ({ type: ERROR, error })
 export const fetchBrand = () => {
   return (dispatch, getState) => {
     dispatch(fetchBrandRequest())
-    return fetch(`${api}/${route}`, {
+    return fetch(`${api}/${route}/${clientName}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -52,7 +60,7 @@ export const fetchBrand = () => {
       dispatch(fetchBrandSuccess(json[0]))
     })
     .catch(error => {
-      console.log(error)
+      console.error(error)
       dispatch(fetchBrandFailure(error))
     })
   }
@@ -66,13 +74,13 @@ const fetchUpdateFailure = (error) => ({ type: ERROR, error })
 export const fetchUpdate = ({ path, update }) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/${path}`,
+      path: `${api}/${route}/${clientName}/${path}`,
       method: 'PATCH',
       body: update
     })
     .then(json => dispatch(fetchUpdateSuccess(json)))
     .catch(error => {
-      console.log(error)
+      console.error(error)
       dispatch(fetchUpdateFailure(error))
       throw new SubmissionError({ ...error, _error: 'Update failed!' })
     })
@@ -87,7 +95,7 @@ const fetchDeleteFailure = (error) => ({ type: ERROR, error })
 export const fetchDelete = (_id) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/${_id}`,
+      path: `${api}/${route}/${clientName}/${_id}`,
       method: 'DELETE',
       body: null
     })

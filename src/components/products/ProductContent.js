@@ -32,11 +32,11 @@ const ProductContent = ({
   }
 }) => (
   <div>
-    {image.src &&
+    {image && image.src ?
       <CardMedia>
-        <img src={image.src} alt={name} />
+        <img src={`${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}`} alt={name} />
       </CardMedia>
-    }
+    : null}
     <div className="product-content">
       <div
         style={{ color: nameColor, textShadow: nameTextShadow }}

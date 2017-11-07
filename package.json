@@ -24,7 +24,14 @@
     "redux-form": "^7.1.2",
     "redux-thunk": "^2.2.0"
   },
-  "keywords": [ "react", "redux", "react router", "material ui", "redux form", "ecommerce" ],
+  "keywords": [
+    "react",
+    "redux",
+    "react router",
+    "material ui",
+    "redux form",
+    "ecommerce"
+  ],
   "name": "savignano-io-client",
   "private": true,
   "proxy": "http://localhost:3001",

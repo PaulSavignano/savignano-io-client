@@ -1,8 +1,9 @@
 import { SubmissionError } from 'redux-form'
 
-import api from '../api'
 import handleAuthFetch from '../utils/handleAuthFetch'
 
+const api = process.env.REACT_APP_API_ENDPOINT
+const clientName = process.env.REACT_APP_CLIENT_NAME
 export const type = 'USERS'
 const route = 'users'
 
@@ -21,7 +22,7 @@ const fetchAddSuccess = (item) => ({ type: ADD, item })
 export const fetchAdd = (add) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/admin`,
+      path: `${api}/${route}/${clientName}/admin`,
       method: 'POST',
       body: add
     })
@@ -29,7 +30,7 @@ export const fetchAdd = (add) => {
       dispatch(fetchAddSuccess(json))
     })
     .catch(error => {
-      console.log(error)
+      console.error(error)
       dispatch(fetchFailure(error))
       throw new SubmissionError({ ...error, _error: 'Update failed!' })
     })
@@ -44,7 +45,7 @@ export const fetchUsers = () => {
   return (dispatch, getState) => {
     dispatch(fetchUsersRequest())
     return handleAuthFetch({
-      path: `${api}/${route}`,
+      path: `${api}/${route}/${clientName}`,
       method: 'GET',
       body: null
     })
@@ -52,7 +53,7 @@ export const fetchUsers = () => {
       dispatch(fetchUsersSuccess(json))
     })
     .catch(error => {
-      console.log(error)
+      console.error(error)
       dispatch(fetchUsersFailure(error))
     })
   }
@@ -63,7 +64,7 @@ export const fetchUpdateSuccess = (item) => ({ type: UPDATE, item })
 export const fetchUpdate = (_id, update) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/admin/${_id}`,
+      path: `${api}/${route}/${clientName}/admin/${_id}`,
       method: 'PATCH',
       body: update
     })
@@ -84,7 +85,7 @@ export const fetchDeleteSuccess = (_id) => ({ type: DELETE, _id })
 export const fetchDelete = (_id) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/admin/${_id}`,
+      path: `${api}/${route}/${clientName}/admin/${_id}`,
       method: 'DELETE',
       body: null
     })

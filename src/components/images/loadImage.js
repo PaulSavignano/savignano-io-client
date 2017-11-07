@@ -11,7 +11,7 @@ const loadImage = (ComposedComponent) => {
       const { image } = this.props.item
       if (image && image.src) {
         const img = new Image()
-        const src = image.src
+        const src = `${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}`
         img.onload = () => this.setState({ image: true, loading: false })
         img.src = src
       } else {

@@ -57,7 +57,7 @@ class CartItem extends Component {
         containerStyle={{ display: 'flex', flexFlow: 'row wrap', alignItems: 'flex-start'}}
         onTouchTap={this.handleNavToProduct}
       >
-        {image && image.src && <CardMedia style={{ flex: '1 1 100px'}}><img src={image.src} alt="" /></CardMedia>}
+        {image && image.src && <CardMedia style={{ flex: '1 1 100px'}}><img src={`${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}`} alt="" /></CardMedia>}
         <div style={{ flex: '6 6 auto', display: 'flex', flexFlow: 'row wrap', justifyContent: 'space-between' }}>
           <CardText>{name}</CardText>
           <div style={{ flex: '6 6 auto' }}></div>

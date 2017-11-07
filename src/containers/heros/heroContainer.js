@@ -19,7 +19,7 @@ const heroContainer = (ComposedComponent) => {
       const propsForParent = {
         style: {
           alignItems,
-          backgroundImage: backgroundImage.src && `url(${backgroundImage.src})`,
+          backgroundImage: backgroundImage.src && `url(${process.env.REACT_APP_IMAGE_ENDPOINT}${backgroundImage.src})`,
           backgroundPosition,
           backgroundColor,
           minHeight,

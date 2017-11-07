@@ -22,7 +22,7 @@ const Media = ({
   >
     {image && image.src ?
       <img
-        src={image.src}
+        src={`${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}`}
         alt="card"
         style={{ borderRadius, boxShadow: shadows[elevation], ...style }}
         className="media-image"

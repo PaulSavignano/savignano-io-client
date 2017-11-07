@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import FontIcon from 'material-ui/FontIcon'
 import { BottomNavigation, BottomNavigationItem } from 'material-ui/BottomNavigation'
 import Paper from 'material-ui/Paper'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 
 import { startEdit } from '../../actions/editItem'
 import { fetchAdd } from '../../actions/sections'
-
-const editIcon = <FontIcon className="material-icons">mode_edit</FontIcon>
+import EditIcon from '../icons/EditIcon'
 
 class AdminPageEditButtons extends Component {
   handleSectionAdd = () => {
@@ -27,7 +25,7 @@ class AdminPageEditButtons extends Component {
         <BottomNavigation>
           <BottomNavigationItem
             label="Edit Page"
-            icon={editIcon}
+            icon={<EditIcon className="material-icons edit-icon" />}
             onTouchTap={this.handlePageEdit}
           />
           <BottomNavigationItem

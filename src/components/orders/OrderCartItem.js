@@ -37,7 +37,7 @@ class OrderCartItem extends Component {
         className="card"
       >
         <div style={{ display: 'flex', flexFlow: 'row nowrap' }}>
-          {image && image.src && <img src={image.src} alt="" width="auto" height="50px"/>}
+          {image && image.src && <img src={`${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}`} alt="" width="auto" height="50px"/>}
           <div style={{
             display: 'flex',
             flexFlow: 'row wrap',

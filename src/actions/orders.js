@@ -2,11 +2,12 @@
 import { getStripeToken } from '../utils/getStripeToken'
 import { SubmissionError } from 'redux-form'
 
-import api from '../api'
 import handleAuthFetch from '../utils/handleAuthFetch'
 import { fetchDeleteCart } from './cart'
 import { fetchUpdateSuccess as fetchUpdateUserSuccess } from './user'
 
+const api = process.env.REACT_APP_API_ENDPOINT
+const clientName = process.env.REACT_APP_CLIENT_NAME
 export const type = 'ORDER'
 const route = 'orders'
 
@@ -61,7 +62,7 @@ export const fetchAddOrder = ({
         cart
       }
       return handleAuthFetch({
-        path: `${api}/orders`,
+        path: `${api}/${route}/${clientName}`,
         method: 'POST',
         body
       })
@@ -117,7 +118,7 @@ export const fetchOrders = () => {
   return (dispatch, getState) => {
     dispatch(fetchOrdersRequest())
     return handleAuthFetch({
-      path: `${api}/orders`,
+      path: `${api}/${route}/${clientName}`,
       method: 'GET',
       body: null
     })
@@ -134,7 +135,7 @@ const fetchUpdateFailure = (error) => ({ type: ERROR, error })
 export const fetchUpdate = (_id, update) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/${_id}`,
+      path: `${api}/${route}/${clientName}/${_id}`,
       method: 'PATCH',
       body: update
     })

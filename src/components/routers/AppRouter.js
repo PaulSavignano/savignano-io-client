@@ -55,12 +55,10 @@ class AppRouter extends Component {
     return
   }
   handleBodyStyle = (backgroundColor, backgroundImage, backgroundPosition) => {
-    console.log('inside body style')
     const body = document.querySelector("body")
     if (backgroundImage && backgroundImage.src) {
-      console.log('body style', body)
       body.className = 'background-image'
-      body.style.backgroundImage = `url(${backgroundImage.src})`
+      body.style.backgroundImage = `url(${`${process.env.REACT_APP_IMAGE_ENDPOINT}${backgroundImage.src}`})`
       body.style.backgroundPosition = backgroundPosition
     } else if (backgroundColor) {
       body.style.backgroundColor = backgroundColor
@@ -118,6 +116,7 @@ class AppRouter extends Component {
       entering: { opacity: 0 },
       entered:  { opacity: 1 },
     }
+
     return (
       <Router history={history}>
         <div>
