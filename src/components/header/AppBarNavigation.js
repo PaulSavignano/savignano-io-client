@@ -96,7 +96,7 @@ class AppBarNavigation extends Component {
             children={
               <SearchIcon
                 color={color}
-                className="material-icons appbar-search-icon"
+                className="appbar-search-icon"
               />
             }
             onTouchTap={this.handleSearchToggle}
@@ -112,10 +112,11 @@ class AppBarNavigation extends Component {
           {cartQty &&
             <CartIcon
               cartQty={cartQty}
+              iconButtonClassName="appbar-cart-icon-button"
+              badgeClassName="appbar-cart-badge"
+              fontIconClassName="appbar-cart-font-icon"
               dispatch={dispatch}
               color={color}
-              style={{ margin: '0 0 0 24px', padding: 0, width: 40 }}
-              badgeStyle={{ top: 6, left: 9 }}
             />
           }
         </div>

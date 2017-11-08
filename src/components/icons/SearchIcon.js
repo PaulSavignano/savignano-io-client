@@ -7,7 +7,7 @@ const SearchIcon = ({
 }) => {
   return (
     <FontIcon
-      className={className}
+      className={`material-icons ${className}`}
       color={color}
     >
       search

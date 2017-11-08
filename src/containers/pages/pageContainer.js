@@ -10,9 +10,11 @@ const pageContainer = (ComposedComponent) => {
   class PageContainer extends Component {
     render() {
       const {
-        hasBrand,
+        brandImage,
+        brandName,
         dispatch,
         firstName,
+        hasBrand,
         isFetching,
         page,
         pageSlug,
@@ -37,6 +39,8 @@ const pageContainer = (ComposedComponent) => {
             className: backgroundImage && backgroundImage.src && 'background-image'
           }
           const props = {
+            brandImage,
+            brandName,
             dispatch,
             page,
             propsForParent,
@@ -51,17 +55,26 @@ const pageContainer = (ComposedComponent) => {
     }
   }
   const mapStateToProps = ({
-    pages: { items, isFetching: pagesIsFetching },
-    brand: { _id: brandId, isFetching: brandIsFetching, palette: { values: { textColor }}},
+    pages: {
+      items,
+      isFetching: pagesIsFetching
+    },
+    brand: {
+      _id: brandId,
+      business: { image: brandImage, values: { name: brandName } },
+      isFetching: brandIsFetching,
+      palette: { values: { textColor }},
+    },
     user: { isFetching: userIsFetching, values: { firstName }}
   }, {
     match: { params: { slug }},
   }) => {
-    const pageSlug = slug || 'home'
-    const page = items.find(page => page.slug === pageSlug)
+    const page = items.find(page => page.slug === slug || 'home')
     return {
-      hasBrand: brandId ? true : false,
+      brandImage,
+      brandName,
       firstName,
+      hasBrand: brandId ? true : false,
       isFetching: pagesIsFetching || brandIsFetching || userIsFetching,
       page,
       pageSlug: page ? page.slug : 'notFound',
@@ -69,9 +82,11 @@ const pageContainer = (ComposedComponent) => {
     }
   }
   PageContainer.propTypes = {
-    hasBrand: PropTypes.bool.isRequired,
+    brandImage: PropTypes.object,
+    brandName: PropTypes.string,
     dispatch: PropTypes.func.isRequired,
     firstName: PropTypes.string,
+    hasBrand: PropTypes.bool.isRequired,
     isFetching: PropTypes.bool.isRequired,
     page: PropTypes.object,
     pageSlug: PropTypes.string,

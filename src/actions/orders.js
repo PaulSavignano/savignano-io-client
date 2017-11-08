@@ -42,6 +42,7 @@ export const fetchAddOrder = ({
   },
   stripePk
 }) => {
+  console.log({ cart })
   return (dispatch, getState) => {
     Stripe.setPublishableKey(stripePk)
     const expiration = exp.split('/')

@@ -2,11 +2,22 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import pageContainer from '../../containers/pages/pageContainer'
+import getPageDescription from '../../utils/getPageDescription'
+import PageHead from '../head/PageHead'
 import SectionSwitch from './SectionSwitch'
 
 class Page extends Component {
+  state = {
+    description: null,
+  }
+  getPageMetaData = () => {
+    const { page } = this.props
+    const description = getPageDescription(page)
+    this.setState({ description })
+  }
   componentDidMount() {
     const { hash } = window.location
+    this.getPageMetaData()
     if (hash) return this.scrollToId(hash)
     window.scrollTo(0, 0)
   }
@@ -24,27 +35,39 @@ class Page extends Component {
   }
   render() {
     const {
-      brandId,
+      brandImage,
+      brandName,
       dispatch,
       page: {
         _id,
         slug,
         sections,
-        values: { backgroundColor }
+        values: {
+          backgroundColor,
+          name
+         }
       },
       propsForParent
     } = this.props
     return (
-      <div {...propsForParent}>
-        {sections.map(section => (
-          <SectionSwitch
-            dispatch={dispatch}
-            key={section._id}
-            pageId={_id}
-            pageSlug={slug}
-            section={section}
-          />
-        ))}
+      <div>
+        <PageHead
+          description={this.state.description}
+          brandImage={brandImage}
+          brandName={brandName}
+          pageName={name}
+        />
+        <div {...propsForParent}>
+          {sections.map(section => (
+            <SectionSwitch
+              dispatch={dispatch}
+              key={section._id}
+              pageId={_id}
+              pageSlug={slug}
+              section={section}
+            />
+          ))}
+        </div>
       </div>
     )
   }

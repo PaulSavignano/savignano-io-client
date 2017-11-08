@@ -8,28 +8,30 @@ import Badge from 'material-ui/Badge'
 class CartIcon extends Component {
   render() {
     const {
-      badgeStyle,
       cartQty,
       color,
-      style
+      iconButtonClassName,
+      badgeClassName,
+      fontIconClassName,
     } = this.props
     return (
       <IconButton
+        className={iconButtonClassName}
         children={
           <Badge
+            className={badgeClassName}
             badgeContent={cartQty}
             primary={true}
-            badgeStyle={badgeStyle}
           >
             <FontIcon
-              className="material-icons shopping-cart"
+              className={`material-icons ${fontIconClassName}`}
               style={{ color }}
-            >shopping_cart</FontIcon>
+            >
+              shopping_cart
+            </FontIcon>
           </Badge>
         }
         containerElement={<Link to="/user/cart"/>}
-        iconStyle={{ padding: 0 }}
-        style={style}
       />
     )
   }

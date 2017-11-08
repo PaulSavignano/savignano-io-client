@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import registerServiceWorker from './registerServiceWorker'
 import './index.css'
 import configureStore from './store/configureStore'
-import Head from './containers/head/Head'
+import SiteHead from './containers/head/SiteHead'
 import AppRouter from './components/routers/AppRouter'
 import Theme from './containers/theme/Theme'
 
@@ -33,7 +33,7 @@ store.dispatch(fetchProducts())
 render(
   <Provider store={store}>
     <div>
-      <Head/>
+      <SiteHead/>
       <Theme>
         <AppRouter />
       </Theme>

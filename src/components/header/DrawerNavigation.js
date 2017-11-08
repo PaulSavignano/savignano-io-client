@@ -119,11 +119,12 @@ class DrawerNavigation extends Component {
             children={
               <CartIcon
                 key={1}
+                iconButtonClassName="drawer-cart-icon-button"
+                badgeClassName="drawer-cart-badge"
+                fontIconClassName="drawer-cart-font-icon"
                 cartQty={cartQty}
                 dispatch={dispatch}
                 color={null}
-                style={{ margin: 0, padding: 0, width: 40 }}
-                badgeStyle={{ top: -9, left: 9 }}
               />
             }
           />

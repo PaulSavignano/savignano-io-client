@@ -14,7 +14,6 @@ const loadImage = (src) => {
 }
 
 const loadImages = (srcs) => {
-  console.log(srcs)
   const promises = srcs.map(src => loadImage(src));
   return Promise.all(promises).catch((err) => {
       console.warn(err.message)
