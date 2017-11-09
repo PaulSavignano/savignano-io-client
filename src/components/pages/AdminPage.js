@@ -8,14 +8,12 @@ import AdminSectionSwitch from './AdminSectionSwitch'
 
 class AdminPage extends Component {
   render() {
-    console.log('hi from adminpage')
     const {
       dispatch,
       page: {
         _id,
         slug,
         sections,
-        values: { backgroundColor }
       },
       propsForParent,
       textColor

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Card, CardTitle } from 'material-ui/Card'
 
 import cartContainer from '../../containers/cart/cartContainer'
+import withTracker from '../../containers/google-analytics/withTracker'
 import CartList from './CartList'
 import CartTotal from './CartTotal'
 import CheckoutButton from './CheckoutButton'
@@ -37,4 +38,4 @@ CartPage.propTypes = {
   user: PropTypes.object.isRequired,
 }
 
-export default cartContainer(CartPage)
+export default withTracker(cartContainer(CartPage))

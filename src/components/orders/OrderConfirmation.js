@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Card, CardTitle, CardText } from 'material-ui/Card'
 
 import './orders.css'
+import withTracker from '../../containers/google-analytics/withTracker'
 import ScrollToTopOnMount from '../routers/ScrollToTopOnMount'
 import orderContainer from '../../containers/orders/orderContainer'
 import OrderDetail from './OrderDetail'
@@ -32,4 +33,4 @@ OrderConfirmation.propTypes = {
   order: PropTypes.object.isRequired,
 }
 
-export default orderContainer(OrderConfirmation)
+export default withTracker(orderContainer(OrderConfirmation))

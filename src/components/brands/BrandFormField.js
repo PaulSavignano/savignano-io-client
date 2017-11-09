@@ -86,6 +86,7 @@ class BrandFormField extends Component {
             key={name}
             name={name}
             label={name}
+            value='rgb(1,2,3)'
             component={renderTextField}
             className="field"
             style={{ fontFamily }}

@@ -8,6 +8,7 @@ import {Card, CardTitle, CardText} from 'material-ui/Card'
 import MenuItem from 'material-ui/MenuItem'
 
 import './user.css'
+import withTracker from '../../containers/google-analytics/withTracker'
 import SuccessableButton from '../buttons/SuccessableButton'
 import DateField from '../fields/DateField'
 import renderTextField from '../../components/fields/renderTextField'
@@ -156,4 +157,4 @@ const mapStateToProps = (state) => ({
 
 RequestEstimate = connect(mapStateToProps)(RequestEstimate)
 
-export default RequestEstimate
+export default withTracker(RequestEstimate)

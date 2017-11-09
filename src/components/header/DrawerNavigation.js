@@ -22,7 +22,6 @@ class DrawerNavigation extends Component {
   }
   render() {
     const {
-      brandId,
       cartQty,
       dispatch,
       firstName,

@@ -14,20 +14,27 @@ const appRouterContainer = (ComposedComponent) => {
     }
   }
   const mapStateToProps = ({
-    brand,
-    pages,
-    search: { value }
+    brand: { isFetching: brandIsFetching, appBar, body, footer },
+    pages: { isFetching: pagesIsFetching, items },
+    search: { value },
+    user: { isFetching: userIsFetching, roles }
   }) => ({
-    brand,
-    isFetching: brand.isFetching || pages.isFetching ? true : false,
-    pages: pages.items,
+    appBar,
+    body,
+    footer,
+    isFetching: brandIsFetching || pagesIsFetching || userIsFetching ? true : false,
+    pages: items,
+    roles,
     search: value,
   })
   AppRouterContainer.propTypes = {
-    brand: PropTypes.object.isRequired,
+    appBar: PropTypes.object,
+    body: PropTypes.object,
+    footer: PropTypes.object,
     isFetching: PropTypes.bool.isRequired,
     pages: PropTypes.array,
-    search: PropTypes.string.isRequired
+    roles: PropTypes.array,
+    search: PropTypes.string.isRequired,
   }
   return connect(mapStateToProps)(AppRouterContainer)
 }

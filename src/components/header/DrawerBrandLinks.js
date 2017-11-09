@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { ListItem } from 'material-ui/List'
 
-import brandForms from '../brands/brandForms'
+import brandForms from '../../containers/brands/brandForms'
 
 const DrawerBrandLinks = ({ handleDrawerClose }) => (
   brandForms.map(({ name }, i) => {

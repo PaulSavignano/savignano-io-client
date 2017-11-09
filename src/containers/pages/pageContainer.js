@@ -69,7 +69,8 @@ const pageContainer = (ComposedComponent) => {
   }, {
     match: { params: { slug }},
   }) => {
-    const page = items.find(page => page.slug === slug || 'home')
+    const pageSlug = slug || 'home'
+    const page = items.find(page => page.slug === pageSlug)
     return {
       brandImage,
       brandName,

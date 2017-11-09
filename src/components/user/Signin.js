@@ -5,6 +5,7 @@ import { Card, CardActions, CardTitle, CardText } from 'material-ui/Card'
 import { Field, reduxForm } from 'redux-form'
 
 import './user.css'
+import withTracker from '../../containers/google-analytics/withTracker'
 import userContainer from '../../containers/user/userContainer'
 import SuccessableButton from '../buttons/SuccessableButton'
 import renderTextField from '../../components/fields/renderTextField'
@@ -91,4 +92,4 @@ Signin.propTypes = {
 export default userContainer(reduxForm({
   form: 'signin',
   validate,
-})(withRouter(Signin)))
+})(withRouter(withTracker(Signin))))

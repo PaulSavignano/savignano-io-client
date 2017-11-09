@@ -13,7 +13,6 @@ const sectionContainer = (ComposedComponent) => {
       loadingImages: true
     }
     componentDidMount() {
-      console.log('section mounted')
       const { item } = this.props
       const sectionImages = getSectionImages(item)
       if (sectionImages.length) {
@@ -24,9 +23,7 @@ const sectionContainer = (ComposedComponent) => {
       }
       return this.setState({ loadingImages: false })
     }
-    componentWillUnmount() {
-      console.log('section unmounted')
-    }
+
     render() {
       const {
         imagesLoaded,

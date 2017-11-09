@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import renderHTML from 'react-render-html'
 
 import './product.css'
+import withTracker from '../../containers/google-analytics/withTracker'
 import productPageContainer from '../../containers/products/productPageContainer'
 import Media from '../media/Media'
 import H3 from '../typography/H3'
@@ -93,4 +94,4 @@ ProductPage.propTypes = {
 }
 
 
-export default productPageContainer(ProductPage)
+export default withTracker(productPageContainer(ProductPage))

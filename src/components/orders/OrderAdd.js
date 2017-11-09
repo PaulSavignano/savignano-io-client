@@ -8,6 +8,7 @@ import { Card, CardText, CardTitle } from 'material-ui/Card'
 import MenuItem from 'material-ui/MenuItem'
 
 import './orders.css'
+import withTracker from '../../containers/google-analytics/withTracker'
 import orderAddContainer from '../../containers/orders/orderAddContainer'
 import validateCheckout from '../../utils/validateCheckout'
 import SuccessableButton from '../buttons/SuccessableButton'
@@ -145,4 +146,4 @@ OrderAdd.propTypes = {
 export default orderAddContainer(reduxForm({
   form: 'CheckoutForm',
   validate: validateCheckout
-})(withRouter(OrderAdd)))
+})(withRouter(withTracker(OrderAdd))))

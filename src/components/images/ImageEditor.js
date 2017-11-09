@@ -376,7 +376,6 @@ class ImageEditor extends Component {
     context.translate(0, 0)
 
     const dimensions = this.getDimensions()
-    const borderSize = dimensions.border
     const height = dimensions.canvas.height
     const width = dimensions.canvas.width
 

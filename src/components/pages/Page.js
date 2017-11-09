@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import withTracker from '../../containers/google-analytics/withTracker'
 
 import pageContainer from '../../containers/pages/pageContainer'
 import getPageDescription from '../../utils/getPageDescription'
@@ -43,7 +44,6 @@ class Page extends Component {
         slug,
         sections,
         values: {
-          backgroundColor,
           name
          }
       },
@@ -77,4 +77,4 @@ Page.propTypes = {
   page: PropTypes.object.isRequired,
 }
 
-export default pageContainer(Page)
+export default withTracker(pageContainer(Page))

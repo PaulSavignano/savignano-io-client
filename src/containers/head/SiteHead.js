@@ -3,11 +3,9 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Helmet } from "react-helmet"
 
-
 class SiteHead extends Component {
   render() {
     const {
-      description,
       keywords,
       name,
       image,

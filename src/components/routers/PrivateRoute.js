@@ -2,34 +2,40 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Route, Redirect } from 'react-router-dom'
 
-import userContainer from '../../containers/user/userContainer'
-
 class PrivateRoute extends Component {
-  hasRoles = (roles, requiredRoles) => {
-    if (roles) return requiredRoles.some(v => roles.indexOf(v) >= 0)
-    return false
+  state = {
+    hasRoles: false
+  }
+  componentWillMount() {
+    const { roles, requiredRoles } = this.props
+    const hasRoles = requiredRoles.some(v => roles.indexOf(v) >= 0)
+    this.setState({ hasRoles })
+  }
+  componentWillReceiveProps({ roles, requiredRoles }) {
+    if (roles !== this.props.roles) {
+      const hasRoles = requiredRoles.some(v => roles.indexOf(v) >= 0)
+      this.setState({ hasRoles })
+    }
   }
   render() {
     const {
       component: Component,
       requiredRoles,
-      user,
+      roles,
       ...rest,
     } = this.props
     return (
-      <Route {...rest} component={(props) => (
-        this.hasRoles(user.roles, requiredRoles) ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to="/user/signin" />
-        )
-      )}/>
+      this.state.hasRoles ?
+      <Route {...rest} component={Component} />
+
+      :
+      <Redirect to="/user/signin" />
     )
   }
 }
 
 PrivateRoute.propTypes = {
-  user: PropTypes.object.isRequired,
+  roles: PropTypes.array.isRequired,
 }
 
-export default userContainer(PrivateRoute)
+export default PrivateRoute

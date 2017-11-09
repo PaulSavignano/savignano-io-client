@@ -26,11 +26,17 @@ const withTracker = (WrappedComponent, options = {}) => {
       }
     }
     render() {
-      return <WrappedComponent {...this.props} />;
+      const { isFetching } = this.props
+      return isFetching ? null : <WrappedComponent {...this.props} />;
     }
   }
   const mapStateToProps = ({
-    brand: { isFetching, business: { values: { googleAnalyticsUA }}},
+    brand: {
+      isFetching,
+      business: {
+        values: { googleAnalyticsUA }
+      }
+    },
   }) => ({
     googleAnalyticsUA,
     isFetching
@@ -39,7 +45,7 @@ const withTracker = (WrappedComponent, options = {}) => {
     googleAnalyticsUA: PropTypes.string,
     isFetching: PropTypes.bool.isRequired,
   }
-  return connect(mapStateToProps)(HOC)
+  return connect(mapStateToProps, null, null, { pure: false })(HOC)
 }
 
 export default withTracker

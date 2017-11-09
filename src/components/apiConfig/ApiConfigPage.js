@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { Card, CardTitle } from 'material-ui/Card'
 
@@ -51,7 +51,7 @@ const ApiConfigPage = ({
                 disabled={pristine}
                 error={error}
                 label={`update apiConfig`}
-                reset={null}
+                reset={reset}
                 submitSucceeded={submitSucceeded}
                 submitting={submitting}
                 successLabel={`apiConfig updated!`}
@@ -67,5 +67,6 @@ const ApiConfigPage = ({
 )
 
 export default apiConfigContainer(reduxForm({
-  form: 'apiConfigForm'
+  form: 'apiConfigForm',
+  enableReinitialize: true
 })(ApiConfigPage))

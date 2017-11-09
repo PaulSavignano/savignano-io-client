@@ -22,7 +22,7 @@ class AppRouter extends Component {
       appBar: { image: appBarImage },
       body: { backgroundImage: bodyBackgroundImage },
       footer: { backgroundImage: footerBackgroundImage, image: footerImage }
-    } = this.props.brand
+    } = this.props
     const brandImage = appBarImage && appBarImage.src ? [appBarImage.src] : []
     const bodyBackgroundImg = bodyBackgroundImage && bodyBackgroundImage.src ? [bodyBackgroundImage.src] : []
     const footerImg = footerImage && footerImage.src ? [footerImage.src] : []
@@ -64,18 +64,16 @@ class AppRouter extends Component {
       body.style.backgroundColor = backgroundColor
     }
   }
-  componentWillMount() {
+  componentDidMount() {
     const slug = window.location.pathname.slice(1)
     const reqPageSlug = slug || 'home'
     if (this.props.brand && this.props.brand._id) {
       const {
-        brand: {
-          body: {
-            backgroundImage,
-            values: {
-              backgroundColor,
-              backgroundPosition
-            }
+        body: {
+          backgroundImage,
+          values: {
+            backgroundColor,
+            backgroundPosition
           }
         },
         pages
@@ -90,17 +88,15 @@ class AppRouter extends Component {
     }
   }
   componentWillReceiveProps({
-    brand: {
-      body: {
-        backgroundImage,
-        values: { backgroundColor, backgroundPosition }
-      }
+    body: {
+      backgroundImage,
+      values: { backgroundColor, backgroundPosition }
     }
   }) {
     if (
-      backgroundColor !== this.props.brand.body.values.backgroundColor ||
-      backgroundPosition !== this.props.brand.body.values.backgroundPosition ||
-      backgroundImage.src !== this.props.brand.body.backgroundImage.src
+      backgroundColor !== this.props.body.values.backgroundColor ||
+      backgroundPosition !== this.props.body.values.backgroundPosition ||
+      backgroundImage.src !== this.props.body.backgroundImage.src
     ) {
     this.handleBodyStyle(backgroundColor, backgroundImage, backgroundPosition)
     }
@@ -130,7 +126,7 @@ class AppRouter extends Component {
               }}>
                 <Header/>
                 <main>
-                  {search ? <SearchList /> : <Routes />}
+                  {search ? <SearchList /> : <Routes roles={this.props.roles} />}
                 </main>
                 <Footer />
               </div>
@@ -143,10 +139,14 @@ class AppRouter extends Component {
 }
 
 AppRouter.propTypes = {
+  appBar: PropTypes.object,
+  body: PropTypes.object,
   dispatch: PropTypes.func.isRequired,
-  brand: PropTypes.object.isRequired,
-  pages: PropTypes.array.isRequired,
-  search: PropTypes.string
+  footer: PropTypes.object,
+  isFetching: PropTypes.bool.isRequired,
+  pages: PropTypes.array,
+  roles: PropTypes.array,
+  search: PropTypes.string.isRequired,
 }
 
 export default appRouterContainer(AppRouter)

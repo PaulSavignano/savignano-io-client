@@ -42,10 +42,12 @@ const brandContainer = (ComposedComponent) => {
       const props = {
         _id,
         canvasColor: palette.values.canvasColor,
+        dispatch,
         fontFamily: typography.values.fontFamily,
-        matchedBrandItem,
+        form: matchedBrandForm.name,
+        initialValues: matchedBrandItem.values,
         matchedBrandForm,
-        dispatch
+        matchedBrandItem,
       }
       return (
         isFetching ? null :

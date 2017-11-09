@@ -2,7 +2,6 @@ import React from 'react'
 import { Route, Switch, withRouter } from 'react-router-dom'
 
 import PrivateRoute from './PrivateRoute'
-import withTracker from '../../containers/google-analytics/withTracker'
 
 import AdminOrderPage from '../orders/AdminOrderPage'
 import AdminOrderDetailPage from '../orders/AdminOrderDetailPage'
@@ -27,31 +26,31 @@ import Signin from '../user/Signin'
 import Signup from '../user/Signup'
 import UserProfilePage from '../../containers/user/UserProfilePage'
 
-const Routes = () => (
+const Routes = ({ roles }) => (
   <Switch>
-    <Route exact path="/" component={withTracker(Page)} />
-    <Route exact path="/:slug" component={withTracker(Page)} />
-    <PrivateRoute exact path="/admin/brand/:brandItem" requiredRoles={['admin']} component={BrandAdminPage} />
-    <PrivateRoute exact path="/admin/add-brand" requiredRoles={['admin']} component={BrandAdminAddPage} />
-    <PrivateRoute exact path="/admin/api-config" requiredRoles={['admin']} component={ApiConfigPage} />
+    <Route exact path="/" component={Page} />
+    <Route exact path="/:slug" component={Page} />
+    <PrivateRoute exact path="/admin/brand/:brandItem" roles={roles} requiredRoles={['admin']} component={BrandAdminPage} />
+    <PrivateRoute exact path="/admin/add-brand" roles={roles} requiredRoles={['admin']} component={BrandAdminAddPage} />
+    <PrivateRoute exact path="/admin/api-config" roles={roles} requiredRoles={['admin']} component={ApiConfigPage} />
 
-    <PrivateRoute exact path="/admin/orders" requiredRoles={['admin']} component={AdminOrderPage} />
-    <PrivateRoute exact path="/admin/orders/:orderId" requiredRoles={['admin']} component={AdminOrderDetailPage} />
-    <PrivateRoute exact path="/admin/pages" requiredRoles={['admin']} component={AdminPagesListPage} />
-    <PrivateRoute exact path="/admin/pages/:slug" requiredRoles={['admin']} component={withRouter(AdminPage)} />
-    <PrivateRoute exact path="/admin/users" requiredRoles={['owner']} component={AdminUsersPage} />
-    <PrivateRoute exact path="/admin/users/edit/:userId" requiredRoles={['owner']} component={withRouter(AdminUsersEditUserPage)} />
-    <Route exact path="/products/:productSlug/:productId" component={withTracker(ProductPage)} />
-    <Route exact path="/user/cart" component={withTracker(CartPage)} />
-    <PrivateRoute exact path="/user/order" requiredRoles={['user']} component={withTracker(OrderAdd)} />
-    <PrivateRoute exact path="/user/order/:orderId" requiredRoles={['user']} component={withRouter(withTracker(OrderConfirmation))} />
-    <PrivateRoute exact path="/user/orders/:orderId" requiredRoles={['user']} component={withRouter(OrderDetailPage)} />
-    <PrivateRoute exact path="/user/profile" requiredRoles={['user', 'admin']} component={UserProfilePage} />
+    <PrivateRoute exact path="/admin/orders" roles={roles} requiredRoles={['admin']} component={AdminOrderPage} />
+    <PrivateRoute exact path="/admin/orders/:orderId" roles={roles} requiredRoles={['admin']} component={AdminOrderDetailPage} />
+    <PrivateRoute exact path="/admin/pages" roles={roles} requiredRoles={['admin']} component={AdminPagesListPage} />
+    <PrivateRoute exact path="/admin/pages/:slug" roles={roles} requiredRoles={['admin']} component={AdminPage} />
+    <PrivateRoute exact path="/admin/users" roles={roles} requiredRoles={['owner']} component={AdminUsersPage} />
+    <PrivateRoute exact path="/admin/users/edit/:userId" roles={roles} requiredRoles={['owner']} component={withRouter(AdminUsersEditUserPage)} />
+    <Route exact path="/products/:productSlug/:productId" component={ProductPage} />
+    <Route exact path="/user/cart" component={CartPage} />
+    <PrivateRoute exact path="/user/order" roles={roles} requiredRoles={['user']} component={OrderAdd} />
+    <PrivateRoute exact path="/user/order/:orderId" roles={roles} requiredRoles={['user']} component={withRouter(OrderConfirmation)} />
+    <PrivateRoute exact path="/user/orders/:orderId" roles={roles} requiredRoles={['user']} component={withRouter(OrderDetailPage)} />
+    <PrivateRoute exact path="/user/profile" roles={roles} requiredRoles={['user', 'admin']} component={UserProfilePage} />
     <Route exact path="/user/recovery" component={Recovery} />
-    <Route exact path="/user/request-estimate" component={withTracker(RequestEstimate)} />
+    <Route exact path="/user/request-estimate" component={RequestEstimate} />
     <Route exact path="/user/reset/:resetToken" component={Reset} />
-    <Route exact path="/user/signup" component={withTracker(Signup)} />
-    <Route exact path="/user/signin" component={withTracker(Signin)} />
+    <Route exact path="/user/signup" component={Signup} />
+    <Route exact path="/user/signin" component={Signin} />
     <Route component={NotFoundPage} />
   </Switch>
 )
