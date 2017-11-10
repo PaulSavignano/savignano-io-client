@@ -21,6 +21,7 @@ class BrandAdminPage extends Component {
     disabled: true,
     imageEdit: false,
     imageTimeoutId: null,
+    name: null
   }
   handleImageEdit = (bool) => {
     const imageTimeoutId = setTimeout(() => {
@@ -28,6 +29,7 @@ class BrandAdminPage extends Component {
       clearTimeout(this.state.imageTimeoutId)
     }, 9)
     this.setState({
+      ...this.state,
       disabled: false,
       imageEdit: bool,
       imageTimeoutId
@@ -39,6 +41,7 @@ class BrandAdminPage extends Component {
       clearTimeout(this.state.backgroundTimeoutId)
     }, 9)
     this.setState({
+      ...this.state,
       backgroundImageEdit: bool,
       backgroundImageTimeoutId,
       disabled: false
@@ -48,6 +51,7 @@ class BrandAdminPage extends Component {
     const { image } = this.props
     const deleteImage = image.src ? true : false
     this.setState({
+      ...this.state,
       imageEdit: false,
       deleteImage,
       disabled: false
@@ -57,6 +61,7 @@ class BrandAdminPage extends Component {
     const { backgroundImage } = this.props
     const deleteBackgroundImage = backgroundImage.src ? true : false
     this.setState({
+      ...this.state,
       imageEdit: false,
       deleteBackgroundImage,
       disabled: false
@@ -164,9 +169,14 @@ class BrandAdminPage extends Component {
         }))
     }
   }
-
-  componentWillReceiveProps({ pristine }) {
-    if (pristine !== this.props.pristine) this.setState({ disabled: pristine })
+  componentDidMount() {
+    console.log('BrandAdminPage Mounted')
+  }
+  componentWillUnmount() {
+    console.log('BrandAdminPage Unmounted')
+  }
+  componentWillReceiveProps({ pristine, matchedBrandForm: { name }}) {
+    if (name !== this.props.matchedBrandForm.name || pristine !== this.props.pristine) this.setState({ ...this.state, disabled: pristine, name })
   }
   setImageFormRef = (imageEditor) => this.imageEditor = imageEditor
   setBackgroundImageFormRef = (backgroundImageEditor) => this.backgroundImageEditor = backgroundImageEditor
@@ -188,6 +198,7 @@ class BrandAdminPage extends Component {
       submitSucceeded,
       submitting,
     } = this.props
+          console.log('brandPage render')
     return (
       <div className="page">
         <section className="section-margin">
@@ -195,32 +206,33 @@ class BrandAdminPage extends Component {
             className="brand-form"
             style={{ backgroundColor: canvasColor, fontFamily }}
           >
+
+            <CardTitle title={`${name}`} />
+            {image &&
+              <ImageForm
+                key={1}
+                image={image}
+                label="image"
+                type="image/jpg"
+                onImageEdit={this.handleImageEdit}
+                onImageRemove={this.handleImageRemove}
+                ref={this.setImageFormRef}
+              />
+            }
+            {backgroundImage &&
+              <ImageForm
+                key={2}
+                image={backgroundImage}
+                label="backgroundImage"
+                type="image/jpg"
+                onImageEdit={this.handleBackgroundImageEdit}
+                onImageRemove={this.handleBackgroundImageRemove}
+                ref={this.setBackgroundImageFormRef}
+              />
+            }
             <form
               onSubmit={handleSubmit(this.handleFormSubmit)}
             >
-              <CardTitle title={`${name}`} />
-              {image &&
-                <ImageForm
-                  key={1}
-                  image={image}
-                  label="image"
-                  type="image/jpg"
-                  onImageEdit={this.handleImageEdit}
-                  onImageRemove={this.handleImageRemove}
-                  ref={this.setImageFormRef}
-                />
-              }
-              {backgroundImage &&
-                <ImageForm
-                  key={2}
-                  image={backgroundImage}
-                  label="backgroundImage"
-                  type="image/jpg"
-                  onImageEdit={this.handleBackgroundImageEdit}
-                  onImageRemove={this.handleBackgroundImageRemove}
-                  ref={this.setBackgroundImageFormRef}
-                />
-              }
               <div className="field-container">
                 {fields.map(({ max, min, name, options, type }) => (
                   <BrandFormField
@@ -265,5 +277,5 @@ BrandAdminPage.propTypes = {
 }
 
 export default brandContainer(reduxForm({
-  enableReinitialize: true,
+  enableReinitialize: true
 })(BrandAdminPage))

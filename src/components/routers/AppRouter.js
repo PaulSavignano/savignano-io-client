@@ -15,6 +15,10 @@ import Footer from '../footer/Footer'
 
 class AppRouter extends Component {
   state = {
+    bodyBackgroundColor: null,
+    bodyBackgroundImg: null,
+    bodyBackgroundPosition: null,
+    bodyClassName: null,
     loadingImages: true,
   }
   handleEagerLoadImages = (reqPageHeroImages) => {
@@ -41,11 +45,9 @@ class AppRouter extends Component {
         ...footerImg,
         ...footerBackgroundImg,
         ...heroImages,
-      ]).then(() => {
-        this.setState({ loadingImages: false })
-      })
+      ]).then(() => this.setState({ ...this.state, loadingImages: false }))
     }
-    return this.setState({ loadingImages: false })
+    this.setState({ ...this.state, loadingImages: false })
   }
   handleLazyLoadImages = (allPageImages) => {
     const allImages = getPageImages(allPageImages)
@@ -55,37 +57,39 @@ class AppRouter extends Component {
     return
   }
   handleBodyStyle = (backgroundColor, backgroundImage, backgroundPosition) => {
-    const body = document.querySelector("body")
+    console.log('backgroundColor', backgroundColor)
     if (backgroundImage && backgroundImage.src) {
-      body.className = 'background-image'
-      body.style.backgroundImage = `url(${`${process.env.REACT_APP_IMAGE_ENDPOINT}${backgroundImage.src}`})`
-      body.style.backgroundPosition = backgroundPosition
+      this.setState({
+        ...this.state,
+        bodyClassName: 'background-image',
+        bodyBackgroundImg: `url(${`${process.env.REACT_APP_IMAGE_ENDPOINT}${backgroundImage.src}`})`,
+        bodyBackgroundPosition: backgroundPosition
+      })
     } else if (backgroundColor) {
-      body.style.backgroundColor = backgroundColor
+      this.setState({
+        ...this.state,
+        bodyBackgroundColor: backgroundColor
+      })
     }
   }
   componentDidMount() {
     const slug = window.location.pathname.slice(1)
     const reqPageSlug = slug || 'home'
-    if (this.props.brand && this.props.brand._id) {
-      const {
-        body: {
-          backgroundImage,
-          values: {
-            backgroundColor,
-            backgroundPosition
-          }
-        },
-        pages
-      } = this.props
-      const reqPageHeroImages = pages.filter(page => page.slug === reqPageSlug)
-      const allPageImages = pages.filter(page => page.slug !== reqPageSlug)
-      this.handleEagerLoadImages(reqPageHeroImages)
-      this.handleLazyLoadImages(allPageImages)
-      this.handleBodyStyle(backgroundColor, backgroundImage, backgroundPosition)
-    } else {
-      this.setState({ loadingImages: false })
-    }
+    const {
+      body: {
+        backgroundImage,
+        values: {
+          backgroundColor,
+          backgroundPosition
+        }
+      },
+      pages
+    } = this.props
+    const reqPageHeroImages = pages.filter(page => page.slug === reqPageSlug)
+    const allPageImages = pages.filter(page => page.slug !== reqPageSlug)
+    this.handleEagerLoadImages(reqPageHeroImages)
+    this.handleLazyLoadImages(allPageImages)
+    this.handleBodyStyle(backgroundColor, backgroundImage, backgroundPosition)
   }
   componentWillReceiveProps({
     body: {
@@ -112,6 +116,17 @@ class AppRouter extends Component {
       entering: { opacity: 0 },
       entered:  { opacity: 1 },
     }
+    const {
+      bodyBackgroundColor,
+      bodyBackgroundImg,
+      bodyBackgroundPosition,
+      bodyClassName,
+    } = this.state
+    const body = document.querySelector("body")
+    body.className = bodyClassName
+    body.style.backgroundImage = bodyBackgroundImg
+    body.style.backgroundPosition = bodyBackgroundPosition
+    body.style.backgroundColor = bodyBackgroundColor
 
     return (
       <Router history={history}>

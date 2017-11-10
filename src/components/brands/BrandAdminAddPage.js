@@ -32,7 +32,7 @@ class BrandAdminAddPage extends Component {
 
 BrandAdminAddPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  firstName: PropTypes.string.isRequired,
+  firstName: PropTypes.string,
 }
 
 export default BrandAdminAddPage
