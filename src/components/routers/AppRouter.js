@@ -96,7 +96,7 @@ class AppRouter extends Component {
     if (
       backgroundColor !== this.props.body.values.backgroundColor ||
       backgroundPosition !== this.props.body.values.backgroundPosition ||
-      backgroundImage.src !== this.props.body.backgroundImage.src
+      backgroundImage !== this.props.body.backgroundImage
     ) {
     this.handleBodyStyle(backgroundColor, backgroundImage, backgroundPosition)
     }

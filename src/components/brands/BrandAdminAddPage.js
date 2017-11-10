@@ -14,7 +14,13 @@ class BrandAdminAddPage extends Component {
     const { firstName } = this.props
     return (
       <section className="section-margin brand-add-page">
-        <H2>Hi {firstName}, let's set up your brand!</H2>
+        <H2>
+          {firstName ?
+            `Hi ${firstName}, let's set up your brand!`
+          :
+            `Welcome to your app!  Please signin to continue.`
+          }
+        </H2>
         <RaisedButton
           onTouchTap={this.handleBrandAdd}
           label="Add Brand"

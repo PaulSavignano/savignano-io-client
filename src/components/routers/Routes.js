@@ -39,12 +39,12 @@ const Routes = ({ roles }) => (
     <PrivateRoute exact path="/admin/pages" roles={roles} requiredRoles={['admin']} component={AdminPagesListPage} />
     <PrivateRoute exact path="/admin/pages/:slug" roles={roles} requiredRoles={['admin']} component={AdminPage} />
     <PrivateRoute exact path="/admin/users" roles={roles} requiredRoles={['owner']} component={AdminUsersPage} />
-    <PrivateRoute exact path="/admin/users/edit/:userId" roles={roles} requiredRoles={['owner']} component={withRouter(AdminUsersEditUserPage)} />
+    <PrivateRoute exact path="/admin/users/edit/:userId" roles={roles} requiredRoles={['owner']} component={AdminUsersEditUserPage} />
     <Route exact path="/products/:productSlug/:productId" component={ProductPage} />
     <Route exact path="/user/cart" component={CartPage} />
     <PrivateRoute exact path="/user/order" roles={roles} requiredRoles={['user']} component={OrderAdd} />
-    <PrivateRoute exact path="/user/order/:orderId" roles={roles} requiredRoles={['user']} component={withRouter(OrderConfirmation)} />
-    <PrivateRoute exact path="/user/orders/:orderId" roles={roles} requiredRoles={['user']} component={withRouter(OrderDetailPage)} />
+    <PrivateRoute exact path="/user/order/:orderId" roles={roles} requiredRoles={['user']} component={OrderConfirmation} />
+    <PrivateRoute exact path="/user/orders/:orderId" roles={roles} requiredRoles={['user']} component={OrderDetailPage} />
     <PrivateRoute exact path="/user/profile" roles={roles} requiredRoles={['user', 'admin']} component={UserProfilePage} />
     <Route exact path="/user/recovery" component={Recovery} />
     <Route exact path="/user/request-estimate" component={RequestEstimate} />

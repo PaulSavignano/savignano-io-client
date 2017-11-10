@@ -5,7 +5,7 @@ import { fetchAddSuccess as fetchApiConfigAddSuccess } from './apiConfig'
 import { fetchAddSuccess as fetchAddPageSuccess } from './pages'
 
 const api = process.env.REACT_APP_API_ENDPOINT
-const clientName = process.env.REACT_APP_CLIENT_NAME
+const brandName = process.env.REACT_APP_BRAND_NAME
 export const type = 'BRAND'
 const route = 'brands'
 
@@ -22,7 +22,7 @@ const fetchAddFailure = (error) => ({ type: ERROR, error })
 export const fetchAdd = (add) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/${clientName}`,
+      path: `${api}/${route}/${brandName}`,
       method: 'POST',
       body: add
     })
@@ -48,7 +48,7 @@ const fetchBrandFailure = (error) => ({ type: ERROR, error })
 export const fetchBrand = () => {
   return (dispatch, getState) => {
     dispatch(fetchBrandRequest())
-    return fetch(`${api}/${route}/${clientName}`, {
+    return fetch(`${api}/${route}/${brandName}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ const fetchUpdateFailure = (error) => ({ type: ERROR, error })
 export const fetchUpdate = ({ path, update }) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/${clientName}/${path}`,
+      path: `${api}/${route}/${brandName}/${path}`,
       method: 'PATCH',
       body: update
     })
@@ -95,7 +95,7 @@ const fetchDeleteFailure = (error) => ({ type: ERROR, error })
 export const fetchDelete = (_id) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/${clientName}/${_id}`,
+      path: `${api}/${route}/${brandName}/${_id}`,
       method: 'DELETE',
       body: null
     })

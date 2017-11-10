@@ -34,7 +34,6 @@
   ],
   "name": "savignano-io-client",
   "private": true,
-  "proxy": "http://localhost:3001",
   "repository": "https://github.com/PaulSavignano/savignano-io-client",
   "scripts": {
     "start": "react-scripts start",

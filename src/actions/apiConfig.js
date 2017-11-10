@@ -3,7 +3,7 @@ import { SubmissionError } from 'redux-form'
 import handleAuthFetch from '../utils/handleAuthFetch'
 
 const api = process.env.REACT_APP_API_ENDPOINT
-const clientName = process.env.REACT_APP_CLIENT_NAME
+const brandName = process.env.REACT_APP_BRAND_NAME
 export const type = 'API_CONFIG'
 const route = 'api-configs'
 
@@ -21,7 +21,7 @@ export const fetchAddSuccess = (item) => ({ type: ADD, item })
 export const fetchAdd = (add) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/${clientName}`,
+      path: `${api}/${route}/${brandName}`,
       method: 'POST',
       body: add
     })
@@ -42,7 +42,7 @@ export const fetchApiConfig = () => {
   return (dispatch, getState) => {
     dispatch(fetchApiConfigRequest())
     return handleAuthFetch({
-      path: `${api}/${route}/${clientName}`,
+      path: `${api}/${route}/${brandName}`,
       method: 'GET',
       body: null
     })
@@ -63,7 +63,7 @@ export const fetchUpdateSuccess = (item) => ({ type: UPDATE, item })
 export const fetchUpdate = ({ _id, values }) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/${clientName}/${_id}`,
+      path: `${api}/${route}/${brandName}/${_id}`,
       method: 'PATCH',
       body: { values }
     })
@@ -85,7 +85,7 @@ const fetchDeleteSuccess = (_id) => ({ type: DELETE })
 export const fetchDelete = (_id) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/${clientName}/${_id}`,
+      path: `${api}/${route}/${brandName}/${_id}`,
       method: 'DELETE',
       body: null
     })

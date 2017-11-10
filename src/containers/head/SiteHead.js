@@ -15,14 +15,12 @@ class SiteHead extends Component {
     return (
       isFetching ? null :
       <Helmet>
-        <link rel="apple-touch-icon" sizes="180x180" href={`${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}`} />
         <link rel="canonical" href={window.location.hostname} />
-        <link rel="icon" type="image/png" href={`${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}`} sizes="16x16" />
-        <link rel="icon" type="image/png" href={`${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}`} sizes="16x16" />
-        <link rel="icon" type="image/png" href={`${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}`} sizes="32x32" />
-        <link rel="icon" type="image/png" href={`${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}`} sizes="32x32" />
+        {image && image.src ? <link rel="apple-touch-icon" sizes="180x180" href={`${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}`} /> : null }
+        {image && image.src ? <link rel="icon" type="image/png" href={`${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}`} sizes="16x16" /> : null }
+        {image && image.src ? <link rel="icon" type="image/png" href={`${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}`} sizes="32x32" /> : null }
+        {image && image.src ? <meta property="og:image" content={`${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}`} /> : null }
         <meta name="keywords" content={keywords} />
-        <meta property="og:image" content={`${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}`} />
         <meta property="og:site_name" content={name} />
         <meta property="og:type" content="website" />
         <script type="application/ld+json">
@@ -31,7 +29,7 @@ class SiteHead extends Component {
             "@type": "Product",
             "name": "${name}",
             "url": "${window.location.pathname}",
-            "image": "${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}",
+            "image": "${image && image.src ? `${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}` : null}",
             "aggregateRating": {
               "@type": "AggregateRating",
               "ratingValue": "4.5",

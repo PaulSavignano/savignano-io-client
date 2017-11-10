@@ -1,5 +1,5 @@
 const api = process.env.REACT_APP_API_ENDPOINT
-const clientName = process.env.REACT_APP_CLIENT_NAME
+const brandName = process.env.REACT_APP_BRAND_NAME
 
 export const type = 'CART'
 const route = 'carts'
@@ -18,7 +18,7 @@ export const fetchAddToCart = (update) => {
   return (dispatch, getState) => {
     const cartId = localStorage.getItem('cart')
     if (cartId) {
-      return fetch(`${api}/${route}/${clientName}/${cartId}`, {
+      return fetch(`${api}/${route}/${brandName}/${cartId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json' ,
@@ -35,7 +35,7 @@ export const fetchAddToCart = (update) => {
         })
         .catch(error => dispatch(fetchAddToCartFailure(error)))
     } else {
-      return fetch(`${api}/${route}/${clientName}`, {
+      return fetch(`${api}/${route}/${brandName}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ const fetchCartFailure = (error) => ({ type: ERROR, error })
 export const fetchCart = (cartId) => {
   return (dispatch, getState) => {
     dispatch(fetchCartRequest())
-    return fetch(`${api}/${route}/${clientName}/${cartId}`, {
+    return fetch(`${api}/${route}/${brandName}/${cartId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ const fetchUpdateCartFailure = (error) => ({ type: ERROR, error })
 export const fetchUpdateCart = (update) => {
   return (dispatch, getState) => {
     const cartId = localStorage.getItem('cart')
-    return fetch(`${api}/${route}/${clientName}/${cartId}`, {
+    return fetch(`${api}/${route}/${brandName}/${cartId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json' ,
@@ -116,7 +116,7 @@ const fetchDeleteCartFailure = (error) => ({ type: ERROR, error })
 export const fetchDeleteCart = () => {
   const cartId = localStorage.getItem('cart')
   return (dispatch, getState) => {
-    return fetch(`${api}/${route}/${clientName}/${cartId}`, {
+    return fetch(`${api}/${route}/${brandName}/${cartId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

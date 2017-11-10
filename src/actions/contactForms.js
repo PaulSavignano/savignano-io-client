@@ -5,7 +5,7 @@ import * as pageActions from './pages'
 import { startEdit, stopEdit } from './editItem'
 
 const api = process.env.REACT_APP_API_ENDPOINT
-const clientName = process.env.REACT_APP_CLIENT_NAME
+const brandName = process.env.REACT_APP_BRAND_NAME
 export const type = 'CONTACT_FORM'
 const route = 'contact-forms'
 
@@ -15,7 +15,7 @@ const ERROR = `ERROR_${type}`
 export const fetchAdd = (add) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/${clientName}`,
+      path: `${api}/${route}/${brandName}`,
       method: 'POST',
       body: add
     })
@@ -37,7 +37,7 @@ export const fetchAdd = (add) => {
 export const fetchUpdate = ({ path, update }) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/${clientName}/${path}`,
+      path: `${api}/${route}/${brandName}/${path}`,
       method: 'PATCH',
       body: update
     })
@@ -59,7 +59,7 @@ export const fetchUpdate = ({ path, update }) => {
 export const fetchDelete = (_id) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/${clientName}/${_id}`,
+      path: `${api}/${route}/${brandName}/${_id}`,
       method: 'DELETE',
       body: null
     })

@@ -5,7 +5,7 @@ import { fetchOrdersSuccess } from './orders'
 import { fetchUsersSuccess, fetchDeleteSuccess as usersDeleteSuccess } from './users'
 
 const api = process.env.REACT_APP_API_ENDPOINT
-const clientName = process.env.REACT_APP_CLIENT_NAME
+const brandName = process.env.REACT_APP_BRAND_NAME
 export const type = 'USER'
 const route = 'users'
 
@@ -27,7 +27,7 @@ const fetchFailure = (error) => {
 const fetchAddSuccess = (item) => ({ type: ADD, item })
 export const fetchAdd = (values) => {
   return (dispatch, getState) => {
-    return fetch(`${api}/${route}/${clientName}`, {
+    return fetch(`${api}/${route}/${brandName}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -62,7 +62,7 @@ export const fetchUser = () => {
   return (dispatch) => {
     dispatch(fetchUserRequest())
     return handleAuthFetch({
-      path: `${api}/${route}/${clientName}`,
+      path: `${api}/${route}/${brandName}`,
       method: 'GET',
       body: null
     })
@@ -93,7 +93,7 @@ export const fetchUpdateSuccess = (item) => {
 export const fetchUpdate = (update) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/${clientName}`,
+      path: `${api}/${route}/${brandName}`,
       method: 'PATCH',
       body: update
     })
@@ -115,7 +115,7 @@ const fetchDeleteSuccess = () => ({ type: DELETE })
 export const fetchDelete = () => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/${clientName}`,
+      path: `${api}/${route}/${brandName}`,
       method: 'DELETE',
       body: null
     })
@@ -152,7 +152,7 @@ export const redirectUser = (path) => {
 
 export const fetchSignin = ({ history, values }) => {
   return (dispatch, getState) => {
-    return fetch(`${api}/${route}/${clientName}/signin`, {
+    return fetch(`${api}/${route}/${brandName}/signin`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -160,6 +160,7 @@ export const fetchSignin = ({ history, values }) => {
       body: JSON.stringify(values)
     })
       .then(res => {
+        console.log('response from signin', res.headers.get('x-access-token'))
         if (res.ok) {
           localStorage.setItem('x-access-token', res.headers.get('x-access-token'))
           localStorage.setItem('x-refresh-token', res.headers.get('x-refresh-token'))
@@ -206,7 +207,7 @@ export const signout = (history) => {
 const fetchRecoverySuccess = (message) => ({ type: 'RECOVER_USER', message })
 export const fetchRecovery = ({ email }) => {
   return function(dispatch, getState) {
-    return fetch(`${api}/${route}/${clientName}/recovery`, {
+    return fetch(`${api}/${route}/${brandName}/recovery`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -228,7 +229,7 @@ export const fetchRecovery = ({ email }) => {
 
 export const fetchReset = ({ password }, resetToken) => {
   return (dispatch, getState) => {
-    return fetch(`${api}/${route}/${clientName}/reset/${resetToken}`, {
+    return fetch(`${api}/${route}/${brandName}/reset/${resetToken}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -261,7 +262,7 @@ export const fetchReset = ({ password }, resetToken) => {
 const fetchContactSuccess = (values) => ({ type: 'CONTACT_USER', values })
 export const fetchContact = (values) => {
   return function(dispatch, getState) {
-    return fetch(`${api}/${route}/${clientName}/contact`, {
+    return fetch(`${api}/${route}/${brandName}/contact`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values)
@@ -281,7 +282,7 @@ export const fetchContact = (values) => {
 const fetchRequestEstimateSuccess = (values) => ({ type: 'CONTACT_USER', values })
 export const fetchRequestEstimate = (values) => {
   return function(dispatch, getState) {
-    return fetch(`${api}/${route}/${clientName}/request-estimate`, {
+    return fetch(`${api}/${route}/${brandName}/request-estimate`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(values)

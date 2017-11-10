@@ -5,7 +5,7 @@ import * as pageActions from './pages'
 import { startEdit, stopEdit } from './editItem'
 
 const api = process.env.REACT_APP_API_ENDPOINT
-const clientName = process.env.REACT_APP_CLIENT_NAME
+const brandName = process.env.REACT_APP_BRAND_NAME
 export const type = 'PRODUCT'
 const route = 'products'
 
@@ -24,7 +24,7 @@ const fetchAddSuccess = (item) => ({ type: ADD, item })
 export const fetchAdd = (add) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/${clientName}`,
+      path: `${api}/${route}/${brandName}`,
       method: 'POST',
       body: add
     })
@@ -48,7 +48,7 @@ const fetchProductsSuccess = (items) => ({ type: RECEIVE, items })
 export const fetchProducts = () => {
   return (dispatch, getState) => {
     dispatch(fetchProductsRequest())
-    return fetch(`${api}/${route}/${clientName}`, {
+    return fetch(`${api}/${route}/${brandName}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ const fetchUpdateSuccess = (item) => ({ type: UPDATE, item })
 export const fetchUpdate = ({ path, update }) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/${clientName}/${path}`,
+      path: `${api}/${route}/${brandName}/${path}`,
       method: 'PATCH',
       body: update
     })
@@ -95,7 +95,7 @@ const fetchDeleteSuccess = (_id) => ({ type: DELETE, _id })
 export const fetchDelete = (_id) => {
   return (dispatch, getState) => {
     return handleAuthFetch({
-      path: `${api}/${route}/${clientName}/${_id}`,
+      path: `${api}/${route}/${brandName}/${_id}`,
       method: 'DELETE',
       body: null
     })
