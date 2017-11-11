@@ -57,7 +57,6 @@ class AppRouter extends Component {
     return
   }
   handleBodyStyle = (backgroundColor, backgroundImage, backgroundPosition) => {
-    console.log('backgroundColor', backgroundColor)
     if (backgroundImage && backgroundImage.src) {
       this.setState({
         ...this.state,

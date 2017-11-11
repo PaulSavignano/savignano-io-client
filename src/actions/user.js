@@ -160,7 +160,6 @@ export const fetchSignin = ({ history, values }) => {
       body: JSON.stringify(values)
     })
       .then(res => {
-        console.log('response from signin', res.headers.get('x-access-token'))
         if (res.ok) {
           localStorage.setItem('x-access-token', res.headers.get('x-access-token'))
           localStorage.setItem('x-refresh-token', res.headers.get('x-refresh-token'))

@@ -169,12 +169,6 @@ class BrandAdminPage extends Component {
         }))
     }
   }
-  componentDidMount() {
-    console.log('BrandAdminPage Mounted')
-  }
-  componentWillUnmount() {
-    console.log('BrandAdminPage Unmounted')
-  }
   componentWillReceiveProps({ pristine, matchedBrandForm: { name }}) {
     if (name !== this.props.matchedBrandForm.name || pristine !== this.props.pristine) this.setState({ ...this.state, disabled: pristine, name })
   }
@@ -198,7 +192,6 @@ class BrandAdminPage extends Component {
       submitSucceeded,
       submitting,
     } = this.props
-          console.log('brandPage render')
     return (
       <div className="page">
         <section className="section-margin">
