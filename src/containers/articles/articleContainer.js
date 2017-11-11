@@ -131,7 +131,7 @@ const articleContainer = (ComposedComponent) => {
         paragraphProps,
       }
       return (
-        isFetching ? null : <ComposedComponent {...props} />
+        isFetching ? null : <ComposedComponent key={item.updatedAt} {...props} />
       )
     }
   }

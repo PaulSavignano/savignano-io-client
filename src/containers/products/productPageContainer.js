@@ -2,9 +2,22 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
+import loadImages from '../../utils/loadImages'
+
 const productPageContainer = (ComposedComponent) => {
   class ProductPageContainer extends Component {
+    state = {
+      loadingImages: true
+    }
+    componentDidMount() {
+      const { image } = this.props.item
+      if (image && image.src) {
+        return loadImages([image.src]).then(() => this.setState({ loadingImages: false }))
+      }
+      this.setState({ loadingImages: false })
+    }
     render() {
+      const { loadingImages } = this.state
       const {
         dispatch,
         isFetching,
@@ -19,7 +32,7 @@ const productPageContainer = (ComposedComponent) => {
         primary1Color,
       }
       return (
-        !isFetching && item ?
+        !isFetching && !loadingImages ?
         <ComposedComponent {...props} />
         :
         null

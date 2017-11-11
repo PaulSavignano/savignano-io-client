@@ -54,7 +54,7 @@ const cardContainer = (ComposedComponent) => {
         item,
       }
       return (
-        isFetching ? null : <ComposedComponent {...props} />
+        isFetching ? null : <ComposedComponent key={item.updatedAt} {...props} />
       )
     }
   }

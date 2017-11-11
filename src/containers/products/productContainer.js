@@ -31,7 +31,7 @@ const productContainer = (ComposedComponent) => {
         productStyle
       }
       return (
-        !isFetching && item ? <ComposedComponent {...props} /> : null
+        !isFetching && item ? <ComposedComponent key={item.updatedAt} {...props} /> : null
       )
     }
   }

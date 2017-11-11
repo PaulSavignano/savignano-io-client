@@ -88,7 +88,7 @@ const sectionContainer = (ComposedComponent) => {
       }
       return (
         imagesLoaded ?
-          <ComposedComponent {...props} />
+          <ComposedComponent key={item.updatedAt} {...props} />
           :
           <Transition
             in={!loadingImages}
@@ -99,7 +99,7 @@ const sectionContainer = (ComposedComponent) => {
                 ...defaultStyle,
                 ...transitionStyles[state]
               }}>
-                <ComposedComponent {...props} />
+                <ComposedComponent key={item.updatedAt} {...props} />
               </div>
             )}
           </Transition>

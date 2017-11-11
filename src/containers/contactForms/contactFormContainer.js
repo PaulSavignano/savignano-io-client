@@ -33,8 +33,8 @@ const contactFormContainer = (ComposedComponent) => {
         phone,
         user
       }
-      return (
-        isFetching ? null : <ComposedComponent {...props} />
+      return ( 
+        isFetching ? null : <ComposedComponent key={item.updatedAt} {...props} />
       )
     }
   }

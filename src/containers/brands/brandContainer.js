@@ -6,27 +6,26 @@ import brandForms from './brandForms'
 
 const brandContainer = (ComposedComponent) => {
   class BrandContainer extends Component {
-    state = {
-      props: null
-    }
-    handleFormForRoute = ({
-      brand: {
-        _id,
-        appBar,
-        articleStyle,
-        body,
-        business,
-        cardStyle,
-        footer,
-        heroStyle,
-        isFetching,
-        palette,
-        productStyle,
-        typography,
-      },
-      dispatch,
-      match: { params: { brandItem }}
-    }) => {
+
+    render() {
+      const {
+        brand: {
+          _id,
+          appBar,
+          articleStyle,
+          body,
+          business,
+          cardStyle,
+          footer,
+          heroStyle,
+          isFetching,
+          palette,
+          productStyle,
+          typography,
+        },
+        dispatch,
+        match: { params: { brandItem }}
+      } = this.props
       const forms = [
         {appBar},
         {articleStyle},
@@ -51,26 +50,12 @@ const brandContainer = (ComposedComponent) => {
         matchedBrandForm,
         matchedBrandItem,
       }
-      this.setState({ props })
-    }
-    componentDidMount() {
-      this.handleFormForRoute(this.props)
-    }
-    componentWillReceiveProps(nextProps) {
-      if (nextProps.match.params.brandItem !== this.props.match.params.brandItem) {
-        console.log('brandItem is different')
-        this.handleFormForRoute(nextProps)
-      }
-    }
-    render() {
       return (
-        this.props.brand.isFetching ? null : this.state.props ?
+        this.props.brand.isFetching ? null :
         <ComposedComponent
           key={this.props.match.params.brandItem}
-          {...this.state.props}
+          {...props}
         />
-        :
-        null
       )
     }
   }

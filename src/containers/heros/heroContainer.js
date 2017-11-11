@@ -59,7 +59,7 @@ const heroContainer = (ComposedComponent) => {
         typography
       }
       return (
-        isFetching ? null : <ComposedComponent {...props} />
+        isFetching ? null : <ComposedComponent key={item.updatedAt} {...props} />
       )
     }
   }
