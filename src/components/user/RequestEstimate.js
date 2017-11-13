@@ -13,6 +13,7 @@ import SuccessableButton from '../buttons/SuccessableButton'
 import DateField from '../fields/DateField'
 import renderTextField from '../../components/fields/renderTextField'
 import renderSelectField from '../../components/fields/renderSelectField'
+import normalizePhone from '../../utils/normalizePhone'
 import { fetchRequestEstimate } from '../../actions/user'
 
 const validate = values => {
@@ -65,10 +66,31 @@ class RequestEstimate extends Component {
             <CardTitle title="Request Estimate" subtitle="Enter your information" />
             <form onSubmit={handleSubmit(values => dispatch(fetchRequestEstimate(values)))} >
               <CardText>
-                <Field name="firstName" component={renderTextField} label="First Name" fullWidth={true} />
-                <Field name="lastName" component={renderTextField} label="Last Name" fullWidth={true} />
-                <Field name="phone" component={renderTextField} label="Phone" fullWidth={true} />
-                <Field name="email" component={renderTextField} label="Email" fullWidth={true} />
+                <Field
+                  name="firstName"
+                  component={renderTextField}
+                  label="First Name"
+                  fullWidth={true}
+                />
+                <Field
+                  name="lastName"
+                  component={renderTextField}
+                  label="Last Name"
+                  fullWidth={true}
+                />
+                <Field
+                  name="phone"
+                  component={renderTextField}
+                  label="Phone"
+                  fullWidth={true}
+                  normalize={normalizePhone}
+                />
+                <Field
+                  name="email"
+                  component={renderTextField}
+                  label="Email"
+                  fullWidth={true}
+                />
                 <br/><br/>
                 <Field
                   name="date"
@@ -76,8 +98,18 @@ class RequestEstimate extends Component {
                   className="field date"
                   component={DateField}
                 />
-                <Field name="from" component={renderTextField} label="From" fullWidth={true} />
-                <Field name="to" component={renderTextField} label="To" fullWidth={true} />
+                <Field
+                  name="from"
+                  component={renderTextField}
+                  label="From"
+                  fullWidth={true}
+                />
+                <Field
+                  name="to"
+                  component={renderTextField}
+                  label="To"
+                  fullWidth={true}
+                />
                 <Field
                   name="Size"
                   component={renderSelectField}

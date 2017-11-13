@@ -10,8 +10,8 @@ const PageHead = ({
 }) => (
   <Helmet>
     {pageName === 'Home' ? null : <title>{pageName}</title>}
-    <meta name="description" content={description} />}
-    <meta property="og:description" content={description} />
+    {description && <meta name="description" content={description} />}
+    {description && <meta property="og:description" content={description} />}
     <meta property="og:title" content={pageName} />
     <meta property="og:url" content={window.location.href} />
     <script type="application/ld+json">

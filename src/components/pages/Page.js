@@ -11,20 +11,21 @@ class Page extends Component {
   state = {
     description: null,
   }
-  getPageMetaData = () => {
-    const { page } = this.props
+  getPageMetaData = (page) => {
     const description = getPageDescription(page)
     this.setState({ description })
   }
   componentDidMount() {
     const { hash } = window.location
-    this.getPageMetaData()
+    this.getPageMetaData(this.props.page)
     if (hash) return this.scrollToId(hash)
     window.scrollTo(0, 0)
   }
-  componentWillReceiveProps({ page: { _id }}) {
+  componentWillReceiveProps({ page }) {
     const { hash } = window.location
-    if (this.props.page._id !== _id) {
+    if (this.props.page._id !== page._id) {
+      console.log('loading different page')
+      this.getPageMetaData(page)
       if (hash) return this.scrollToId(hash)
       window.scrollTo(0, 0)
     }
