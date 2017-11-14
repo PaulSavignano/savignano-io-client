@@ -16,22 +16,22 @@ const Hero = ({
   propsForParent,
 }) => {
   return (
-    <div {...propsForParent}>
-      <Card
-        id={item._id}
-        zDepth={0}
-        className="hero-child"
-      >
-        <HeroContent
-          dispatch={dispatch}
-          heroStyle={heroStyle}
-          hasButtons={hasButtons}
-          hasText={hasText}
-          hasMedia={hasMedia}
-          item={item}
-        />
-      </Card>
-    </div>
+      <div {...propsForParent}>
+        <Card
+          id={item._id}
+          zDepth={0}
+          className="hero-child"
+        >
+          <HeroContent
+            dispatch={dispatch}
+            heroStyle={heroStyle}
+            hasButtons={hasButtons}
+            hasText={hasText}
+            hasMedia={hasMedia}
+            item={item}
+          />
+        </Card>
+      </div>
   )
 }
 

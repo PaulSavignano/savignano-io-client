@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import TransitionGroup from 'react-transition-group/TransitionGroup'
 
 import './section.css'
 import sectionContainer from '../../containers/sections/sectionContainer'
@@ -11,40 +12,39 @@ import { startEdit } from '../../actions/editItem'
 class AdminSectionSlideShow extends Component {
   state = {
     index: 0,
-    intervalId: null
+    intervalId: null,
+    show: false
   }
   handleStartEdit = (e) => {
     e.stopPropagation()
     const { dispatch, item } = this.props
     return dispatch(startEdit({ item, kind: 'SECTION' }))
   }
-  componentWillMount() {
-    if (this.props.autoplay) {
-      this.start()
-    }
-  }
-  componentWillReceiveProps({ autoplay }) {
-    if (this.props.autoplay !== autoplay) {
-      if (!autoplay) {
-        this.stop()
-      } else {
-        this.start()
-      }
-    }
-  }
+
   componentWillUnmount() {
     clearInterval(this.state.intervalId)
   }
   start = () => {
     const intervalId = setInterval(() => {
-      if (this.state.index < this.props.item.items.length - 1) return this.setState({ index: this.state.index + 1 })
-      this.setState({ index: 0 })
-    }, 4000)
+      if (this.state.index < this.props.item.items.length - 1) {
+        return this.setState({ index: this.state.index + 1, show: !this.state.show })
+      }
+      this.setState({ index: 0, show: !this.state.show })
+    }, 5000)
     this.setState({ intervalId })
   }
   stop = () => {
     clearInterval(this.state.intervalId)
     this.setState({ intervalId: null })
+  }
+  componentWillMount() {
+    if (this.props.autoplay) this.start()
+  }
+  componentWillReceiveProps({ autoplay }) {
+    if (this.props.autoplay !== autoplay) {
+      if (!autoplay) return this.stop()
+      this.start()
+    }
   }
   render() {
     const {
@@ -59,13 +59,15 @@ class AdminSectionSlideShow extends Component {
     return (
       <div {...propsForParent}>
         <section {...propsForChild} className="AdminSectionSlideShow">
-          <CrossFade key={this.state.index}>
-            <AdminComponentSwitch
-              component={items[this.state.index]}
-              key={items[this.state.index].item._id}
-              pageSlug={pageSlug}
-            />
-          </CrossFade>
+          <TransitionGroup>
+            <CrossFade key={this.state.index}>
+              <AdminComponentSwitch
+                component={items[this.state.index]}
+                key={items[this.state.index].item._id}
+                pageSlug={pageSlug}
+              />
+            </CrossFade>
+          </TransitionGroup>
         </section>
         <AdminSectionEditButtons
           dispatch={dispatch}

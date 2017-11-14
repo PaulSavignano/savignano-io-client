@@ -64,16 +64,16 @@ class AppBarNavigation extends Component {
         style={{ fontFamily }}
         className="appbar-navigation-container"
       >
-        {showPhone ? showPhone ==='false' ? null :
-        <div style={{ color: primary1Color }} className="appbar-phone-container">
-          <a
-            href={`tel:${phone.replace(/\D+/g, '')}`}
-            className="appbar-phone"
-            style={{ fontSize: phoneSize, fontWeight }}
-          >
-            {phone}
-          </a>
-        </div>
+        {showPhone ==='false' ? null : phone ?
+          <div style={{ color: primary1Color }} className="appbar-phone-container">
+            <a
+              href={`tel:${phone.replace(/\D+/g, '')}`}
+              className="appbar-phone"
+              style={{ fontSize: phoneSize, fontWeight }}
+            >
+              {phone}
+            </a>
+          </div>
         : null}
         <div className="appbar-navigation">
           <div

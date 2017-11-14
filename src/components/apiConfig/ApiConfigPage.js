@@ -30,38 +30,34 @@ const ApiConfigPage = ({
 }) => (
   <div className="page">
     <section className="section-margin">
-      {_id ?
-        <Card className="brand-form">
-          <CardTitle title="apiConfig" />
-          <form onSubmit={handleSubmit(handleFormSubmit)}>
-            <div className="field-container">
-              {fields.map(name => (
-                <Field
-                  className="field"
-                  component={renderTextField}
-                  key={name}
-                  label={name}
-                  name={name}
-                />
-              ))}
-            </div>
-            {error && <div className="error">{error}</div>}
-            <div className="button-container">
-              <SuccessableButton
-                disabled={pristine}
-                error={error}
-                label={`update apiConfig`}
-                reset={reset}
-                submitSucceeded={submitSucceeded}
-                submitting={submitting}
-                successLabel={`apiConfig updated!`}
+      <Card className="brand-form">
+        <CardTitle title="apiConfig" />
+        <form onSubmit={handleSubmit(handleFormSubmit)}>
+          <div className="field-container">
+            {fields.map(name => (
+              <Field
+                className="field"
+                component={renderTextField}
+                key={name}
+                label={name}
+                name={name}
               />
-            </div>
-          </form>
-        </Card>
-      :
-      <ApiConfigAdd dispatch={dispatch} />
-      }
+            ))}
+          </div>
+          {error && <div className="error">{error}</div>}
+          <div className="button-container">
+            <SuccessableButton
+              disabled={pristine}
+              error={error}
+              label={`update apiConfig`}
+              reset={reset}
+              submitSucceeded={submitSucceeded}
+              submitting={submitting}
+              successLabel={`apiConfig updated!`}
+            />
+          </div>
+        </form>
+      </Card>
     </section>
   </div>
 )

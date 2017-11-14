@@ -199,14 +199,12 @@ class BrandAdminPage extends Component {
             className="brand-form"
             style={{ backgroundColor: canvasColor, fontFamily }}
           >
-
             <CardTitle title={`${name}`} />
             {image &&
               <ImageForm
                 key={1}
                 image={image}
                 label="image"
-                type="image/jpg"
                 onImageEdit={this.handleImageEdit}
                 onImageRemove={this.handleImageRemove}
                 ref={this.setImageFormRef}
@@ -217,7 +215,6 @@ class BrandAdminPage extends Component {
                 key={2}
                 image={backgroundImage}
                 label="backgroundImage"
-                type="image/jpg"
                 onImageEdit={this.handleBackgroundImageEdit}
                 onImageRemove={this.handleBackgroundImageRemove}
                 ref={this.setBackgroundImageFormRef}

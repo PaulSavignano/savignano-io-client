@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import './section.css'
 import sectionContainer from '../../containers/sections/sectionContainer'
 import ComponentSwitch from './ComponentSwitch'
 
