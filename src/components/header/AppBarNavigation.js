@@ -56,6 +56,7 @@ class AppBarNavigation extends Component {
       phone,
       phoneSize,
       primary1Color,
+      searchOpen,
       showPhone,
     } = this.props
     return (
@@ -92,15 +93,12 @@ class AppBarNavigation extends Component {
               null
             }
           </div>
-          <IconButton
-            children={
-              <SearchIcon
-                color={color}
-                className="appbar-search-icon"
-              />
-            }
-            onTouchTap={this.handleSearchToggle}
+
+          <SearchIcon
+            color={color}
+            handleSearchToggle={this.handleSearchToggle}
             className="appbar-search-icon-button"
+            iconClassName="appbar-search-icon"
           />
           <AppBarUser
             cartQty={cartQty}

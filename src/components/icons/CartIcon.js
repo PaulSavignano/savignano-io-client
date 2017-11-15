@@ -24,11 +24,9 @@ class CartIcon extends Component {
             primary={true}
           >
             <FontIcon
-              className={`material-icons ${fontIconClassName}`}
+              className={`fa fa-shopping-cart ${fontIconClassName}`}
               style={{ color }}
-            >
-              shopping_cart
-            </FontIcon>
+            />
           </Badge>
         }
         containerElement={<Link to="/user/cart"/>}

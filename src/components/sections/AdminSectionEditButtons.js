@@ -6,6 +6,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add'
 import FontIcon from 'material-ui/FontIcon'
 
 import buttonContainer from '../../containers/buttons/buttonContainer'
+import EditIcon from '../icons/EditIcon'
 import AdminSectionAddComponent from './AdminSectionAddComponent'
 import { startEdit } from '../../actions/editItem'
 import { fetchAdd as articleAdd } from '../../actions/articles'
@@ -13,8 +14,6 @@ import { fetchAdd as cardAdd } from '../../actions/cards'
 import { fetchAdd as contactFormAdd } from '../../actions/contactForms'
 import { fetchAdd as heroAdd } from '../../actions/heros'
 import { fetchAdd as productAdd } from '../../actions/products'
-
-const EditIcon = () => <FontIcon className="material-icons">mode_edit</FontIcon>
 
 const components = [
   { label: 'Article', action: articleAdd },

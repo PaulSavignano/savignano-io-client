@@ -135,17 +135,13 @@ header svg {
 
 }
 .appbar-search-icon {
-  font-size: 20px !important;
+  font-size: 16px !important;
   vertical-align: bottom !important;
-  font-weight: 600 !important;
 }
 
 
-
-
-
 .drawer-search-icon {
-  font-size: 20px !important;
+  font-size: 16px !important;
   vertical-align: middle !important;
 }
 
@@ -171,7 +167,7 @@ header svg {
 }
 .appbar-cart-badge span:nth-child(2n) {
   height: 22px !important;
-  left: 12px !important;
+  left: 10px !important;
   top: -8px !important;
   width: 22px !important;
 }
@@ -195,7 +191,7 @@ header svg {
 }
 .drawer-cart-badge span:nth-child(2n) {
   height: 22px !important;
-  left: 12px !important;
+  left: 10px !important;
   top: -8px !important;
   width: 22px !important;
 }
