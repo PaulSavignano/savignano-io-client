@@ -3,10 +3,31 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { ListItem } from 'material-ui/List'
 
+import slugIt from '../../utils/slugIt'
+import history from '../../containers/routers/history'
 import { toggleDrawer } from '../../actions/drawer'
 
 class DrawerSectionLink extends Component {
-  handleToggleDrawer = () => this.props.dispatch(toggleDrawer())
+  state = {
+    intervalId: null
+  }
+  handleNavigation = () => {
+    const { dispatch, page, link: { values: { pageLink }}} = this.props
+    history.push(`/${page.slug}`)
+    dispatch(toggleDrawer())
+    const intervalId = setInterval(() => {
+      history.push(`/${page.slug}#${slugIt(pageLink)}`)
+      clearInterval(this.state.intervalId)
+      this.setState({ intervalId: null })
+    }, 3)
+    this.setState({ intervalId })
+  }
+  componentWillUnmount() {
+    if (this.state.intervalId) {
+      clearInterval(this.state.intervalId)
+      this.setState({ intervalId: null })
+    }
+  }
   render() {
     const {
       link,
@@ -16,9 +37,8 @@ class DrawerSectionLink extends Component {
       <ListItem
         key={link._id}
         primaryText={link.values.pageLink}
-        onTouchTap={this.handleToggleDrawer}
+        onTouchTap={this.handleNavigation}
         innerDivStyle={{ marginLeft: 16 }}
-        containerElement={<Link to={`/${page.slug}#${link.values.pageLink}`}/>}
       />
     )
   }

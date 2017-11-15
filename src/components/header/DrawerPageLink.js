@@ -17,10 +17,8 @@ class DrawerPageLink extends Component {
     if (pageSectionLinks.length) {
       return (
         <ListItem
-          containerElement={<Link to={`/${page.slug}`}/>}
-          onTouchTap={this.handleToggleDrawer}
           primaryText={page.values.name}
-          initiallyOpen={false}
+          initiallyOpen={true}
           primaryTogglesNestedList={true}
           nestedItems={pageSectionLinks.map(link => (
             <DrawerSectionLink

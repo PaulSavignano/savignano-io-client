@@ -16,7 +16,7 @@ class ScrollToId extends Component {
           this.scrollToId(windowHash)
           clearInterval(this.state.intervalId)
           this.setState({ intervalId: null })
-        }, 300)
+        }, 200)
         this.setState({ intervalId })
       }
     }

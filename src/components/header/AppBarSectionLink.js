@@ -4,8 +4,29 @@ import { Link } from 'react-router-dom'
 import MenuItem from 'material-ui/MenuItem'
 
 import slugIt from '../../utils/slugIt'
+import history from '../../containers/routers/history'
 
 class AppBarSectionLink extends Component {
+  state = {
+    intervalId: null
+  }
+  handleNavigation = () => {
+    const { page, link: { values: { pageLink }}} = this.props
+    history.push(`/${page.slug}`)
+    this.props.onCloseMenu()
+    const intervalId = setInterval(() => {
+      history.push(`/${page.slug}#${slugIt(pageLink)}`)
+      clearInterval(this.state.intervalId)
+      this.setState({ intervalId: null })
+    }, 3)
+    this.setState({ intervalId })
+  }
+  componentWillUnmount() {
+    if (this.state.intervalId) {
+      clearInterval(this.state.intervalId)
+      this.setState({ intervalId: null })
+    }
+  }
   render() {
     const {
       link: { values: { pageLink }},
@@ -15,8 +36,7 @@ class AppBarSectionLink extends Component {
     return (
       <MenuItem
         primaryText={pageLink}
-        containerElement={<Link to={`/${page.slug}#${slugIt(pageLink)}`} />}
-        onTouchTap={onCloseMenu}
+        onTouchTap={this.handleNavigation}
       />
     )
   }
