@@ -33,6 +33,7 @@ const sectionContainer = (ComposedComponent) => {
         autoplay,
         dispatch,
         item,
+        hash,
         pageId,
         pageSlug,
         textColor
@@ -54,6 +55,7 @@ const sectionContainer = (ComposedComponent) => {
       const props = {
         autoplay,
         dispatch,
+        hash,
         item,
         pageId,
         pageSlug,

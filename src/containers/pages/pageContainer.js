@@ -16,6 +16,7 @@ const pageContainer = (ComposedComponent) => {
         firstName,
         hasBrand,
         isFetching,
+        location: { hash },
         page,
         pageSlug,
         textColor,
@@ -44,7 +45,8 @@ const pageContainer = (ComposedComponent) => {
             dispatch,
             page,
             propsForParent,
-            textColor
+            textColor,
+            hash,
           }
           return <ComposedComponent {...props} />
         case (!hasBrand):

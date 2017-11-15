@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import MenuItem from 'material-ui/MenuItem'
 
+import slugIt from '../../utils/slugIt'
+
 class AppBarSectionLink extends Component {
   render() {
     const {
@@ -13,7 +15,7 @@ class AppBarSectionLink extends Component {
     return (
       <MenuItem
         primaryText={pageLink}
-        containerElement={<Link to={`/${page.slug}#${pageLink}`} />}
+        containerElement={<Link to={`/${page.slug}#${slugIt(pageLink)}`} />}
         onTouchTap={onCloseMenu}
       />
     )

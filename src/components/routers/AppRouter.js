@@ -126,7 +126,6 @@ class AppRouter extends Component {
     body.style.backgroundImage = bodyBackgroundImg
     body.style.backgroundPosition = bodyBackgroundPosition
     body.style.backgroundColor = bodyBackgroundColor
-
     return (
       <Router history={history}>
         <div>

@@ -14,7 +14,7 @@ const cardContainer = (ComposedComponent) => {
       if (values.elevation) this.setState({ elevation: values.elevation })
     }
     handleMouseEnter = () => this.setState({ elevation: 4 })
-    handleMouseLeave = () => this.setState({ elevation: 1 })
+    handleMouseLeave = () => this.setState({ elevation: this.props.cardStyle.values.elevation || 1 })
     handleNavigation = () => {
       const { item: { values: { link }}} = this.props
       return history.push(link)

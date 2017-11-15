@@ -16,30 +16,22 @@ class Page extends Component {
     this.setState({ description })
   }
   componentDidMount() {
-    const { hash } = window.location
+    const { hash } = this.props
     this.getPageMetaData(this.props.page)
-    if (hash) return this.scrollToId(hash)
+    if (hash) return
     window.scrollTo(0, 0)
   }
-  componentWillReceiveProps({ page }) {
-    const { hash } = window.location
+  componentWillReceiveProps({ hash, page }) {
     if (this.props.page._id !== page._id) {
-      console.log('loading different page')
       this.getPageMetaData(page)
-      if (hash) return this.scrollToId(hash)
-      window.scrollTo(0, 0)
     }
-  }
-  scrollToId = (hash) => {
-    const id = hash.replace('#', '')
-    const element = document.getElementById(id)
-    if (element) return element.scrollIntoView({ block: "start", behavior: "smooth" })
   }
   render() {
     const {
       brandImage,
       brandName,
       dispatch,
+      hash,
       page: {
         _id,
         slug,
@@ -63,6 +55,7 @@ class Page extends Component {
             <SectionSwitch
               dispatch={dispatch}
               key={section._id}
+              hash={hash}
               pageId={_id}
               pageSlug={slug}
               section={section}

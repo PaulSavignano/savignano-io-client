@@ -6,15 +6,17 @@ import SectionSwipeable from '../sections/SectionSwipeable'
 
 const SectionSwitch = ({
   dispatch,
+  hash,
   pageId,
   pageSlug,
-  section
+  section,
 }) => {
   switch(section.values.kind) {
     case 'Flex':
       return <Section
         dispatch={dispatch}
         key={section._id}
+        hash={hash}
         item={section}
         pageId={pageId}
         pageSlug={pageSlug}
@@ -23,6 +25,7 @@ const SectionSwitch = ({
      return <SectionSlideShow
        dispatch={dispatch}
        key={section._id}
+       hash={hash}
        item={section}
        pageId={pageId}
        pageSlug={pageSlug}
@@ -31,6 +34,7 @@ const SectionSwitch = ({
       return <SectionSwipeable
         dispatch={dispatch}
         key={section._id}
+        hash={hash}
         item={section}
         pageId={pageId}
         pageSlug={pageSlug}
@@ -39,6 +43,7 @@ const SectionSwitch = ({
       return <Section
         dispatch={dispatch}
         key={section._id}
+        hash={hash}
         item={section}
         pageId={pageId}
         pageSlug={pageSlug}
