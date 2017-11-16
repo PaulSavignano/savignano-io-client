@@ -34,15 +34,16 @@ class ProductPage extends Component {
         values: {
           descriptionColor,
           detailColor,
-          nameColor,
-          nameTextShadow,
+          detailPageBackgroundColor,
           mediaBorder,
           mediaElevation,
+          nameColor,
+          nameTextShadow,
         }
       }
     } = this.props
     return (
-      <div className="product-page" id={_id}>
+      <div className="product-page" id={_id} style={{ backgroundColor: detailPageBackgroundColor }}>
         <section className="product-page-section">
           <Media
             border={mediaBorder}

@@ -40,14 +40,18 @@ const productPageContainer = (ComposedComponent) => {
     }
   }
   const mapStateToProps = ({
-    brand,
+    brand: {
+      isFetching: brandIsFetching,
+      productStyle,
+      palette: { values: { primary1Color }}
+    },
     products
   }, {
     match: { params: { productId }}
   }) => ({
-    isFetching: brand.isFetching || products.isFetching ? true : false,
-    productStyle: brand.productStyle,
-    primary1Color: brand.palette.values.primary1Color,
+    isFetching: brandIsFetching || products.isFetching ? true : false,
+    productStyle,
+    primary1Color,
     item: products.items.find(item => item._id === productId)
   })
   ProductPageContainer.propTypes = {

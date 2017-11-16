@@ -153,11 +153,12 @@ const brandForms = [{
   fields: [
     { name: 'descriptionColor', type: 'text' },
     { name: 'detailColor', type: 'text' },
+    { name: 'detailPageBackgroundColor', type: 'text' },
     { name: 'flex', type: 'text' },
-    { name: 'nameColor', type: 'text' },
-    { name: 'nameTextShadow', type: 'text' },
     { name: 'margin', type: 'text' },
     { name: 'mediaElevation', type: 'number', max: 24, min: 0 },
+    { name: 'nameColor', type: 'text' },
+    { name: 'nameTextShadow', type: 'text' },
   ]
 }, {
   name: 'typography',
