@@ -25,15 +25,18 @@ class AdminProduct extends Component {
       }
     } = this.props
     return (
-      <Card
-        {...events}
-        zDepth={elevation}
-        onTouchTap={this.handleStartEdit}
+      <div
+        className="AdminProduct"
         style={{ flex, margin }}
-        className="admin-product"
       >
-        <ProductContent {...this.props} />
-      </Card>
+        <Card
+          {...events}
+          zDepth={elevation}
+          onTouchTap={this.handleStartEdit}
+        >
+          <ProductContent {...this.props} />
+        </Card>
+      </div>
     )
   }
 }

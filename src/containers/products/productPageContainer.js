@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import loadImages from '../../utils/loadImages'
+import H3 from '../../components/typography/H3'
 
 const productPageContainer = (ComposedComponent) => {
   class ProductPageContainer extends Component {
@@ -10,10 +11,14 @@ const productPageContainer = (ComposedComponent) => {
       loadingImages: true
     }
     componentDidMount() {
-      const { image } = this.props.item
-      if (image && image.src) {
-        return loadImages([image.src]).then(() => this.setState({ loadingImages: false }))
+      const { item } = this.props
+      if (item) {
+        const { image } = item
+        if (image && image.src) {
+          return loadImages([image.src]).then(() => this.setState({ loadingImages: false }))
+        }
       }
+
       this.setState({ loadingImages: false })
     }
     render() {
@@ -32,10 +37,15 @@ const productPageContainer = (ComposedComponent) => {
         primary1Color,
       }
       return (
+        item ?
         !isFetching && !loadingImages ?
         <ComposedComponent {...props} />
         :
         null
+        :
+        <div className="not-found-page">
+          <H3>Sorry, that product doesn't exist</H3>
+        </div>
       )
     }
   }

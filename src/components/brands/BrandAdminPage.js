@@ -76,10 +76,12 @@ class BrandAdminPage extends Component {
     } = this.state
     const {
       _id,
-      backgroundImage,
+      matchedBrandItem: {
+        backgroundImage,
+        image,
+      },
       dispatch,
       form,
-      image,
     } = this.props
     const newBackgroundImage = backgroundImageEdit ? this.backgroundImageEditor.handleSave() : null
     const newImage = imageEdit ? this.imageEditor.handleSave() : null
@@ -127,6 +129,7 @@ class BrandAdminPage extends Component {
           }
         }))
       case (imageEdit):
+        console.log('image edit', oldImageSrc)
         return dispatch(fetchUpdate({
           path: `${_id}/${form.toLowerCase()}/update-with-image`,
           update: {

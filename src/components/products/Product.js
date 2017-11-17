@@ -9,6 +9,9 @@ import ProductContent from './ProductContent'
 import slugIt from '../../utils/slugIt'
 
 class Product extends Component {
+  componentDidMount() {
+    if (window.location.hash.replace('#', '') === this.props.item._id) this.elRef.scrollIntoView()
+  }
   handleNavigation = (e) => {
     const { item: { _id, values: { name }}} = this.props
     e.stopPropagation()
@@ -29,16 +32,20 @@ class Product extends Component {
       }
     } = this.props
     return (
-      <Card
-        {...events}
-        zDepth={elevation}
+      <div
         style={{ flex, margin }}
-        id={_id}
-        onTouchTap={this.handleNavigation}
-        className="product"
+        ref={el => this.elRef = el}
+        className="Product"
       >
-        <ProductContent {...this.props} />
-      </Card>
+        <Card
+          {...events}
+          zDepth={elevation}
+          onTouchTap={this.handleNavigation}
+        >
+          <ProductContent {...this.props} />
+        </Card>
+      </div>
+
     )
   }
 }

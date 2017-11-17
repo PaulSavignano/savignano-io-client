@@ -2,13 +2,35 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import './section.css'
-import ScrollToId from '../routers/ScrollToId'
+import ScrollIntoView from '../routers/ScrollIntoView'
 import slugIt from '../../utils/slugIt'
 import sectionContainer from '../../containers/sections/sectionContainer'
 import ComponentSwitch from './ComponentSwitch'
 
 class Section extends Component {
-
+  state = {
+    intervalId: null
+  }
+  componentDidMount() {
+    const { hash, item: { values: { pageLink }}} = this.props
+    if (hash && pageLink && hash) {
+      if (hash.replace('#', '') === slugIt(pageLink)) {
+        const intervalId = setInterval(() => {
+          this.elRef.scrollIntoView()
+          clearInterval(this.state.intervalId)
+          this.setState({ intervalId: null })
+        }, 300)
+        this.setState({ intervalId })
+      }
+    }
+  }
+  componentWillReceiveProps({ hash, item: { values: { pageLink }}}) {
+    if (this.props.hash !== hash && pageLink && hash) {
+      if (hash.replace('#', '') === slugIt(pageLink)) {
+        this.elRef.scrollIntoView()
+      }
+    }
+  }
   render() {
     const {
       hash,
@@ -22,13 +44,16 @@ class Section extends Component {
       propsForChild,
       propsForParent
     } = this.props
+    console.log()
+
     return (
-      <div {...propsForParent}>
-        <ScrollToId pageLink={pageLink} hash={hash} />
+      <div
+        {...propsForParent}
+        ref={el => this.elRef = el}>
         <section
-          id={pageLink ? slugIt(pageLink) : null}
           {...propsForChild}
           className="Section"
+          id={pageLink ? slugIt(pageLink) : _id}
         >
           {items.map(component => {
             return (

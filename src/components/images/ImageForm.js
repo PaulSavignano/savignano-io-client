@@ -118,7 +118,7 @@ class ImageForm extends Component {
     const type = ext ? `image/${ext}` : 'image/jpeg'
     const image = {
       height,
-      src: this.editor.getImageScaledToCanvas().toDataURL('image/jpeg', .92),
+      src: this.editor.getImageScaledToCanvas().toDataURL(type, .92),
       ext,
       width,
     }

@@ -8,6 +8,30 @@ const isTouchDevice = !!(
   ('ontouchstart' in window || navigator.msMaxTouchPoints > 0)
 )
 
+
+const parseDom = (str) => {
+  const parser = typeof DOMParser === 'undefined' ? null : new DOMParser()
+  if (!parser) return null
+  return parser.parseFromString(str, 'text/html')
+}
+
+
+const retrieveImageUrl = (dataTransferItems, callback) => {
+  for (let i = 0; i < dataTransferItems.length; i++) {
+    let item = dataTransferItems[i]
+    if (item.type === 'text/html') {
+      item.getAsString(value => {
+        const doc = parseDom(value)
+        const img = doc.querySelector('img')
+        if (img && img.src) {
+          callback(img.src)
+        }
+      })
+      break
+    }
+  }
+}
+
 const draggableEvents = {
   touch: {
     react: {
@@ -48,20 +72,16 @@ const draggableEvents = {
     }
   }
 }
+
+
 const deviceEvents = isTouchDevice ? draggableEvents.touch : draggableEvents.desktop
 
 
-
-
-
-// Define global variables for standard.js
-/* global Image, FileReader */
 class ImageEditor extends Component {
   static propTypes = {
     scale: PropTypes.number,
     rotate: PropTypes.number,
     image: PropTypes.string,
-    border: PropTypes.number,
     width: PropTypes.number,
     height: PropTypes.number,
     position: PropTypes.shape({
@@ -71,7 +91,6 @@ class ImageEditor extends Component {
     color: PropTypes.arrayOf(PropTypes.number),
     style: PropTypes.object,
     crossOrigin: PropTypes.oneOf(['', 'anonymous', 'use-credentials']),
-
     onDropFile: PropTypes.func,
     onLoadFailure: PropTypes.func,
     onLoadSuccess: PropTypes.func,
@@ -85,10 +104,9 @@ class ImageEditor extends Component {
   static defaultProps = {
     scale: 1,
     rotate: 0,
-    border: 0,
     width: 200,
     height: 200,
-    color: [0, 0, 0, 0.5],
+    color: [255, 255, 255, 0.5],
     style: {},
     onDropFile () {},
     onLoadFailure () {},
@@ -108,44 +126,36 @@ class ImageEditor extends Component {
       y: 0.5
     }
   }
-  isVertical = () => {
-      return this.props.rotate % 180 !== 0
-  }
+  isVertical = () => this.props.rotate % 180 !== 0
+
   getDimensions = () => {
-    const { width, height, rotate, border } = this.props
+    const { width, height, rotate } = this.props
     const canvas = {}
-    const canvasWidth = width + (border * 2);
-    const canvasHeight = height + (border * 2);
     if (this.isVertical()) {
-      canvas.width = canvasHeight
-      canvas.height = canvasWidth
+      canvas.width = height
+      canvas.height = width
     } else {
-      canvas.width = canvasWidth
-      canvas.height = canvasHeight
+      canvas.width = width
+      canvas.height = height
     }
     return {
       canvas,
       rotate,
       width,
       height,
-      border
     }
   }
 
+
   getImage = () => {
-    // get relative coordinates (0 to 1)
     const cropRect = this.getCroppingRect()
     const image = this.state.image
-
-    // get actual pixel coordinates
     cropRect.x *= image.resource.width
     cropRect.y *= image.resource.height
     cropRect.width *= image.resource.width
     cropRect.height *= image.resource.height
 
-    // create a canvas with the correct dimensions
     const canvas = document.createElement('canvas')
-
     if (this.isVertical()) {
       canvas.width = cropRect.height
       canvas.height = cropRect.width
@@ -153,27 +163,24 @@ class ImageEditor extends Component {
       canvas.width = cropRect.width
       canvas.height = cropRect.height
     }
-
-    // draw the full-size image at the correct position,
-    // the image gets truncated to the size of the canvas.
     const context = canvas.getContext('2d')
-    context.translate((canvas.width / 2), (canvas.height / 2));
-    context.rotate((this.props.rotate * Math.PI / 180))
-    context.translate(-(canvas.width / 2), -(canvas.height / 2));
+    context.translate(canvas.width / 2, canvas.height / 2)
+    context.rotate(this.props.rotate * Math.PI / 180)
+    context.translate(-(canvas.width / 2), -(canvas.height / 2))
     if (this.isVertical()) {
-        context.translate((canvas.width - canvas.height) / 2, (canvas.height - canvas.width) / 2)
+      context.translate(
+        (canvas.width - canvas.height) / 2,
+        (canvas.height - canvas.width) / 2
+      )
     }
-
     context.drawImage(image.resource, -cropRect.x, -cropRect.y)
     return canvas
   }
 
 
-  /**
-   * Get the image scaled to original canvas size.
-   * This was default in 4.x and is now kept as a legacy method.
-   */
-  getImageScaledToCanvas = () => {
+
+
+  getImageScaledToCanvas () {
     const { width, height } = this.getDimensions()
     const canvas = document.createElement('canvas')
     if (this.isVertical()) {
@@ -183,15 +190,14 @@ class ImageEditor extends Component {
       canvas.width = width
       canvas.height = height
     }
-    // don't paint a border here, as it is the resulting image
-    this.paintImage(canvas.getContext('2d'), this.state.image, 0)
+    this.paintImage(canvas.getContext('2d'), this.state.image, 0, 1)
     return canvas
   }
 
 
   getXScale = () => {
-    let canvasAspect = this.props.width / this.props.height
-    let imageAspect = this.state.image.width / this.state.image.height
+    const canvasAspect = this.props.width / this.props.height
+    const imageAspect = this.state.image.width / this.state.image.height
     return Math.min(1, canvasAspect / imageAspect)
   }
 
@@ -201,24 +207,25 @@ class ImageEditor extends Component {
     return Math.min(1, canvasAspect / imageAspect)
   }
 
+
   getCroppingRect = () => {
-    let position = this.props.position || { x: this.state.image.x, y: this.state.image.y },
-        width = (1 / this.props.scale) * this.getXScale(),
-        height = (1 / this.props.scale) * this.getYScale()
-    let croppingRect = {
-      x: position.x - (width / 2),
-      y: position.y - (height / 2),
+    const position = this.props.position || {
+      x: this.state.image.x,
+      y: this.state.image.y
+    }
+    const width = 1 / this.props.scale * this.getXScale()
+    const height = 1 / this.props.scale * this.getYScale()
+    const croppingRect = {
+      x: position.x - width / 2,
+      y: position.y - height / 2,
       width,
       height
     }
-    let xMin = 0,
-      xMax = 1 - croppingRect.width,
-      yMin = 0,
-      yMax = 1 - croppingRect.height
-    // If the cropping rect is larger than the image, then we need to change
-    // our maxima & minima for x & y to allow the image to appear anywhere up
-    // to the very edge of the cropping rect.
-    let isLargerThanImage = width > 1 || height > 1
+    let xMin = 0
+    let xMax = 1 - croppingRect.width
+    let yMin = 0
+    let yMax = 1 - croppingRect.height
+    const isLargerThanImage = width > 1 || height > 1
     if (isLargerThanImage) {
       xMin = -croppingRect.width
       xMax = 1
@@ -231,13 +238,35 @@ class ImageEditor extends Component {
       y: Math.max(yMin, Math.min(croppingRect.y, yMax))
     }
   }
+
+
   isDataURL = (str) => {
     if (str === null) {
       return false
     }
-    const regex = /^\s*data:([a-z]+[a-z]+(;[a-z]+=[a-z]+)?)?(;base64)?,[a-z0-9!$&',()*+;=._~:@?%\s]*\s*$/i
+    const regex = /^\s*data:([a-z]+\/[a-z]+(;[a-z-]+=[a-z-]+)?)?(;base64)?,[a-z0-9!$&',()*+;=\-._~:@/?%\s]*\s*$/i
     return !!str.match(regex)
   }
+
+
+
+  loadImageURL (imageURL) {
+    const imageObj = new Image()
+    imageObj.onload = this.handleImageReady.bind(this, imageObj)
+    imageObj.onerror = this.props.onLoadFailure
+    if (!this.isDataURL(imageURL) && this.props.crossOrigin) { imageObj.crossOrigin = this.props.crossOrigin }
+    imageObj.src = imageURL
+  }
+
+
+  loadImageFile (imageFile) {
+    const reader = new FileReader()
+    reader.onload = e => this.loadImageURL(e.target.result)
+    reader.readAsDataURL(imageFile)
+  }
+
+
+
   loadImage = (imageURL) => {
     const imageObj = new Image()
     imageObj.onload = this.handleImageReady.bind(this, imageObj)
@@ -245,6 +274,7 @@ class ImageEditor extends Component {
     if (!this.isDataURL(imageURL) && this.props.crossOrigin) imageObj.crossOrigin = this.props.crossOrigin
     imageObj.src = imageURL
   }
+
 
   componentDidMount() {
     const context = ReactDOM.findDOMNode(this.canvas).getContext('2d')
@@ -273,34 +303,43 @@ class ImageEditor extends Component {
       }
     }
   }
+
+
   componentDidUpdate(prevProps, prevState) {
-    const context = ReactDOM.findDOMNode(this.canvas).getContext('2d')
-    context.clearRect(0, 0, this.getDimensions().canvas.width, this.getDimensions().canvas.height)
+    const canvas = ReactDOM.findDOMNode(this.canvas)
+    const context = canvas.getContext('2d')
+    context.clearRect(0, 0, canvas.width, canvas.height)
     this.paint(context)
-    this.paintImage(context, this.state.image, this.props.border)
-    if (prevProps.image !== this.props.image ||
-        prevProps.width !== this.props.width ||
-        prevProps.height !== this.props.height ||
-        prevProps.position !== this.props.position ||
-        prevProps.scale !== this.props.scale ||
-        prevProps.rotate !== this.props.rotate ||
-        prevProps.gradientY0 !== this.props.gradientY0 ||
-        prevProps.gradientY1 !== this.props.gradientY1 ||
-        prevState.my !== this.state.my ||
-        prevState.mx !== this.state.mx ||
-        prevState.image.x !== this.state.image.x ||
-        prevState.image.y !== this.state.image.y) {
+    this.paintImage(context, this.state.image)
+    if (
+      prevProps.image !== this.props.image ||
+      prevProps.width !== this.props.width ||
+      prevProps.height !== this.props.height ||
+      prevProps.position !== this.props.position ||
+      prevProps.scale !== this.props.scale ||
+      prevProps.rotate !== this.props.rotate ||
+      prevProps.gradientY0 !== this.props.gradientY0 ||
+      prevProps.gradientY1 !== this.props.gradientY1 ||
+      prevState.my !== this.state.my ||
+      prevState.mx !== this.state.mx ||
+      prevState.image.x !== this.state.image.x ||
+      prevState.image.y !== this.state.image.y
+    ) {
       this.props.onImageChange()
     }
   }
+
+
   handleImageReady = (image) => {
     const imageState = this.getInitialSize(image.width, image.height)
     imageState.resource = image
-    imageState.x = 0.5;
-    imageState.y = 0.5;
+    imageState.x = 0.5
+    imageState.y = 0.5
     this.setState({ drag: false, image: imageState }, this.props.onImageReady)
     this.props.onLoadSuccess(imageState)
   }
+
+
   getInitialSize = (width, height) => {
     let newHeight
     let newWidth
@@ -308,62 +347,74 @@ class ImageEditor extends Component {
     const canvasRatio = dimensions.height / dimensions.width
     const imageRatio = height / width
     if (canvasRatio > imageRatio) {
-      newHeight = (this.getDimensions().height)
-      newWidth = (width * (newHeight / height))
+      newHeight = this.getDimensions().height
+      newWidth = width * (newHeight / height)
     } else {
-      newWidth = (this.getDimensions().width)
-      newHeight = (height * (newWidth / width))
+      newWidth = this.getDimensions().width
+      newHeight = height * (newWidth / width)
     }
     return {
       height: newHeight,
       width: newWidth
     }
   }
+
+
   componentWillReceiveProps(newProps) {
-    if ((newProps.image && this.props.image !== newProps.image) ||
-        this.props.width !== newProps.width ||
-        this.props.height !== newProps.height) {
+    if (
+      (newProps.image && this.props.image !== newProps.image) ||
+      this.props.width !== newProps.width ||
+      this.props.height !== newProps.height
+    ) {
       this.loadImage(newProps.image)
     }
   }
-  paintImage = (context, image, border) => {
+
+
+  paintImage = (context, image) => {
     if (image.resource) {
-      const position = this.calculatePosition(image, border)
+      const position = this.calculatePosition(image)
       context.save()
       context.globalAlpha = this.props.opacity
-
-
-      context.translate((context.canvas.width / 2), (context.canvas.height / 2));
-      context.rotate((this.props.rotate * Math.PI / 180))
-      context.translate(-(context.canvas.width / 2), -(context.canvas.height / 2));
+      context.translate(context.canvas.width / 2, context.canvas.height / 2)
+      context.rotate(this.props.rotate * Math.PI / 180)
+      context.translate(
+        -(context.canvas.width / 2),
+        -(context.canvas.height / 2)
+      )
       if (this.isVertical()) {
-          context.translate((context.canvas.width - context.canvas.height) / 2, (context.canvas.height - context.canvas.width) / 2)
+        context.translate(
+          (context.canvas.width - context.canvas.height) / 2,
+          (context.canvas.height - context.canvas.width) / 2
+        )
       }
-
-      context.drawImage(image.resource, position.x, position.y, position.width, position.height)
-
-
-      const gradient = context.createLinearGradient(0, this.props.gradientY0, 0, this.props.gradientY1);
+      context.drawImage(
+        image.resource,
+        position.x,
+        position.y,
+        position.width,
+        position.height
+      )
+      const gradient = context.createLinearGradient(0, this.props.gradientY0, 0, this.props.gradientY1)
       gradient.addColorStop(0.0, 'rgba(255, 255, 255, 0)')
       gradient.addColorStop(0.2, 'rgba(0, 0, 0, 0)')
       gradient.addColorStop(0.28, 'rgba(0, 0, 0, .08)')
       gradient.addColorStop(0.75, 'rgba(0, 0, 0, .5)')
       gradient.addColorStop(1, 'rgba(0, 0, 0, .7)');
-
-
       context.fillStyle = gradient
       context.fillRect(0, 0, this.props.width, this.props.height)
-
       context.restore()
     }
   }
-  calculatePosition = (image, border) => {
+
+
+  calculatePosition = (image) => {
     image = image || this.state.image
     const croppingRect = this.getCroppingRect()
     const width = image.width * this.props.scale
     const height = image.height * this.props.scale
-    const x = border - (croppingRect.x * width)
-    const y = border - (croppingRect.y * height)
+    const x = croppingRect.x * width
+    const y = croppingRect.y * height
     return {
       x,
       y,
@@ -371,29 +422,24 @@ class ImageEditor extends Component {
       width
     }
   }
+
+
   paint = (context) => {
     context.save()
     context.translate(0, 0)
-
     const dimensions = this.getDimensions()
     const height = dimensions.canvas.height
     const width = dimensions.canvas.width
-
-    // clamp border radius between zero (perfect rectangle) and half the size without borders (perfect circle or "pill")
     context.beginPath()
-    // inner rect, possibly rounded
-    context.rect(width, 0, -width, height) // outer rect, drawn "counterclockwise"
+    context.rect(width, 0, -width, height)
     context.fill('evenodd')
-
-
-
     context.restore()
   }
+
+
+
   handleMouseDown = (e) => {
     e = e || window.event
-    // if e is a touch event, preventDefault keeps
-    // corresponding mouse events from also being fired
-    // later.
     e.preventDefault()
     this.setState({
       drag: true,
@@ -407,11 +453,11 @@ class ImageEditor extends Component {
       this.props.onMouseUp()
     }
   }
+
+
   handleMouseMove = (e) => {
     e = e || window.event
-    if (this.state.drag === false) {
-      return
-    }
+    if (this.state.drag === false) return
     const mousePositionX = e.targetTouches ? e.targetTouches[0].pageX : e.clientX
     const mousePositionY = e.targetTouches ? e.targetTouches[0].pageY : e.clientY
     const newState = {
@@ -427,13 +473,9 @@ class ImageEditor extends Component {
       const my = this.state.my - mousePositionY
       const width = this.state.image.width * this.props.scale
       const height = this.state.image.height * this.props.scale
-      let {
-        x: lastX,
-        y: lastY
-      } = this.getCroppingRect()
+      let { x: lastX, y: lastY } = this.getCroppingRect()
       lastX *= width
       lastY *= height
-      // helpers to calculate vectors
       const toRadians = degree => degree * (Math.PI / 180)
       const cos = Math.cos(toRadians(rotate))
       const sin = Math.sin(toRadians(rotate))
@@ -442,8 +484,8 @@ class ImageEditor extends Component {
       let relativeWidth = (1 / this.props.scale) * this.getXScale()
       let relativeHeight = (1 / this.props.scale) * this.getYScale()
       const position = {
-          x: (x / width) + (relativeWidth / 2),
-          y: (y / height) + (relativeHeight / 2)
+        x: (x / width) + (relativeWidth / 2),
+        y: (y / height) + (relativeHeight / 2)
       }
       this.props.onPositionChange(position)
       newState.image = {
@@ -452,34 +494,40 @@ class ImageEditor extends Component {
       }
     }
     this.setState(newState)
-    this.props.onMouseMove()
+    this.props.onMouseMove(e)
   }
-  handleDragOver = (e) => {
-    e = e || window.event
-    e.preventDefault()
-  }
-  handleDrop = (e) => {
-    e = e || window.event
+
+
+  handleDragOver = (e = window.event) => e.preventDefault()
+  handleDrop = (e = window.event) => {
     e.stopPropagation()
     e.preventDefault()
-    if (e.dataTransfer && e.dataTransfer.files.length) {
-      this.props.onDropFile(e)
-      const reader = new FileReader()
-      const file = e.dataTransfer.files[0]
-      reader.onload = (e) => this.loadImage(e.target.result)
-      reader.readAsDataURL(file)
+    if (e.dataTransfer) {
+      const { files, items } = e.dataTransfer
+      if (files && files.length) {
+        this.props.onDropFile(e)
+        this.loadImageFile(files[0])
+      } else if (items && items.length) {
+        retrieveImageUrl(items, src => this.loadImage(src))
+      }
     }
   }
+
+
   setCanvas = (canvas) => {
     this.canvas = canvas
   }
+
   render() {
+    const dimensions = this.getDimensions()
     const defaultStyle = {
+      width: dimensions.canvas.width,
+      height: dimensions.canvas.height,
       cursor: this.state.drag ? 'grabbing' : 'grab'
     }
     const attributes = {
-      width: this.getDimensions().canvas.width,
-      height: this.getDimensions().canvas.height,
+      width: dimensions.canvas.width,
+      height: dimensions.canvas.height,
       style: {
         ...defaultStyle,
         ...this.props.style
@@ -487,13 +535,16 @@ class ImageEditor extends Component {
     }
     attributes[deviceEvents.react.down] = this.handleMouseDown
     attributes[deviceEvents.react.drag] = this.handleDragOver
-    attributes[deviceEvents.react.drop] = this.handleDrop
-    if (isTouchDevice) attributes[deviceEvents.react.mouseDown] = this.handleMouseDown
+    if (!this.props.disableDrop) { attributes[deviceEvents.react.drop] = this.handleDrop }
+    if (isTouchDevice) { attributes[deviceEvents.react.mouseDown] = this.handleMouseDown }
     return (
       <div>
-        <canvas ref={this.setCanvas} {...attributes} style={{ width: '100%', height: 'auto', border: '1px solid rgba(0,0,0,.7)' }}/>
+        <canvas
+          ref={this.setCanvas}
+          {...attributes}
+          className="ImageForm"
+        />
       </div>
-
     )
   }
 }

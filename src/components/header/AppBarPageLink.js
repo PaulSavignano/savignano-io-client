@@ -11,11 +11,9 @@ class AppBarPageLink extends Component {
   state = {
     anchorEl: null,
     openMenu: false,
+    pageSectionLinks: [],
+    timeoutId: null,
     usingMenu: false,
-    timeoutId: null
-  }
-  componentWillUnmount() {
-    clearTimeout(this.state.timeoutId)
   }
   handleButtonMouseEnter = (e) => {
     this.setState({
@@ -36,14 +34,21 @@ class AppBarPageLink extends Component {
     this.setState({ openMenu: false, anchorEl: null, usingMenu: false })
   }
   handleCloseMenu = () => this.setState({ openMenu: false })
+  componentWillMount() {
+    const pageSectionLinks = this.props.page.sections.filter(section => section.values.pageLink)
+    this.setState({ pageSectionLinks })
+  }
+  componentWillUnmount() {
+    clearTimeout(this.state.timeoutId)
+  }
   render() {
+    const { pageSectionLinks } = this.state
     const {
       color,
       dispatch,
       fontFamily,
       page,
     } = this.props
-    const pageSectionLinks = page.sections.filter(section => section.values.pageLink)
     return (
       <FlatButton
         onMouseEnter={this.handleButtonMouseEnter}

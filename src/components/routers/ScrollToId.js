@@ -42,6 +42,7 @@ class ScrollToId extends Component {
     if (element) return element.scrollIntoView()
   }
   render() {
+    console.log('rendering scrollToId')
     return null
   }
 }

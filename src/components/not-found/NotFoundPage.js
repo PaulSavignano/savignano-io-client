@@ -1,14 +1,11 @@
 import React from 'react'
 import { Card, CardTitle } from 'material-ui/Card'
+import H3 from '../typography/H3'
 
 const NotFoundPage = () => (
-  <div className="page">
-    <section className="section-margin">
-      <Card zDepth={0}>
-        <CardTitle title="Sorry, that page does not exist." />
-      </Card>
-    </section>
-  </div>
+  <section className="not-found-page">
+    <H3>Sorry, that page doesn't exist</H3>
+  </section>
 )
 
 export default NotFoundPage

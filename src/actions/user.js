@@ -44,7 +44,7 @@ export const fetchAdd = (values) => {
       .then(json => {
         if (json.error) return Promise.reject(json.error)
         const { user } = json
-        return dispatch(fetchAddSuccess(user))
+        dispatch(fetchAddSuccess(user))
       })
       .catch(error => {
         dispatch(fetchFailure(error))

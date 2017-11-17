@@ -1,11 +1,12 @@
 import { type } from '../actions/user'
 
 const user = (state = {
-  isFetching: false,
   addresses: [],
+  error: null,
+  isFetching: false,
+  redirect: '/',
   roles: [],
   values: {},
-  error: null
 }, action) => {
   switch(action.type) {
     case `ADD_${type}`:

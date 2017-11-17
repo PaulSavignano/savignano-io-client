@@ -61,7 +61,7 @@ class SearchItem extends Component {
           <Media
             image={image}
             iframe={iframe}
-            flex="1 1 300px"
+            flex="0 1 200px"
           />
         : null}
         <div className="search-content">

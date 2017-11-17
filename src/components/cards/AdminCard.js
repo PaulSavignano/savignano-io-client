@@ -33,15 +33,19 @@ class AdminCard extends Component {
       margin,
     } = cardStyle.values
     return (
-      <Card
-        {...linkEvents}
-        onTouchTap={this.handleStartEdit}
-        style={{ cursor, flex: itemFlex || cardStyleFlex, margin }}
-        zDepth={elevation}
+      <div
         className="AdminCard"
+        style={{ cursor, flex: itemFlex || cardStyleFlex, margin }}
       >
-        <CardContent {...this.props} />
-      </Card>
+        <Card
+          {...linkEvents}
+          onTouchTap={this.handleStartEdit}
+          zDepth={elevation}
+        >
+          <CardContent {...this.props} />
+        </Card>
+      </div>
+
     )
   }
 }

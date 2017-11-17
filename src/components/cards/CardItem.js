@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Card } from 'material-ui/Card'
 
@@ -6,36 +6,45 @@ import './card.css'
 import cardContainer from '../../containers/cards/cardContainer'
 import CardContent from './CardContent'
 
-const CardItem = (props) => {
-  const {
-    cardStyle,
-    cursor,
-    elevation,
-    item: {
-      _id,
-      values: {
-        flex: itemFlex
-      }
-    },
-    linkEvents,
-    linkNavigation
-  } = props
-  const {
-    flex: cardStyleFlex,
-    margin,
-  } = cardStyle.values
-  return (
-    <Card
-      {...linkEvents}
-      {...linkNavigation}
-      style={{ cursor, flex: itemFlex || cardStyleFlex, margin }}
-      zDepth={elevation}
-      id={_id}
-      className="CardItem"
-    >
-      <CardContent {...props} />
-    </Card>
-  )
+class CardItem extends Component {
+  componentDidMount() {
+    if (window.location.hash.replace('#', '') === this.props.item._id) this.elRef.scrollIntoView()
+  }
+  render() {
+    const {
+      cardStyle,
+      cursor,
+      elevation,
+      item: {
+        _id,
+        values: {
+          flex: itemFlex
+        }
+      },
+      linkEvents,
+      linkNavigation
+    } = this.props
+    const {
+      flex: cardStyleFlex,
+      margin,
+    } = cardStyle.values
+    return (
+      <div
+        style={{ cursor, flex: itemFlex || cardStyleFlex, margin }}
+        ref={el => this.elRef = el}
+      >
+        <Card
+          {...linkEvents}
+          {...linkNavigation}
+          zDepth={elevation}
+          id={_id}
+          className="CardItem"
+        >
+          <CardContent {...this.props} />
+        </Card>
+      </div>
+    )
+  }
 }
 
 CardItem.propTypes = {

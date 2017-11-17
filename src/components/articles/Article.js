@@ -1,20 +1,35 @@
-import React from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import './article.css'
 import articleContainer from '../../containers/articles/articleContainer'
 import ArticleSwitch from './ArticleSwitch'
 
-const Article = (props) => {
-  return (
-    <article
-      id={props.item._id}
-      className="Article"
-      style={{ flex: props.item.values.articleFlex }}
-    >
-      <ArticleSwitch {...props} />
-    </article>
-  )
+class Article extends Component {
+  state = {
+    intervalId: null
+  }
+  componentDidMount() {
+    if (window.location.hash.replace('#', '') === this.props.item._id) this.elRef.scrollIntoView()
+  }
+  render() {
+    const {
+      item: {
+        _id,
+        values: { articleFlex: flex }
+      }
+    } = this.props
+    return (
+      <article
+        id={_id}
+        className="Article"
+        style={{ flex }}
+        ref={el => this.elRef = el}
+      >
+        <ArticleSwitch {...this.props} />
+      </article>
+    )
+  }
 }
 
 Article.propTypes = {

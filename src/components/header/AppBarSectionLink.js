@@ -12,13 +12,13 @@ class AppBarSectionLink extends Component {
   }
   handleNavigation = () => {
     const { page, link: { values: { pageLink }}} = this.props
-    history.push(`/${page.slug}`)
     this.props.onCloseMenu()
+    history.push(`/${page.slug}`)
     const intervalId = setInterval(() => {
       history.push(`/${page.slug}#${slugIt(pageLink)}`)
       clearInterval(this.state.intervalId)
       this.setState({ intervalId: null })
-    }, 3)
+    }, 9)
     this.setState({ intervalId })
   }
   componentWillUnmount() {

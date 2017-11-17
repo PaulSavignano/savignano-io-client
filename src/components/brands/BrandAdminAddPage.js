@@ -10,6 +10,11 @@ class BrandAdminAddPage extends Component {
   handleBrandAdd = () => {
     return this.props.dispatch(fetchAdd()).then(() => history.push('/admin/brand/business'))
   }
+  handleSignup = () => {
+    const { dispatch } = this.props
+    dispatch({ type: 'REDIRECT_USER', path: '/admin/add-brand'})
+    return history.push('/user/signup')
+  }
   render() {
     const { firstName } = this.props
     return (
@@ -22,8 +27,8 @@ class BrandAdminAddPage extends Component {
           }
         </H2>
         <RaisedButton
-          onTouchTap={this.handleBrandAdd}
-          label="Add Brand"
+          onTouchTap={firstName ? this.handleBrandAdd : this.handleSignup }
+          label={firstName ? `Add Brand` : `Signup`}
         />
       </section>
     )
