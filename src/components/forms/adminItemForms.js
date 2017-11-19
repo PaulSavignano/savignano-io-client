@@ -6,6 +6,7 @@ import { fetchUpdate as pageUpdate, fetchDelete as pageDelete } from '../../acti
 import { fetchUpdate as productUpdate, fetchDelete as productDelete } from '../../actions/products'
 import { fetchUpdate as sectionUpdate, fetchDelete as sectionDelete } from '../../actions/sections'
 
+
 const adminItemForms = [{
   name: 'ARTICLE',
   update: articleUpdate,
