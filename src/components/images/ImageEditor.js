@@ -376,7 +376,7 @@ class ImageEditor extends Component {
       const position = this.calculatePosition(image)
       context.save()
       context.globalAlpha = this.props.opacity
-      context.translate(context.canvas.width / 2, context.canvas.height / 2)
+      context.translate((context.canvas.width / 2), (context.canvas.height / 2))
       context.rotate(this.props.rotate * Math.PI / 180)
       context.translate(
         -(context.canvas.width / 2),
@@ -413,8 +413,8 @@ class ImageEditor extends Component {
     const croppingRect = this.getCroppingRect()
     const width = image.width * this.props.scale
     const height = image.height * this.props.scale
-    const x = croppingRect.x * width
-    const y = croppingRect.y * height
+    const x = -croppingRect.x * width
+    const y = -croppingRect.y * height
     return {
       x,
       y,
@@ -521,8 +521,6 @@ class ImageEditor extends Component {
   render() {
     const dimensions = this.getDimensions()
     const defaultStyle = {
-      width: dimensions.canvas.width,
-      height: dimensions.canvas.height,
       cursor: this.state.drag ? 'grabbing' : 'grab'
     }
     const attributes = {
@@ -542,7 +540,8 @@ class ImageEditor extends Component {
         <canvas
           ref={this.setCanvas}
           {...attributes}
-          className="ImageForm"
+          style={defaultStyle}
+          className="ImageEditor"
         />
       </div>
     )

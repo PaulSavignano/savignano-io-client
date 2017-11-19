@@ -26,6 +26,7 @@ const adminItemForms = [{
       options: [
         'aboveText',
         'belowText',
+        'betweenTextAndParagraph',
         'leftOfText',
         'leftOfParagraph',
         'rightOfText',

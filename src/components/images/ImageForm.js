@@ -76,6 +76,7 @@ class ImageForm extends Component {
   handleImage = (image) => {
     if (image && image.src) {
       const extension = image.src.split('.')[1]
+      console.log('extension', extension)
       const ext = extension === 'png' ? 'png' : 'jpeg'
       this.setState({
         height: image.height,

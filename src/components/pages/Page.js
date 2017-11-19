@@ -23,6 +23,7 @@ class Page extends Component {
   }
   componentWillReceiveProps({ hash, page }) {
     if (this.props.page._id !== page._id) {
+      window.scrollTo(0, 0)
       this.getPageMetaData(page)
     }
   }

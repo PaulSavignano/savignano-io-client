@@ -5,6 +5,7 @@ import './article.css'
 import articleContainer from '../../containers/articles/articleContainer'
 import ArticleMediaAboveText from './ArticleMediaAboveText'
 import ArticleMediaBelowText from './ArticleMediaBelowText'
+import ArticleMediaBetweenTextAndParagraph from './ArticleMediaBetweenTextAndParagraph'
 import ArticleMediaLeftOfParagraph from './ArticleMediaLeftOfParagraph'
 import ArticleMediaLeftOfText from './ArticleMediaLeftOfText'
 import ArticleMediaRightOfParagraph from './ArticleMediaRightOfParagraph'
@@ -16,6 +17,8 @@ const ArticleSwitch = (props) => {
       return <ArticleMediaAboveText {...props} />
     case 'belowText':
       return <ArticleMediaBelowText {...props} />
+    case 'betweenTextAndParagraph':
+      return <ArticleMediaBetweenTextAndParagraph {...props} />
     case 'leftOfParagraph':
       return <ArticleMediaLeftOfParagraph {...props} />
     case 'leftOfText':
