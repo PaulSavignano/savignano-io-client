@@ -7,6 +7,7 @@ import './contactForm.css'
 import H2 from '../typography/H2'
 import H3 from '../typography/H3'
 import P from '../typography/P'
+import PhoneField from '../fields/PhoneField'
 import SuccessableButton from '../buttons/SuccessableButton'
 import renderTextField from '../fields/renderTextField'
 import normalizePhone from '../../utils/normalizePhone'
@@ -74,13 +75,7 @@ class ContactFormContent extends Component {
               component={renderTextField}
               label="First Name"
             />
-            <Field
-              className="field"
-              name="phone"
-              component={renderTextField}
-              normalize={normalizePhone}
-              label="Phone"
-            />
+            <PhoneField />
             <Field
               className="field"
               name="email"

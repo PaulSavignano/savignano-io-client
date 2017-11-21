@@ -13,18 +13,18 @@ class DrawerPageLink extends Component {
       dispatch,
       page,
     } = this.props
-    const pageSectionLinks = page.sections.filter(section => section.values.pageLink)
+    const pageSectionLinks = page.sections.filter(section => section.pageLink)
     if (pageSectionLinks.length) {
       return (
         <ListItem
-          primaryText={page.values.name}
+          primaryText={page.name}
           initiallyOpen={true}
           primaryTogglesNestedList={true}
-          nestedItems={pageSectionLinks.map(link => (
+          nestedItems={pageSectionLinks.map(section => (
             <DrawerSectionLink
               dispatch={dispatch}
-              key={link._id}
-              link={link}
+              key={section.pageLink}
+              section={section}
               page={page}
             />
           ))}
@@ -35,7 +35,7 @@ class DrawerPageLink extends Component {
         <ListItem
           containerElement={<Link to={`/${page.slug}`}/>}
           onTouchTap={this.handleToggleDrawer}
-          primaryText={page.values.name}
+          primaryText={page.name}
         />
       )
     }

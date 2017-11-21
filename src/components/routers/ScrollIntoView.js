@@ -9,11 +9,8 @@ class ScrollIntoView extends Component {
   componentDidMount() {
     if (window.location.hash) {
       const { pageLink, ref } = this.props
-
       const hash = window.location.hash.replace('#', '')
       if (pageLink) {
-        console.log('pageLink', pageLink)
-              console.log('ref', ref)
         if (hash === slugIt(pageLink)) {
           ref.scrollIntoView()
         }

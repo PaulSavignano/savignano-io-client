@@ -9,6 +9,7 @@ import ApiConfigAdd from './ApiConfigAdd'
 
 const fields = [
   'gmailUser',
+  'moverbaseKey',
   'oauthAccessToken',
   'oauthClientId',
   'oauthClientSecret',
@@ -64,5 +65,4 @@ const ApiConfigPage = ({
 
 export default apiConfigContainer(reduxForm({
   form: 'apiConfigForm',
-  enableReinitialize: true
 })(ApiConfigPage))

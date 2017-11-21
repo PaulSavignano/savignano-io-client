@@ -7,6 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import SuccessableButton from '../../components/buttons/SuccessableButton'
 import renderTextField from '../../components/fields/renderTextField'
 import normalizePhone from '../../utils/normalizePhone'
+import PhoneField from '../fields/PhoneField'
 import './user.css'
 
 
@@ -49,7 +50,7 @@ class UserProfileForm extends Component {
             <Field name="firstName" component={renderTextField} label="First Name" className="field" />
             <Field name="lastName" component={renderTextField} label="Last Name" className="field" />
             <Field name="email" component={renderTextField} label="Email" className="field" />
-            <Field name="phone" component={renderTextField} label="Phone" normalize={normalizePhone} className="field" />
+            <PhoneField  />
           </div>
           <div className="button-container">
             <SuccessableButton

@@ -11,7 +11,6 @@ class AppBarPageLink extends Component {
   state = {
     anchorEl: null,
     openMenu: false,
-    pageSectionLinks: [],
     timeoutId: null,
     usingMenu: false,
   }
@@ -34,15 +33,10 @@ class AppBarPageLink extends Component {
     this.setState({ openMenu: false, anchorEl: null, usingMenu: false })
   }
   handleCloseMenu = () => this.setState({ openMenu: false })
-  componentWillMount() {
-    const pageSectionLinks = this.props.page.sections.filter(section => section.values.pageLink)
-    this.setState({ pageSectionLinks })
-  }
   componentWillUnmount() {
     clearTimeout(this.state.timeoutId)
   }
   render() {
-    const { pageSectionLinks } = this.state
     const {
       color,
       dispatch,
@@ -55,11 +49,11 @@ class AppBarPageLink extends Component {
         onMouseLeave={this.handleButtonMouseLeave}
         style={{ color, minWidth: 'none', margin: '0 16px' }}
         labelStyle={{ padding: '0 0 2px 0', fontFamily }}
-        label={page.values.name}
+        label={page.name}
         hoverColor="none"
         containerElement={<NavLink to={`/${page.slug}`} activeClassName="active-nav" />}
         children={
-          pageSectionLinks.length ?
+          page.sections.length ?
             <Popover
               key={1}
               useLayerForClickAway={false}
@@ -74,11 +68,11 @@ class AppBarPageLink extends Component {
                 onMouseEnter={this.handleMenuMouseEnter}
                 onMouseLeave={this.handleMenuMouseLeave}
               >
-                {pageSectionLinks.map(link => (
+                {page.sections.map(section => (
                   <AppBarSectionLink
                     dispatch={dispatch}
-                    key={link._id}
-                    link={link}
+                    key={section.pageLink}
+                    pageLink={section.pageLink}
                     page={page}
                     onCloseMenu={this.handleCloseMenu}
                   />

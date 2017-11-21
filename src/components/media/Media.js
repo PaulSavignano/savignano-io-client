@@ -5,18 +5,19 @@ import './media.css'
 import shadows from '../../utils/shadows'
 
 const Media = ({
-  className,
   border,
   borderRadius,
+  className,
   elevation,
   flex,
-  image,
   iframe,
+  image,
   margin,
+  padding,
   style,
 }) => (
   <div
-    style={{ border, flex, margin }}
+    style={{ border, flex, margin, padding }}
     className={className}
     id="Media"
   >

@@ -8,6 +8,7 @@ import {Card, CardTitle, CardText} from 'material-ui/Card'
 import MenuItem from 'material-ui/MenuItem'
 
 import './user.css'
+import PhoneField from '../fields/PhoneField'
 import withTracker from '../../containers/google-analytics/withTracker'
 import SuccessableButton from '../buttons/SuccessableButton'
 import DateField from '../fields/DateField'
@@ -78,13 +79,7 @@ class RequestEstimate extends Component {
                   label="Last Name"
                   fullWidth={true}
                 />
-                <Field
-                  name="phone"
-                  component={renderTextField}
-                  label="Phone"
-                  fullWidth={true}
-                  normalize={normalizePhone}
-                />
+                <PhoneField  />
                 <Field
                   name="email"
                   component={renderTextField}

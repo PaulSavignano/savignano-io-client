@@ -44,8 +44,6 @@ class Section extends Component {
       propsForChild,
       propsForParent
     } = this.props
-    console.log()
-
     return (
       <div
         {...propsForParent}

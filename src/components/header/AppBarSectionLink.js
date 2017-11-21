@@ -11,7 +11,7 @@ class AppBarSectionLink extends Component {
     intervalId: null
   }
   handleNavigation = () => {
-    const { page, link: { values: { pageLink }}} = this.props
+    const { page, pageLink } = this.props
     this.props.onCloseMenu()
     history.push(`/${page.slug}`)
     const intervalId = setInterval(() => {
@@ -29,7 +29,7 @@ class AppBarSectionLink extends Component {
   }
   render() {
     const {
-      link: { values: { pageLink }},
+      pageLink,
       onCloseMenu,
       page
     } = this.props
@@ -44,7 +44,7 @@ class AppBarSectionLink extends Component {
 
 AppBarSectionLink.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  link: PropTypes.object.isRequired,
+  pageLink: PropTypes.string,
   page: PropTypes.object.isRequired
 }
 

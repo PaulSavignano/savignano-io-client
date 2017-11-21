@@ -12,7 +12,7 @@ class DrawerSectionLink extends Component {
     intervalId: null
   }
   handleNavigation = () => {
-    const { dispatch, page, link: { values: { pageLink }}} = this.props
+    const { dispatch, page, section: { pageLink }} = this.props
     history.push(`/${page.slug}`)
     dispatch(toggleDrawer())
     const intervalId = setInterval(() => {
@@ -30,13 +30,13 @@ class DrawerSectionLink extends Component {
   }
   render() {
     const {
-      link,
+      section,
       page
     } = this.props
     return (
       <ListItem
-        key={link._id}
-        primaryText={link.values.pageLink}
+        key={section.pageLink}
+        primaryText={section.pageLink}
         onTouchTap={this.handleNavigation}
         innerDivStyle={{ marginLeft: 16 }}
       />
@@ -47,7 +47,7 @@ class DrawerSectionLink extends Component {
 DrawerSectionLink.propTypes = {
   dispatch: PropTypes.func.isRequired,
   page: PropTypes.object.isRequired,
-  link: PropTypes.object.isRequired
+  section: PropTypes.object.isRequired
 }
 
 export default DrawerSectionLink

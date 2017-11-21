@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 
 const footerContainer = (ComposedComponent) => {
   class FooterContainer extends Component {
@@ -9,12 +10,16 @@ const footerContainer = (ComposedComponent) => {
         business,
         isFetching,
         item,
-        primary1Color
+        pages,
+        primary1Color,
       } = this.props
       const {
         backgroundImage,
         values: {
-          backgroundColor, borderBottom, borderTop
+          backgroundColor,
+          borderBottom,
+          borderTop,
+          boxShadow,
         }
       } = item
       const propsForParent = {
@@ -22,15 +27,17 @@ const footerContainer = (ComposedComponent) => {
           backgroundColor,
           backgroundImage: backgroundImage && backgroundImage.src && `url(${process.env.REACT_APP_IMAGE_ENDPOINT}${backgroundImage.src})`,
           borderBottom,
-          borderTop
+          borderTop,
         },
         className: backgroundImage && backgroundImage.src && 'background-image'
       }
       const props = {
+        boxShadow,
         business,
         item,
+        pages,
         primary1Color,
-        propsForParent
+        propsForParent,
       }
       return (
         !isFetching && item && <ComposedComponent {...props} />
@@ -39,19 +46,26 @@ const footerContainer = (ComposedComponent) => {
   }
   const mapStateToProps = ({
     brand: {
-      isFetching,
-      footer,
+      isFetching: brandIsFetching,
+      footer: item,
       business,
       palette: {
         values: {
           primary1Color
         }
       }
-    }
+    },
+    pages: { isFetching: pagesIsFetching, items },
   }) => ({
     business,
-    item: footer,
-    isFetching,
+    isFetching: brandIsFetching || pagesIsFetching ? true : false,
+    item,
+    pages: items.map(page => {
+      return {
+         slug: page.slug,
+         name: page.values.name
+       }
+    }),
     primary1Color
   })
   FooterContainer.propTypes = {
@@ -59,10 +73,11 @@ const footerContainer = (ComposedComponent) => {
     business: PropTypes.object.isRequired,
     item: PropTypes.object.isRequired,
     isFetching: PropTypes.bool.isRequired,
+    pages: PropTypes.array,
     primary1Color: PropTypes.string,
     propsForParent: PropTypes.object,
   }
-  return connect(mapStateToProps)(FooterContainer)
+  return withRouter(connect(mapStateToProps)(FooterContainer))
 }
 
 export default footerContainer

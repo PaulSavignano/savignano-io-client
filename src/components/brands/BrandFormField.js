@@ -4,9 +4,9 @@ import MenuItem from 'material-ui/MenuItem'
 
 import renderSelectField from '../fields/renderSelectField'
 import renderTextField from '../fields/renderTextField'
-import normalizePhone from '../../utils/normalizePhone'
 import normalizeZip from '../../utils/normalizeZip'
 import normalizeState from '../../utils/normalizeState'
+import PhoneField from '../fields/PhoneField'
 
 class BrandFormField extends Component {
   handleNumberField = (value, previousValue) => {
@@ -39,15 +39,8 @@ class BrandFormField extends Component {
         )
       case 'phone':
         return (
-          <Field
+          <PhoneField
             key={name}
-            name={name}
-            label={name}
-            type={type}
-            component={renderTextField}
-            className="field"
-            style={{ fontFamily }}
-            normalize={normalizePhone}
           />
         )
       case 'select':

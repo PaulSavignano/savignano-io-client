@@ -6,7 +6,7 @@ import Buttons from '../buttons/Buttons'
 import Heading from '../typography/Heading'
 import Paragraph from '../typography/Paragraph'
 
-const ArticleMediaBetweenTextAndParagraph = ({
+const ArticleMediaBetweenHeadingAndParagraph = ({
   buttonProps,
   hasButtons,
   hasHeading,
@@ -23,7 +23,7 @@ const ArticleMediaBetweenTextAndParagraph = ({
   paragraphProps,
 }) => {
   return (
-    <div className="ArticleMediaBetweenTextAndParagraph">
+    <div className="ArticleMediaBetweenHeadingAndParagraph">
       {hasHeading &&
         <div className="article-text" style={{ flex: '1 1 auto' }}>
           {hasHeading && <Heading {...headingProps} />}
@@ -44,7 +44,7 @@ const ArticleMediaBetweenTextAndParagraph = ({
   )
 }
 
-ArticleMediaBetweenTextAndParagraph.propTypes = {
+ArticleMediaBetweenHeadingAndParagraph.propTypes = {
   buttonProps: PropTypes.object,
   hasButtons: PropTypes.bool.isRequired,
   hasHeading: PropTypes.bool.isRequired,
@@ -56,4 +56,4 @@ ArticleMediaBetweenTextAndParagraph.propTypes = {
   paragraphProps: PropTypes.object,
 }
 
-export default ArticleMediaBetweenTextAndParagraph
+export default ArticleMediaBetweenHeadingAndParagraph

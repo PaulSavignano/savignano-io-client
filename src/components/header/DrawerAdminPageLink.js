@@ -10,15 +10,14 @@ class DrawerAdminPageLink extends Component {
   render() {
     const {
       page: {
-        _id,
         slug,
-        values: { name }
+        name
       }
     } = this.props
     return (
       <ListItem
         containerElement={<Link to={`/admin/pages/${slug}`} />}
-        key={_id}
+        key={name}
         primaryText={name}
         onTouchTap={this.handleDrawerClose}
         innerDivStyle={{ marginLeft: 36 }}

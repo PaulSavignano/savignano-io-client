@@ -28,7 +28,8 @@
 }
 
 .ArticleMediaAboveText,
-.ArticleMediaBelowText {
+.ArticleMediaBelowText,
+.ArticleMediaBetweenHeadingAndParagraph {
   width: 100%
 }
 

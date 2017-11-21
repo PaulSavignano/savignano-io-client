@@ -6,6 +6,7 @@ import normalizeZip from '../../utils/normalizeZip'
 import normalizeState from '../../utils/normalizeState'
 
 import renderTextField from '../fields/renderTextField'
+import PhoneField from '../fields/PhoneField'
 
 const AddressFields = ({ initialValues }) => {
   return (
@@ -17,14 +18,7 @@ const AddressFields = ({ initialValues }) => {
         className="field"
         component={renderTextField}
       />
-      <Field
-        name="phone"
-        label="Phone"
-        type="text"
-        className="field"
-        component={renderTextField}
-        normalize={normalizePhone}
-      />
+      <PhoneField />
       <Field
         name="street"
         label="Street"

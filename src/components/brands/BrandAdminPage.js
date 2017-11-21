@@ -48,7 +48,7 @@ class BrandAdminPage extends Component {
     })
   }
   handleImageRemove = () => {
-    const { image } = this.props
+    const { image } = this.props.matchedBrandItem
     const deleteImage = image.src ? true : false
     this.setState({
       ...this.state,
@@ -58,7 +58,7 @@ class BrandAdminPage extends Component {
     })
   }
   handleBackgroundImageRemove = () => {
-    const { backgroundImage } = this.props
+    const { backgroundImage } = this.props.matchedBrandItem
     const deleteBackgroundImage = backgroundImage.src ? true : false
     this.setState({
       ...this.state,
@@ -129,7 +129,6 @@ class BrandAdminPage extends Component {
           }
         }))
       case (imageEdit):
-        console.log('image edit', oldImageSrc)
         return dispatch(fetchUpdate({
           path: `${_id}/${form.toLowerCase()}/update-with-image`,
           update: {

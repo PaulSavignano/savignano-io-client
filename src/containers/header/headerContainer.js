@@ -6,7 +6,32 @@ import { withRouter } from 'react-router-dom'
 
 const headerContainer = (ComposedComponent) => {
   class HeaderContainer extends Component {
+    state = {
+      pages: []
+    }
+    handleNavigation = (items) => {
+      const pages = items.map(page => {
+        return {
+          slug: page.slug,
+          name: page.values.name,
+          sections: page.sections.filter(section => section.values.pageLink).map(sec => {
+            return { pageLink: sec.values.pageLink }
+          })
+         }
+      })
+      this.setState({ pages })
+    }
+    componentDidMount() {
+      const { items } = this.props
+      this.handleNavigation(items)
+    }
+    componentWillReceiveProps({ items }) {
+      if (this.props.items !== items) {
+        this.handleNavigation(items)
+      }
+    }
     render() {
+      const { pages } = this.state
       const {
         appBar,
         cartQty,
@@ -18,7 +43,6 @@ const headerContainer = (ComposedComponent) => {
         isOwner,
         isFetching,
         name,
-        pages,
         phone,
         primary1Color,
         searchOpen
@@ -39,7 +63,7 @@ const headerContainer = (ComposedComponent) => {
         searchOpen
       }
       return (
-        isFetching ? null : <ComposedComponent {...props} />
+        isFetching ? null : pages.length ? <ComposedComponent {...props} /> : null
       )
     }
   }
@@ -53,7 +77,7 @@ const headerContainer = (ComposedComponent) => {
     },
     carts: { cart: { quantity: cartQty }},
     drawer,
-    pages: { isFetching: pagesIsFetching, items: pages },
+    pages: { isFetching: pagesIsFetching, items },
     search: { open: searchOpen },
     user: { isFetching: userIsFetching, roles, values: { firstName }},
   }) => ({
@@ -65,7 +89,7 @@ const headerContainer = (ComposedComponent) => {
     isAdmin: roles.some(role => role === 'admin') ? true : false,
     isOwner: roles.some(role => role === 'owner') ? true : false,
     isFetching: brandIsFetching || pagesIsFetching || userIsFetching ? true : false,
-    pages,
+    items,
     phone,
     primary1Color,
     searchOpen

@@ -82,7 +82,7 @@ class AppBarNavigation extends Component {
           >
             {pages.length ? pages.filter(page => page.slug !== 'home').map(page => (
               <AppBarPageLink
-                key={page._id}
+                key={page.name}
                 color={color}
                 dispatch={dispatch}
                 fontFamily={fontFamily}

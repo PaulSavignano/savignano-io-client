@@ -33,7 +33,7 @@ class DrawerNavigation extends Component {
     const adminPages = pages.map(page => (
       <DrawerAdminPageLink
         dispatch={dispatch}
-        key={page._id}
+        key={page.name}
         page={page}
       />
 
@@ -43,7 +43,7 @@ class DrawerNavigation extends Component {
         {pages.filter(page => page.slug !== 'home').map(page => (
           <DrawerPageLink
             dispatch={dispatch}
-            key={page._id}
+            key={page.name}
             page={page}
           />
         ))}
