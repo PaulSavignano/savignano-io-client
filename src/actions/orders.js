@@ -29,10 +29,7 @@ export const fetchAddOrder = ({
   cart,
   history,
   values: {
-    cvc,
-    exp,
     fullAddress,
-    number,
     name,
     phone,
     street,
@@ -40,40 +37,31 @@ export const fetchAddOrder = ({
     state,
     zip,
   },
-  stripePk
+  stripeToken
 }) => {
   return (dispatch, getState) => {
-    Stripe.setPublishableKey(stripePk)
-    const expiration = exp.split('/')
-    const exp_month = parseInt(expiration[0], 10)
-    const exp_year = parseInt(expiration[1], 10)
-    const card = { number, exp_month, exp_year, cvc }
-    return getStripeToken(card)
-    .then(stripeToken => {
-      const body = {
-        stripeToken,
-        fullAddress,
-        name,
-        phone,
-        street,
-        city,
-        state,
-        zip,
-        cart
-      }
-      return handleAuthFetch({
-        path: `${api}/${route}/${brandName}`,
-        method: 'POST',
-        body
-      })
-      .then(json => {
-        const { order, user } = json
-        dispatch(fetchAddOrderSuccess(order))
-        if (user) dispatch(fetchUpdateUserSuccess(user))
-        dispatch(fetchDeleteCart())
-        return history.push(`/user/order/${order._id}`)
-      })
-      .catch(error => Promise.reject(error))
+    const body = {
+      stripeToken,
+      fullAddress,
+      name,
+      phone,
+      street,
+      city,
+      state,
+      zip,
+      cart
+    }
+    return handleAuthFetch({
+      path: `${api}/${route}/${brandName}`,
+      method: 'POST',
+      body
+    })
+    .then(json => {
+      const { order, user } = json
+      dispatch(fetchAddOrderSuccess(order))
+      if (user) dispatch(fetchUpdateUserSuccess(user))
+      dispatch(fetchDeleteCart())
+      return history.push(`/user/order/${order._id}`)
     })
     .catch(error => {
       let fieldError, buttonError

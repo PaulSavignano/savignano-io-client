@@ -1,5 +1,9 @@
 body {
   margin: 0;
+  letter-spacing: 0.025em;
+}
+input {
+  letter-spacing: inherit;
 }
 main {
   min-height: 85vh;
@@ -23,6 +27,14 @@ h1, h2, h3, p {
 
 .card {
   margin: 16px;
+}
+
+.page-text {
+  margin: 8px;
+}
+.page-heading,
+.page-paragraph {
+  padding: 8px
 }
 
 

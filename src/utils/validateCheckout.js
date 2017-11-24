@@ -6,9 +6,6 @@ const validateCheckout = (values) => {
     'firstName',
     'lastName',
     'fullAddress',
-    'number',
-    'exp',
-    'cvc',
     'name',
     'phone',
     'street',
@@ -24,19 +21,7 @@ const validateCheckout = (values) => {
   if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = 'Invalid email address'
   }
-  if (values.number) {
-    const type = Payment.fns.cardType(values.number);
-    const cards = document.querySelectorAll('[data-brand]');
-
-    [].forEach.call(cards, (element) => {
-      if (element.getAttribute('data-brand') === type) {
-        element.classList.add('active');
-      } else {
-        element.classList.remove('active');
-      }
-    })
-  }
-  if (values.phone && values.phone.length < 14) {
+  if (values.phone && values.phone.replace(/\D+/g, '').length < 10) {
     errors.phone = 'Phone number must be 10 digits'
   }
   if (values.state && values.state.length < 2) {

@@ -24,7 +24,8 @@ class OrderAdd extends Component {
     newAddress: false
   }
   handleFormSubmit = (values) => {
-    const { dispatch, cart, history, stripePk } = this.props
+    const { dispatch, cart, history, stripePkLive, stripePkTest } = this.props
+    const stripePk = stripePkLive || stripePkTest
     return dispatch(fetchAddOrder({ values, cart, history, stripePk }))
   }
   render() {

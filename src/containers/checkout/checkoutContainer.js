@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 
 import history from '../routers/history'
 
-const orderAddContainer = (ComposedComponent) => {
-  class OrderAddContainer extends Component {
+const checkoutContainer = (ComposedComponent) => {
+  class CheckoutContainer extends Component {
     componentWillMount() {
       const cart = localStorage.getItem('cart')
       if (!cart) {
@@ -25,22 +25,27 @@ const orderAddContainer = (ComposedComponent) => {
     }
   }
   const mapStateToProps = ({
-    brand: { isFetching: brandIsFetching, business: { values: { stripePkLive, stripePkTest }}},
+    brand: {
+      isFetching: brandIsFetching,
+      business: { values: { stripePkLive, stripePkTest }},
+      palette: { values: { textColor }}
+    },
     carts: { isFetching: cartIsFetching, cart },
     user : { isFetching: userIsFetching, addresses }
   }) => ({
     addresses,
     cart,
+    isFetching: brandIsFetching || cartIsFetching || userIsFetching ? true : false,
     stripePkLive,
     stripePkTest,
-    isFetching: brandIsFetching || cartIsFetching || userIsFetching ? true : false,
+    textColor,
   })
-  OrderAddContainer.propTypes = {
+  CheckoutContainer.propTypes = {
     addresses: PropTypes.array.isRequired,
     cart: PropTypes.object.isRequired,
     isFetching: PropTypes.bool.isRequired,
   }
-  return connect(mapStateToProps)(OrderAddContainer)
+  return connect(mapStateToProps)(CheckoutContainer)
 }
 
-export default orderAddContainer
+export default checkoutContainer

@@ -7,15 +7,16 @@ import FlatButton from 'material-ui/FlatButton'
 import {Card, CardTitle, CardText} from 'material-ui/Card'
 import MenuItem from 'material-ui/MenuItem'
 
-import './user.css'
-import PhoneField from '../fields/PhoneField'
+import PhoneField from '../../components/fields/PhoneField'
 import withTracker from '../../containers/google-analytics/withTracker'
-import SuccessableButton from '../buttons/SuccessableButton'
-import DateField from '../fields/DateField'
+import SuccessableButton from '../../components/buttons/SuccessableButton'
+import DateField from '../../components/fields/DateField'
 import renderTextField from '../../components/fields/renderTextField'
 import renderSelectField from '../../components/fields/renderSelectField'
 import normalizePhone from '../../utils/normalizePhone'
-import { fetchRequestEstimate } from '../../actions/user'
+
+const api = process.env.REACT_APP_API_ENDPOINT
+const brandName = process.env.REACT_APP_BRAND_NAME
 
 const validate = values => {
   const errors = {}
@@ -45,6 +46,19 @@ class RequestEstimate extends Component {
   state = {
     open: false,
   }
+  handleFormSubmit = (values) => {
+    return fetch(`${api}/moverbase/${brandName}/request-estimate`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values)
+    })
+      .then(res => res.json())
+      .then(json => {
+        if (json.error) return Promise.reject(json.error)
+        console.log('moverbase contacted')
+      })
+      .catch(error => console.error(error))
+  }
   handleClose = () => this.setState({open: false})
   componentWillReceiveProps(nextProps) {
     if (nextProps.submitSucceeded) this.setState({ open: true })
@@ -65,7 +79,7 @@ class RequestEstimate extends Component {
         <section className="section">
           <Card className="card">
             <CardTitle title="Request Estimate" subtitle="Enter your information" />
-            <form onSubmit={handleSubmit(values => dispatch(fetchRequestEstimate(values)))} >
+            <form onSubmit={handleSubmit(this.handleFormSubmit)} >
               <CardText>
                 <Field
                   name="firstName"
@@ -79,7 +93,9 @@ class RequestEstimate extends Component {
                   label="Last Name"
                   fullWidth={true}
                 />
-                <PhoneField  />
+                <PhoneField
+                  fullWidth={true}
+                />
                 <Field
                   name="email"
                   component={renderTextField}
@@ -90,7 +106,7 @@ class RequestEstimate extends Component {
                 <Field
                   name="date"
                   label="Move Date"
-                  className="field date"
+                  fullWidth={true}
                   component={DateField}
                 />
                 <Field
@@ -166,14 +182,14 @@ class RequestEstimate extends Component {
 
 RequestEstimate.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  error: PropTypes.string.isRequired,
+  error: PropTypes.string,
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
 }
 
 RequestEstimate = reduxForm({
   enableReinitialize: true,
-  form: 'contact',
+  form: 'requestEstimate',
   validate
 })(RequestEstimate)
 

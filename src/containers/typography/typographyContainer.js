@@ -27,7 +27,7 @@ const typographyContainer = (ComposedComponent) => {
         textShadow,
       }
       return (
-        isFetching ? null : <ComposedComponent {...props} />
+        isFetching ? null : <ComposedComponent {...this.props} />
       )
     }
   }

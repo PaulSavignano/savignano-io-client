@@ -6,7 +6,7 @@ const validateAddress = values => {
       errors[ field ] = 'Required'
     }
   })
-  if (values.phone && values.phone.length < 14) {
+  if (values.phone && values.phone.replace(/\D+/g, '').length < 10) {
     errors.phone = 'Phone number must be 10 digits'
   }
   if (values.state && values.state.length < 2) {

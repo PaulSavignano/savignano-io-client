@@ -30,7 +30,7 @@ const P = ({
       lineHeight,
       margin
     }}
-    {...className}
+    className={className}
   >
     {children}
   </div>

@@ -41,6 +41,7 @@ class BrandFormField extends Component {
         return (
           <PhoneField
             key={name}
+            className="field"
           />
         )
       case 'select':

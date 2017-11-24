@@ -35,7 +35,7 @@ const H1 = ({
         textAlign,
         textShadow,
       }}
-      {...className}
+      className={className}
     >
       {children}
     </h1>

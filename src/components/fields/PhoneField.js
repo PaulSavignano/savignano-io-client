@@ -5,7 +5,12 @@ import { Field } from 'redux-form'
 import renderTextField from './renderTextField'
 import { normalizePhonePeriods, normalizePhoneParenthesisAndDashes } from '../../utils/normalizePhone'
 
-const PhoneField = ({ isFetching, phoneStyle }) => {
+const PhoneField = ({
+  isFetching,
+  phoneStyle,
+  className,
+  fullWidth,
+}) => {
   const normalizePhone = phoneStyle === '(###) ###-####' ? normalizePhoneParenthesisAndDashes : normalizePhonePeriods
   return (
     isFetching ? null :
@@ -14,7 +19,8 @@ const PhoneField = ({ isFetching, phoneStyle }) => {
       component={renderTextField}
       label="Phone"
       normalize={normalizePhone}
-      className="field"
+      className={className}
+      fullWidth={fullWidth}
     />
   )
 }

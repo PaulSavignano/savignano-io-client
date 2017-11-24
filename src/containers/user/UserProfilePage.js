@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import H3 from '../../components/typography/H3'
+import H2 from '../../components/typography/H2'
 import UserProfileForm from '../../components/user/UserProfileForm'
 import AddressesForm from '../../components/addresses/AddressesForm'
 import OrderList from '../../components/orders/OrderList'
@@ -57,7 +57,7 @@ class UserProfilePage extends Component {
       <div className="page">
         <section>
           <div className="user-profile-page-heading">
-            <H3>Profile</H3>
+            <H2>Profile</H2>
           </div>
 
           <UserProfileForm

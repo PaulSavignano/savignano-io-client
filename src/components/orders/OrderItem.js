@@ -4,6 +4,7 @@ import { Card, CardText } from 'material-ui/Card'
 import moment from 'moment'
 
 import history from '../../containers/routers/history'
+import P from '../typography/P'
 import formatPrice from '../../utils/formatPrice'
 import OrderCartList from './OrderCartList'
 

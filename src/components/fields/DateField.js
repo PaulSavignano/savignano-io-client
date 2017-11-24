@@ -18,18 +18,20 @@ class DateField extends Component {
       label,
       meta: { touched, error },
       children,
+      className,
       ...custom
     } = this.props
     return (
       <DatePicker
         autoOk={true}
-        hintText="Card Expiration"
+        hintText={label}
         openToYearSelection={true}
         onChange={(event, value) => input.onChange(moment(value).format("MM/YYYY"))}
         {...custom}
         formatDate={(value) => moment(value).format("MM / YYYY")}
         textFieldStyle={{ flex: '1 1 auto', marginTop: 22 }}
         minDate={this.state.minDate}
+        className={className}
       />
     )
   }

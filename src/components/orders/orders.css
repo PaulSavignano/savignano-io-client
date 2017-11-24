@@ -29,3 +29,22 @@
   margin-bottom: 8px;
   span:first-child { margin-right: 16px; }
 }
+
+.OrderDetail {
+  margin-top: 16px;
+}
+
+.order-address-and-summary,
+.order-subtotal,
+.order-tax,
+.order-total {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+
+.order-address,
+.order-summary {
+  margin: 8px 0;
+}

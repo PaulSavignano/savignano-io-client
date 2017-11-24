@@ -65,4 +65,5 @@ const ApiConfigPage = ({
 
 export default apiConfigContainer(reduxForm({
   form: 'apiConfigForm',
+  enableReinitialize: true,
 })(ApiConfigPage))

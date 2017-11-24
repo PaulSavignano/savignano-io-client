@@ -50,7 +50,7 @@ class UserProfileForm extends Component {
             <Field name="firstName" component={renderTextField} label="First Name" className="field" />
             <Field name="lastName" component={renderTextField} label="Last Name" className="field" />
             <Field name="email" component={renderTextField} label="Email" className="field" />
-            <PhoneField  />
+            <PhoneField className="field" />
           </div>
           <div className="button-container">
             <SuccessableButton
