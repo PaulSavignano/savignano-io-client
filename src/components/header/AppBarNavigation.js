@@ -8,6 +8,7 @@ import AppBarUser from './AppBarUser'
 import CartIcon from '../icons/CartIcon'
 import SearchIcon from '../icons/SearchIcon'
 import { searchToggle } from '../../actions/search'
+import getNavClass from '../../utils/getNavClass'
 
 class AppBarNavigation extends Component {
   state = {
@@ -21,26 +22,7 @@ class AppBarNavigation extends Component {
   componentDidMount() {
     const width = this.navigation.clientWidth
     const totalWidth = width/.70
-    let navClass
-    switch(true) {
-      case totalWidth < 375:
-        navClass = 'largerThanIphone375'
-        break
-      case totalWidth < 667:
-        navClass = 'largerThanIphone667'
-        break
-      case totalWidth < 768:
-        navClass = 'largerThanIpad768'
-        break
-      case totalWidth < 1024:
-        navClass = 'largerThanIpad1024'
-        break
-      case totalWidth < 1366:
-        navClass = 'largerThanIpad1366'
-        break
-      default:
-        navClass = 'largerThan1920'
-    }
+    const navClass = getNavClass(totalWidth)
     this.setState({ navClass, width });
   }
   render() {

@@ -171,7 +171,16 @@ class BrandAdminPage extends Component {
         }))
     }
   }
-  componentWillReceiveProps({ pristine, matchedBrandForm: { name }}) {
+  componentWillReceiveProps({ pristine, matchedBrandForm: { name }, submitSucceeded }) {
+    if (this.props.submitSucceeded !== submitSucceeded && submitSucceeded === true) {
+      this.setState({
+        backgroundImageEdit: false,
+        deleteBackgroundImage: false,
+        deleteImage: false,
+        disabled: true,
+        imageEdit: false,
+      })
+    }
     if (name !== this.props.matchedBrandForm.name || pristine !== this.props.pristine) this.setState({ ...this.state, disabled: pristine, name })
   }
   setImageFormRef = (imageEditor) => this.imageEditor = imageEditor

@@ -1,17 +1,9 @@
 import React from 'react'
 import { Route, Switch, withRouter } from 'react-router-dom'
 
+import asyncComponent from '../../containers/routers/asyncComponent'
 import PrivateRoute from './PrivateRoute'
 
-import AdminOrderDetailPage from '../orders/AdminOrderDetailPage'
-import AdminOrderPage from '../orders/AdminOrderPage'
-import AdminPage from '../pages/AdminPage'
-import AdminPagesListPage from '../pages/AdminPagesListPage'
-import AdminUsersEditUserPage from '../../containers/users/AdminUsersEditUserPage'
-import AdminUsersPage from '../users/AdminUsersPage'
-import ApiConfigPage from '../apiConfig/ApiConfigPage'
-import BrandAdminAddPage from '../brands/BrandAdminAddPage'
-import BrandAdminPage from '../brands/BrandAdminPage'
 import CartPage from '../cart/CartPage'
 import CheckoutPage from '../checkout/CheckoutPage'
 import NotFoundPage from '../not-found/NotFoundPage'
@@ -27,6 +19,18 @@ import Signup from '../user/Signup'
 import UserProfilePage from '../../containers/user/UserProfilePage'
 
 import RequestEstimate from '../../moverbase/components/RequestEstimate'
+
+const AdminOrderDetailPage = asyncComponent(() => import('../orders/AdminOrderDetailPage'))
+const AdminOrderPage = asyncComponent(() => import('../orders/AdminOrderPage'))
+const AdminPage = asyncComponent(() => import('../pages/AdminPage'))
+const AdminPagesListPage = asyncComponent(() => import('../pages/AdminPagesListPage'))
+const AdminUsersEditUserPage = asyncComponent(() => import('../../containers/users/AdminUsersEditUserPage'))
+const AdminUsersPage = asyncComponent(() => import('../users/AdminUsersPage'))
+const ApiConfigPage = asyncComponent(() => import('../apiConfig/ApiConfigPage'))
+const BrandAdminAddPage = asyncComponent(() => import('../brands/BrandAdminAddPage'))
+const BrandAdminPage = asyncComponent(() => import('../brands/BrandAdminPage'))
+
+
 
 const Routes = ({ roles }) => (
   <Switch>

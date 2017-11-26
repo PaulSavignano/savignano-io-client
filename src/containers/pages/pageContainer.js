@@ -11,7 +11,7 @@ const pageContainer = (ComposedComponent) => {
     render() {
       const {
         brandImage,
-        brandName,
+        businessName,
         dispatch,
         firstName,
         hasBrand,
@@ -41,7 +41,7 @@ const pageContainer = (ComposedComponent) => {
           }
           const props = {
             brandImage,
-            brandName,
+            businessName,
             dispatch,
             page,
             propsForParent,
@@ -63,7 +63,7 @@ const pageContainer = (ComposedComponent) => {
     },
     brand: {
       _id: brandId,
-      business: { image: brandImage, values: { name: brandName } },
+      business: { image: brandImage, values: { name: businessName } },
       isFetching: brandIsFetching,
       palette: { values: { textColor }},
     },
@@ -75,7 +75,7 @@ const pageContainer = (ComposedComponent) => {
     const page = items.find(page => page.slug === pageSlug)
     return {
       brandImage,
-      brandName,
+      businessName,
       firstName,
       hasBrand: brandId ? true : false,
       isFetching: pagesIsFetching || brandIsFetching || userIsFetching,
@@ -86,7 +86,7 @@ const pageContainer = (ComposedComponent) => {
   }
   PageContainer.propTypes = {
     brandImage: PropTypes.object,
-    brandName: PropTypes.string,
+    businessName: PropTypes.string,
     dispatch: PropTypes.func.isRequired,
     firstName: PropTypes.string,
     hasBrand: PropTypes.bool.isRequired,

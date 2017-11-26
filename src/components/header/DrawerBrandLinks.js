@@ -2,10 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { ListItem } from 'material-ui/List'
 
-import brandForms from '../../containers/brands/brandForms'
+import adminBrandForms from '../../utils/adminBrandForms'
 
 const DrawerBrandLinks = ({ handleDrawerClose }) => (
-  brandForms.map(({ name }, i) => {
+  adminBrandForms.map(({ name }, i) => {
     return (
       <ListItem
         key={i}

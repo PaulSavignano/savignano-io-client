@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import brandForms from './brandForms'
+import adminBrandForms from '../../utils/adminBrandForms'
 
 const brandContainer = (ComposedComponent) => {
   class BrandContainer extends Component {
@@ -39,7 +39,7 @@ const brandContainer = (ComposedComponent) => {
         {typography},
       ]
       const matchedBrandItem = forms.find(f => f[brandItem])[brandItem]
-      const matchedBrandForm = brandForms.find(form => form.name === brandItem)
+      const matchedBrandForm = adminBrandForms.find(form => form.name === brandItem)
       const props = {
         _id,
         canvasColor: palette.values.canvasColor,

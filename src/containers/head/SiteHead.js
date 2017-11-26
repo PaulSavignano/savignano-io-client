@@ -3,6 +3,9 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Helmet } from "react-helmet"
 
+const imageEndpoint = process.env.REACT_APP_IMAGE_ENDPOINT
+const brandName = process.env.REACT_APP_BRAND_NAME
+
 class SiteHead extends Component {
   render() {
     const {
@@ -16,12 +19,12 @@ class SiteHead extends Component {
     return (
       isFetching ? null :
       <Helmet>
-        <link rel="canonical" href={window.location.hostname} />
-        {image && image.src ? <link rel="apple-touch-icon" sizes="180x180" href={`${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}`} /> : null }
-        {image && image.src ? <link rel="icon" type="image/png" href={`${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}`} sizes="16x16" /> : null }
-        {image && image.src ? <link rel="icon" type="image/png" href={`${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}`} sizes="32x32" /> : null }
-        {image && image.src ? <link rel="shortcut icon" href={`${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}`} /> : null }
-        {image && image.src ? <meta property="og:image" content={`${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}`} /> : null }
+        <link rel="canonical" href={brandName} />
+        {image && image.src ? <link rel="apple-touch-icon" sizes="180x180" href={`${imageEndpoint}${image.src}`} /> : null }
+        {image && image.src ? <link rel="icon" type="image/png" href={`${imageEndpoint}${image.src}`} sizes="16x16" /> : null }
+        {image && image.src ? <link rel="icon" type="image/png" href={`${imageEndpoint}${image.src}`} sizes="32x32" /> : null }
+        {image && image.src ? <link rel="shortcut icon" href={`${imageEndpoint}${image.src}`} /> : null }
+        {image && image.src ? <meta property="og:image" content={`${imageEndpoint}${image.src}`} /> : null }
         {description && <meta name="description" content={description} />}
         {description && <meta property="og:description" content={description} />}
         <meta name="keywords" content={keywords} />
@@ -31,9 +34,9 @@ class SiteHead extends Component {
           {`{
             "@context": "http://schema.org",
             "@type": "Product",
-            "name": "${name}",
-            "url": "${window.location.pathname}",
-            "image": "${image && image.src ? `${process.env.REACT_APP_IMAGE_ENDPOINT}${image.src}` : null}",
+            "name": "${brandName}",
+            "url": "${brandName}",
+            "image": "${image && image.src ? `${imageEndpoint}${image.src}` : null}",
             "aggregateRating": {
               "@type": "AggregateRating",
               "ratingValue": "4.5",

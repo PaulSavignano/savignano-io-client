@@ -45,7 +45,7 @@ const Footer = ({
       imageMargin,
       imagePadding,
       justifyContent,
-      textAlign,
+      textAlignItems,
     }
   },
   pages,
@@ -76,7 +76,7 @@ const Footer = ({
         </div>
       : null
       }
-      <div style={{ textAlign }}>
+      <div className="Footer-text" style={{ alignItems: textAlignItems }}>
         <FooterPageLinks
           pages={pages}
         />

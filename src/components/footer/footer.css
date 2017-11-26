@@ -3,13 +3,21 @@ a {
   color: inherit;
 }
 
+footer {
+  display: flex;
+}
+
 .footer-brand {
   padding: 8px 0;
   margin: 0 16px;
+  align-items: inherit;
+  display: flex;
+  flex-flow: column;
 }
 
 .footer-paper {
   display: flex;
+  flex: 1 1 auto;
 }
 
 .footer-social-media {
@@ -25,20 +33,19 @@ a {
 }
 
 
-.footer-navigation-container {
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-  align-items: flex-end;
-}
-
-.footer-navigation {
+.footer-page-navigation {
   display: flex;
   flex-flow: row nowrap;
-  align-items: center;
-  height: 64px;
+  text-align: inherit;
 }
 
 .active-nav {
   border-bottom: 2px solid !important;
+}
+
+.Footer-text {
+  display: flex;
+  flex-flow: column;
+  flex: 1 1 auto;
+  padding: 16px 0
 }

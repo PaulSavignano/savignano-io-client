@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom'
 import FlatButton from 'material-ui/FlatButton'
 
 import './footer.css'
+import getNavClass from '../../utils/getNavClass'
 
 class FooterPageLinks extends Component {
   state = {
@@ -13,27 +14,8 @@ class FooterPageLinks extends Component {
   }
   componentDidMount() {
     const width = this.navigation.clientWidth
-    const totalWidth = width/.70
-    let navClass
-    switch(true) {
-      case totalWidth < 375:
-        navClass = 'largerThanIphone375'
-        break
-      case totalWidth < 667:
-        navClass = 'largerThanIphone667'
-        break
-      case totalWidth < 768:
-        navClass = 'largerThanIpad768'
-        break
-      case totalWidth < 1024:
-        navClass = 'largerThanIpad1024'
-        break
-      case totalWidth < 1366:
-        navClass = 'largerThanIpad1366'
-        break
-      default:
-        navClass = 'largerThan1920'
-    }
+    const totalWidth = width/.50
+    const navClass = getNavClass(totalWidth)
     this.setState({ navClass, width });
   }
   render() {
@@ -49,29 +31,23 @@ class FooterPageLinks extends Component {
       <div
         ref={(navigation) => this.navigation = navigation}
         style={{ fontFamily }}
-        className="footer-navigation-container"
+        className={`${navClass} footer-page-navigation`}
       >
-        <div className="footer-navigation">
-          <div
-            className={`${navClass} appbar-navigation`}
-          >
-            {pages.length ? pages.filter(page => page.slug !== 'home').map(page => (
-              <FlatButton
-                key={page.name}
-                style={{ color, minWidth: 'none', margin: '0 16px' }}
-                labelStyle={{ padding: '0 0 2px 0', fontFamily }}
-                label={page.name}
-                hoverColor="none"
-                containerElement={
-                  <NavLink to={`/${page.slug}`} activeClassName="active-nav" />
-                }
-              />
-            ))
-            :
-              null
+        {pages.length ? pages.filter(page => page.slug !== 'home').map(page => (
+          <FlatButton
+            key={page.name}
+            style={{ color, minWidth: 'none', margin: '0 16px' }}
+            labelStyle={{ padding: '0 0 2px 0', fontFamily }}
+            label={page.name}
+            hoverColor="none"
+            containerElement={
+              <NavLink to={`/${page.slug}`} activeClassName="active-nav" />
             }
-          </div>
-        </div>
+          />
+        ))
+        :
+          null
+        }
       </div>
     )
   }

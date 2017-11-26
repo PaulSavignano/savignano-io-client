@@ -5,14 +5,14 @@ import { Helmet } from "react-helmet"
 const PageHead = ({
   pageName,
   brandImage,
-  brandName,
+  businessName,
   description,
 }) => (
   <Helmet>
-    {pageName === 'Home' ? null : <title>{pageName}</title>}
+    {pageName === 'Home' ? null : <title>{`${businessName} - ${pageName}`}</title>}
     {description && <meta name="description" content={description} />}
     {description && <meta property="og:description" content={description} />}
-    <meta property="og:title" content={pageName} />
+    <meta property="og:title" content={`${businessName} - ${pageName}`} />
     <meta property="og:url" content={window.location.href} />
     <script type="application/ld+json">
       {`{

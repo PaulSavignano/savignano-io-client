@@ -1,0 +1,7 @@
+.AsyncComponent-loading {
+  display: flex;
+  flex-flow: column;
+  min-height: 85vh;
+  align-items: center;
+  justify-content: center;
+}

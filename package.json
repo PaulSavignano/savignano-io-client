@@ -40,6 +40,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
+    "predeploy": "npm run build",
+    "deploy": "aws s3 sync build/ s3://savignano.io",
+    "postdeploy": "aws cloudfront create-invalidation --distribution-id EEX2PLFCJOOQA --paths '/*'",
     "eject": "react-scripts eject"
   },
   "version": "0.1.0"

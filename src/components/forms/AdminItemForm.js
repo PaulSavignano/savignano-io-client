@@ -17,7 +17,7 @@ import renderSelectField from '../../components/fields/renderSelectField'
 import renderTextField from '../fields/renderTextField'
 import renderWysiwgyField from '../fields/renderWysiwgyField'
 
-import adminItemForms from './adminItemForms'
+import adminComponentForms from '../../utils/adminComponentForms'
 
 class AdminItemForm extends Component {
   state = {
@@ -197,7 +197,7 @@ class AdminItemForm extends Component {
       editItem: { kind },
       pristine
     } = this.props
-    const itemForm = adminItemForms.find(form => form.name === kind)
+    const itemForm = adminComponentForms.find(form => form.name === kind)
     this.setState({ disabled: pristine, itemForm })
   }
   componentWillReceiveProps({ pristine }) {

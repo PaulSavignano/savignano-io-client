@@ -7,16 +7,23 @@ import renderTextField from '../fields/renderTextField'
 import apiConfigContainer from '../../containers/apiConfig/apiConfigContainer'
 import ApiConfigAdd from './ApiConfigAdd'
 
+const apiKey1 = process.env.REACT_APP_API_1
+const apiKey2 = process.env.REACT_APP_API_2
+const apiKey3 = process.env.REACT_APP_API_3
+
 const fields = [
   'gmailUser',
-  'moverbaseKey',
   'oauthAccessToken',
   'oauthClientId',
   'oauthClientSecret',
   'oauthRefreshToken',
   'stripeSkLive',
   'stripeSkTest',
+  apiKey1,
+  apiKey2,
+  apiKey3
 ]
+
 
 const ApiConfigPage = ({
   _id,
@@ -35,7 +42,7 @@ const ApiConfigPage = ({
         <CardTitle title="apiConfig" />
         <form onSubmit={handleSubmit(handleFormSubmit)}>
           <div className="field-container">
-            {fields.map(name => (
+            {fields.filter(name => name && name).map(name =>
               <Field
                 className="field"
                 component={renderTextField}
@@ -43,7 +50,7 @@ const ApiConfigPage = ({
                 label={name}
                 name={name}
               />
-            ))}
+            )}
           </div>
           {error && <div className="error">{error}</div>}
           <div className="button-container">

@@ -30,7 +30,7 @@ class Page extends Component {
   render() {
     const {
       brandImage,
-      brandName,
+      businessName,
       dispatch,
       hash,
       page: {
@@ -48,7 +48,7 @@ class Page extends Component {
         <PageHead
           description={this.state.description}
           brandImage={brandImage}
-          brandName={brandName}
+          businessName={businessName}
           pageName={name}
         />
         <div {...propsForParent}>

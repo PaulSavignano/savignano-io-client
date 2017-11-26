@@ -1,13 +1,20 @@
-import { fetchUpdate as articleUpdate, fetchDelete as articleDelete } from '../../actions/articles'
-import { fetchUpdate as cardUpdate, fetchDelete as cardDelete } from '../../actions/cards'
-import { fetchUpdate as contactFormUpdate, fetchDelete as contactFormDelete } from '../../actions/contactForms'
-import { fetchUpdate as heroUpdate, fetchDelete as heroDelete } from '../../actions/heros'
-import { fetchUpdate as pageUpdate, fetchDelete as pageDelete } from '../../actions/pages'
-import { fetchUpdate as productUpdate, fetchDelete as productDelete } from '../../actions/products'
-import { fetchUpdate as sectionUpdate, fetchDelete as sectionDelete } from '../../actions/sections'
+import { fetchUpdate as articleUpdate, fetchDelete as articleDelete } from '../actions/articles'
+import { fetchUpdate as cardUpdate, fetchDelete as cardDelete } from '../actions/cards'
+import { fetchUpdate as contactFormUpdate, fetchDelete as contactFormDelete } from '../actions/contactForms'
+import { fetchUpdate as heroUpdate, fetchDelete as heroDelete } from '../actions/heros'
+import { fetchUpdate as pageUpdate, fetchDelete as pageDelete } from '../actions/pages'
+import { fetchUpdate as productUpdate, fetchDelete as productDelete } from '../actions/products'
+import { fetchUpdate as sectionUpdate, fetchDelete as sectionDelete } from '../actions/sections'
 
+import {
+  alignItems,
+  flexFlow,
+  justifyContent,
+  mediaElevation,
+  textAlign,
+} from './fieldOptions'
 
-const adminItemForms = [{
+const admimComponentForms = [{
   name: 'ARTICLE',
   update: articleUpdate,
   delete: articleDelete,
@@ -17,7 +24,7 @@ const adminItemForms = [{
     { name: 'button1Link', type: 'text' },
     { name: 'button2Text', type: 'text' },
     { name: 'button2Link', type: 'text' },
-    { name: 'flexFlow', type: 'select', options: ['column nowrap','column wrap-reverse','column wrap','row nowrap','row wrap-reverse','row wrap',]},
+    { name: 'flexFlow', type: 'select', options: flexFlow },
     { name: 'h1Text', type: 'text' },
     { name: 'h2Text', type: 'text' },
     { name: 'h3Text', type: 'text' },
@@ -40,7 +47,7 @@ const adminItemForms = [{
       type: 'select',
       options: [
         'articleStyle',
-        '0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24'
+        ...mediaElevation
       ]
     },
     { name: 'mediaFlex', type: 'text' },
@@ -95,7 +102,7 @@ const adminItemForms = [{
     { name: 'mediaElevation',
       type: 'select',
       options: [
-        '0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24'
+        ...mediaElevation
       ]
     },
     { name: 'pText', type: 'wysiwgy' }
@@ -123,11 +130,11 @@ const adminItemForms = [{
   update: sectionUpdate,
   delete: sectionDelete,
   fields: [
-    { name: 'alignItems', type: 'select', options: ['baseline','center','flex-end','flex-start','stretch' ]},
+    { name: 'alignItems', type: 'select', options: alignItems },
     { name: 'backgroundColor', type: 'text' },
     { name: 'backgroundPosition', type: 'text' },
-    { name: 'flexFlow', type: 'select', options: ['column nowrap','column wrap-reverse','column wrap','row nowrap','row wrap-reverse','row wrap',]},
-    { name: 'justifyContent', type: 'select', options: ['center','flex-end','flex-start','space-around','space-between']},
+    { name: 'flexFlow', type: 'select', options: flexFlow },
+    { name: 'justifyContent', type: 'select', options: justifyContent },
     { name: 'kind', type: 'select', options: [ 'Flex', 'SlideShow', 'Swipeable' ] },
     { name: 'margin', type: 'text' },
     { name: 'maxWidth', type: 'text' },
@@ -138,4 +145,4 @@ const adminItemForms = [{
 }]
 
 
-export default adminItemForms
+export default admimComponentForms

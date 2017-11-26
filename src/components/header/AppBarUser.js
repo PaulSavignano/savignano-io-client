@@ -8,6 +8,7 @@ import Menu from 'material-ui/Menu'
 import './header.css'
 import UserButtons from './UserButtons'
 import { signout } from '../../actions/user'
+import getNavClass from '../../utils/getNavClass'
 
 class AppBarUser extends Component {
   state = {
@@ -31,26 +32,7 @@ class AppBarUser extends Component {
     const { cartQty } = this.props
     const width = this.userNav.clientWidth
     const totalWidth = width/.2
-    let navClass
-    switch(true) {
-      case totalWidth < 375:
-        navClass = 'largerThanIphone375'
-        break
-      case totalWidth < 667:
-        navClass = 'largerThanIphone667'
-        break
-      case totalWidth < 768:
-        navClass = 'largerThanIpad768'
-        break
-      case totalWidth < 1024:
-        navClass = 'largerThanIpad1024'
-        break
-      case totalWidth < 1366:
-        navClass = 'largerThanIpad1366'
-        break
-      default:
-        navClass = 'largerThan1920'
-    }
+    const navClass = getNavClass(totalWidth)
     const horizontal = cartQty > 0 ? 'left' : 'right'
     this.setState({ horizontal, navClass, width })
   }
