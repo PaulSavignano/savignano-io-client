@@ -51,6 +51,10 @@ h1, h2, h3, p {
   height: 85vh;
 }
 
+.active-nav {
+  border-bottom: 2px solid !important;
+}
+
 
 
 

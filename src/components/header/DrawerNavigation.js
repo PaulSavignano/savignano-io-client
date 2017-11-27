@@ -135,9 +135,11 @@ class DrawerNavigation extends Component {
           style={{ height: 48 }}
           innerDivStyle={{ padding: 0 }}
           children={
-            <SearchIcon
+            <IconButton
               key={1}
-              iconClassName="drawer-search-icon"
+              children={
+                <SearchIcon className="drawer-search-icon"/>
+              }
             />
           }
         />

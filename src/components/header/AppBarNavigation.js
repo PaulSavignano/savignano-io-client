@@ -76,13 +76,17 @@ class AppBarNavigation extends Component {
               null
             }
           </div>
-
-          <SearchIcon
-            color={color}
-            handleSearchToggle={this.handleSearchToggle}
+          <IconButton
+            children={
+              <SearchIcon
+                color={color}
+                className="appbar-search-icon"
+              />
+            }
+            onTouchTap={this.handleSearchToggle}
             className="appbar-search-icon-button"
-            iconClassName="appbar-search-icon"
           />
+          
           <AppBarUser
             cartQty={cartQty}
             color={color}

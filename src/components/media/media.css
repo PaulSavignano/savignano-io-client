@@ -1,6 +1,7 @@
 .media-iframe-container {
   position: relative;
   padding-bottom: 50%;
+  height: 100%
 }
 
 .media-iframe {

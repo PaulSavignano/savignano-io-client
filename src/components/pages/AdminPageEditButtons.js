@@ -25,7 +25,7 @@ class AdminPageEditButtons extends Component {
         <BottomNavigation>
           <BottomNavigationItem
             label="Edit Page"
-            icon={<EditIcon />}
+            icon={<EditIcon className="edit-icon" />}
             onTouchTap={this.handlePageEdit}
           />
           <BottomNavigationItem

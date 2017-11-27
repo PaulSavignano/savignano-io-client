@@ -20,11 +20,3 @@
 .admin-pages-item-button {
   align-self: flex-end;
 }
-
-.fa-pencil + div {
-  padding-top: 2px !important;
-}
-
-.fa-pencil {
-  font-size: 22px !important;
-}
