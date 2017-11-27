@@ -2,22 +2,17 @@ const getNavClass = (totalWidth) => {
   let navClass
   switch(true) {
     case totalWidth < 375:
-      navClass = 'largerThanIphone375'
-      break
+      return navClass = 'largerThanIphone375'
     case totalWidth < 667:
-      navClass = 'largerThanIphone667'
-      break
+      return navClass = 'largerThanIphone667'
     case totalWidth < 768:
-      navClass = 'largerThanIpad768'
-      break
+      return navClass = 'largerThanIpad768'
     case totalWidth < 1024:
-      navClass = 'largerThanIpad1024'
-      break
+      return navClass = 'largerThanIpad1024'
     case totalWidth < 1366:
-      navClass = 'largerThanIpad1366'
-      break
+      return navClass = 'largerThanIpad1366'
     default:
-      navClass = 'largerThan1920'
+      return navClass = 'largerThan1920'
   }
 }
 

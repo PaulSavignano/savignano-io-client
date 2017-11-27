@@ -9,7 +9,7 @@ const PageHead = ({
   description,
 }) => (
   <Helmet>
-    {pageName === 'Home' ? null : <title>{`${businessName} - ${pageName}`}</title>}
+    {pageName === 'Home' ? <title>{`${businessName}`}</title> : <title>{`${businessName} - ${pageName}`}</title>}
     {description && <meta name="description" content={description} />}
     {description && <meta property="og:description" content={description} />}
     <meta property="og:title" content={`${businessName} - ${pageName}`} />
