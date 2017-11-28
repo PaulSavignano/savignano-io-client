@@ -8,12 +8,14 @@
 .ArticleMediaLeftOfText {
   display: flex;
   justify-content: space-around;
+  height: 100%;
 }
 .article-media {
   display: flex;
   flex-flow: column;
   justify-content: center;
   margin: 8px;
+  height: 100%;
 }
 
 .article-heading,
