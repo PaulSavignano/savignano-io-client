@@ -30,17 +30,19 @@ const Media = ({
       />
     :
       iframe &&
-      <div className="media-iframe-container">
-        <iframe
-          className="media-iframe"
-          title="iframe"
-          style={{ borderRadius, boxShadow: shadows[elevation], ...style }}
-          src={iframe}
-          frameBorder="0"
-          allowFullScreen
-        >
-        </iframe>
+      <div>
+        <div className="media-iframe-container">
+          <iframe
+            className="media-iframe"
+            title="iframe"
+            style={{ borderRadius, boxShadow: shadows[elevation], ...style }}
+            src={iframe}
+            allowFullScreen
+          >
+          </iframe>
+        </div>
       </div>
+
     }
   </div>
 )

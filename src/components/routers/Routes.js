@@ -44,7 +44,6 @@ const Routes = ({ roles }) => (
     <PrivateRoute exact path="/admin/users" roles={roles} requiredRoles={['owner']} component={AdminUsersPage} />
     <PrivateRoute exact path="/admin/users/edit/:userId" roles={roles} requiredRoles={['owner']} component={AdminUsersEditUserPage} />
     <PrivateRoute exact path="/user/checkout" roles={roles} requiredRoles={['user']} component={CheckoutPage} />
-    <PrivateRoute exact path="/user/order" roles={roles} requiredRoles={['user']} component={OrderAdd} />
     <PrivateRoute exact path="/user/order/:orderId" roles={roles} requiredRoles={['user']} component={OrderConfirmationPage} />
     <PrivateRoute exact path="/user/orders/:orderId" roles={roles} requiredRoles={['user']} component={OrderDetailPage} />
     <PrivateRoute exact path="/user/profile" roles={roles} requiredRoles={['user', 'admin']} component={UserProfilePage} />

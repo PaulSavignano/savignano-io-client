@@ -7,7 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 class CheckoutButton extends Component {
   handleNavigation = () => {
     const { dispatch, user: { values: { email }}} = this.props
-    if (!email) return dispatch({ type: 'REDIRECT_USER', path: '/user/order' })
+    if (!email) return dispatch({ type: 'REDIRECT_USER', path: '/user/checkout' })
     return
   }
   render() {
@@ -16,7 +16,7 @@ class CheckoutButton extends Component {
       <CardActions>
         <RaisedButton
           onTouchTap={this.handleNavigation}
-          containerElement={<Link to={user.values.email ? '/user/order' : '/user/signin'}/>}
+          containerElement={<Link to={user.values.email ? '/user/checkout' : '/user/signin'}/>}
           label="Checkout"
           primary={true}
           fullWidth={true}
