@@ -26,7 +26,7 @@ const validate = values => {
 }
 
 
-class Signin extends Component {
+class SigninPage extends Component {
   state = {
     open: false,
     message: null
@@ -79,7 +79,7 @@ class Signin extends Component {
   }
 }
 
-Signin.propTypes = {
+SigninPage.propTypes = {
   dirty: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
   error: PropTypes.string,
@@ -92,4 +92,4 @@ Signin.propTypes = {
 export default userContainer(reduxForm({
   form: 'signin',
   validate,
-})(withRouter(withTracker(Signin))))
+})(withRouter(withTracker(SigninPage))))

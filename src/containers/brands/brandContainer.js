@@ -21,6 +21,7 @@ const brandContainer = (ComposedComponent) => {
           isFetching,
           palette,
           productStyle,
+          socialMedia,
           typography,
         },
         dispatch,
@@ -36,8 +37,10 @@ const brandContainer = (ComposedComponent) => {
         {heroStyle},
         {palette},
         {productStyle},
+        {socialMedia},
         {typography},
       ]
+      console.log(socialMedia)
       const matchedBrandItem = forms.find(f => f[brandItem])[brandItem]
       const matchedBrandForm = adminBrandForms.find(form => form.name === brandItem)
       const props = {

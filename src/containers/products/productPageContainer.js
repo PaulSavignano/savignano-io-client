@@ -24,6 +24,7 @@ const productPageContainer = (ComposedComponent) => {
     render() {
       const { loadingImages } = this.state
       const {
+        canvasColor,
         dispatch,
         isFetching,
         item,
@@ -31,6 +32,7 @@ const productPageContainer = (ComposedComponent) => {
         productStyle
       } = this.props
       const props = {
+        canvasColor,
         dispatch,
         item,
         productStyle,
@@ -53,18 +55,20 @@ const productPageContainer = (ComposedComponent) => {
     brand: {
       isFetching: brandIsFetching,
       productStyle,
-      palette: { values: { primary1Color }}
+      palette: { values: { primary1Color, canvasColor }}
     },
     products
   }, {
     match: { params: { productId }}
   }) => ({
+    canvasColor,
     isFetching: brandIsFetching || products.isFetching ? true : false,
     productStyle,
     primary1Color,
     item: products.items.find(item => item._id === productId)
   })
   ProductPageContainer.propTypes = {
+    canvasColor: PropTypes.string,
     dispatch: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired,
     item: PropTypes.object,

@@ -17,6 +17,7 @@ class ProductPage extends Component {
   }
   render() {
     const {
+      canvasColor,
       dispatch,
       item: {
         _id,
@@ -44,7 +45,7 @@ class ProductPage extends Component {
     } = this.props
     return (
       <div className="product-page" id={_id} style={{ backgroundColor: detailPageBackgroundColor }}>
-        <section className="product-page-section">
+        <section className="product-page-section" style={{ backgroundColor: canvasColor }}>
           <Media
             border={mediaBorder}
             elevation={mediaElevation}
@@ -89,6 +90,7 @@ class ProductPage extends Component {
 }
 
 ProductPage.propTypes = {
+  canvasColor: PropTypes.string,
   dispatch: PropTypes.func.isRequired,
   item: PropTypes.object.isRequired,
   productStyle: PropTypes.object.isRequired

@@ -23,7 +23,6 @@ class AppBarNavigation extends Component {
     const width = this.navigation.clientWidth
     const totalWidth = width/.70
     const navClass = getNavClass(totalWidth)
-    console.log('navClass', navClass)
     this.setState({ navClass, width });
   }
   render() {
@@ -86,7 +85,7 @@ class AppBarNavigation extends Component {
             onTouchTap={this.handleSearchToggle}
             className="appbar-search-icon-button"
           />
-          
+
           <AppBarUser
             cartQty={cartQty}
             color={color}

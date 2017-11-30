@@ -26,7 +26,7 @@ const validate = values => {
   return errors
 }
 
-class Recovery extends Component {
+class RecoveryPage extends Component {
   state = {
     open: false,
     email: null
@@ -54,7 +54,7 @@ class Recovery extends Component {
       <div className="page">
         <section className="section">
           <Card className="card">
-            <CardTitle title="Recovery" subtitle="Enter your email to recover your account" />
+            <CardTitle title="RecoveryPage" subtitle="Enter your email to recover your account" />
             <form onSubmit={handleSubmit(this.handleFormSubmit)}>
               <CardText>
                 <Field name="email" component={renderTextField} label="Email" fullWidth={true} />
@@ -67,7 +67,7 @@ class Recovery extends Component {
                   reset={null}
                   submitSucceeded={submitSucceeded}
                   submitting={submitting}
-                  successLabel="Recovery Success!"
+                  successLabel="RecoveryPage Success!"
                 />
               </div>
             </form>
@@ -98,7 +98,7 @@ class Recovery extends Component {
   }
 }
 
-Recovery.propTypes = {
+RecoveryPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   user: PropTypes.object
 }
@@ -106,4 +106,4 @@ Recovery.propTypes = {
 export default userContainer(reduxForm({
   form: 'recovery',
   validate
-})(Recovery))
+})(RecoveryPage))

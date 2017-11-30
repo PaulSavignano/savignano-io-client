@@ -58,25 +58,17 @@ const adminBrandForms = [{
     { name: 'city', type: 'text' },
     { name: 'description', type: 'text' },
     { name: 'email', type: 'text' },
-    { name: 'facebook', type: 'text' },
-    { name: 'github', type: 'text' },
-    { name: 'google', type: 'text' },
     { name: 'googleAnalyticsUA', type: 'text' },
     { name: 'imageBorderRadius', type: 'text' },
-    { name: 'instagram', type: 'text' },
     { name: 'keywords', type: 'text' },
     { name: 'license', type: 'text' },
-    { name: 'linkedin', type: 'text' },
     { name: 'name', type: 'text' },
-    { name: 'phoneStyle', type: 'select', options: [ '(###) ###-####', '###.###.####' ] },
     { name: 'phone', type: 'phone' },
+    { name: 'phoneStyle', type: 'select', options: [ '(###) ###-####', '###.###.####' ] },
     { name: 'state', type: 'state' },
     { name: 'street', type: 'text' },
     { name: 'stripePkLive', type: 'text' },
     { name: 'stripePkTest', type: 'text' },
-    { name: 'twitter', type: 'text' },
-    { name: 'yelp', type: 'text' },
-    { name: 'youtube', type: 'text' },
     { name: 'zip', type: 'zip' },
   ]
 }, {
@@ -174,6 +166,18 @@ const adminBrandForms = [{
     { name: 'mediaElevation', type: 'number', max: 24, min: 0 },
     { name: 'nameColor', type: 'text' },
     { name: 'nameTextShadow', type: 'text' },
+  ]
+}, {
+  name: 'socialMedia',
+  fields: [
+    { name: 'facebook', type: 'text' },
+    { name: 'github', type: 'text' },
+    { name: 'googleplus', type: 'text' },
+    { name: 'instagram', type: 'text' },
+    { name: 'linkedin', type: 'text' },
+    { name: 'twitter', type: 'text' },
+    { name: 'yelp', type: 'text' },
+    { name: 'youtube', type: 'text' },
   ]
 }, {
   name: 'typography',

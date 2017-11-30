@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import './users.css'
 import usersContainer from '../../containers/users/usersContainer'
 import AdminUsersItem from './AdminUsersItem'
 import H2 from '../typography/H2'

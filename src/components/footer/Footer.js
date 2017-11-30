@@ -8,6 +8,15 @@ import './footer.css'
 import footerContainer from '../../containers/footer/footerContainer'
 import FooterPageLinks from './FooterPageLinks'
 import Media from '../media/Media'
+import GithubIcon from '../icons/GithubIcon'
+import GoogleplusIcon from '../icons/GoogleplusIcon'
+import FacebookIcon from '../icons/FacebookIcon'
+import InstagramIcon from '../icons/InstagramIcon'
+import LinkedinIcon from '../icons/LinkedinIcon'
+import TwitterIcon from '../icons/TwitterIcon'
+import YelpIcon from '../icons/YelpIcon'
+import YoutubeIcon from '../icons/YoutubeIcon'
+
 
 const Footer = ({
   business: {
@@ -20,14 +29,6 @@ const Footer = ({
       city,
       state,
       zip,
-      facebook,
-      github,
-      google,
-      instagram,
-      linkedin,
-      twitter,
-      yelp,
-      youtube
     }
   },
   item: {
@@ -50,7 +51,19 @@ const Footer = ({
   },
   pages,
   primary1Color,
-  propsForParent
+  propsForParent,
+  socialMedia: {
+    values: {
+      facebook,
+      github,
+      googleplus,
+      instagram,
+      linkedin,
+      twitter,
+      yelp,
+      youtube
+    }
+  }
 }) => (
   <footer {...propsForParent}>
     <Paper
@@ -82,13 +95,13 @@ const Footer = ({
         />
         <div className="footer-social-media">
           { facebook && <a href={facebook}><FontIcon className="fa fa-facebook-square" /></a> }
-          { github && <a href={github}><FontIcon className="fa fa-github-square" /></a> }
-          { google && <a href={google}><FontIcon className="fa fa-google-plus-square" /></a> }
-          { instagram && <a href={instagram}><FontIcon className="fa fa-instagram" /></a> }
-          { linkedin && <a href={linkedin}><FontIcon className="fa fa-linkedin-square" /></a> }
-          { twitter && <a href={twitter}><FontIcon className="fa fa-twitter-square" /></a> }
-          { yelp && <a href={yelp}><FontIcon className="fa fa-yelp" /></a> }
-          { youtube && <a href={youtube}><FontIcon className="fa fa-youtube-play" /></a> }
+          { github && <a href={github}><GithubIcon color={color}/></a> }
+          { googleplus && <a href={googleplus}><GoogleplusIcon color={color} /></a> }
+          { instagram && <a href={instagram}><InstagramIcon color={color} /></a> }
+          { linkedin && <a href={linkedin}><LinkedinIcon color={color} /></a> }
+          { twitter && <a href={twitter}><TwitterIcon color={color} /></a> }
+          { yelp && <a href={yelp}><YelpIcon color={color} /></a> }
+          { youtube && <a href={youtube}><YoutubeIcon color={color} /></a> }
         </div>
         <div className="footer-brand">
           <Link to="/">

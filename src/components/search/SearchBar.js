@@ -4,6 +4,8 @@ import IconButton from 'material-ui/IconButton'
 import TextField from 'material-ui/TextField'
 
 import searchContainer from '../../containers/search/searchContainer'
+import './search.css'
+import SearchIcon from '../icons/SearchIcon'
 import { searchToggle, searchAdd } from '../../actions/search'
 
 class SearchBar extends Component {
@@ -29,11 +31,16 @@ class SearchBar extends Component {
       search
     } = this.props
     return (
-      <span>
+      <span className="SearchBar" >
         <IconButton
-          iconClassName="fa fa-search"
-          iconStyle={{ fontSize: 16, color }}
-          onTouchTap={this.handleStartSearch}
+          children={
+            <SearchIcon
+              color={color}
+              className="searchbar-search-icon"
+            />
+          }
+          onTouchTap={this.handleSearchToggle}
+          className="searchbar-search-icon-button"
         />
         <TextField
           autoFocus

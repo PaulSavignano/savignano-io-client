@@ -11,6 +11,7 @@ const brand = (state = {
   heroStyle: { values: {}},
   palette: { values: {}},
   productStyle: { values: {}},
+  socialMedia: { values: {}},
   typography: { values: {}}
 }, action) => {
   switch (action.type) {

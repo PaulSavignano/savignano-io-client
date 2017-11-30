@@ -5,7 +5,6 @@ import renderHTML from 'react-render-html'
 import './typography.css'
 import P from './P'
 
-
 const Paragraph = ({
   className,
   color,

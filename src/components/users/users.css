@@ -36,3 +36,12 @@
 .users-page-heading {
   margin: 16px
 }
+
+.UserProfileForm, .AddressesForm, .OrderList {
+  margin: 32px 8px;
+  overflow: hidden;
+}
+
+.user-profile-page-heading {
+  margin: 0 16px;
+}

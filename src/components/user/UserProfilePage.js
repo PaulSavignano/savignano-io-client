@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import './user.css'
+import userProfileContainer from '../../containers/user/userProfileContainer'
 import H2 from '../../components/typography/H2'
 import UserProfileForm from '../../components/user/UserProfileForm'
 import AddressesForm from '../../components/addresses/AddressesForm'
@@ -47,6 +49,7 @@ class UserProfilePage extends Component {
   }
   render() {
     const {
+      canvasColor: backgroundColor,
       dispatch,
       isFetching,
       user,
@@ -55,11 +58,8 @@ class UserProfilePage extends Component {
     return (
       isFetching ? null :
       <div className="page">
-        <section>
-          <div className="user-profile-page-heading">
-            <H2>Profile</H2>
-          </div>
-
+        <section style={{ backgroundColor }} className="padding-8px">
+          <H2 className="padding-16px">Profile</H2>
           <UserProfileForm
             dispatch={dispatch}
             initialValues={this.state.userInitialValues}
@@ -85,10 +85,4 @@ class UserProfilePage extends Component {
 }
 
 
-export default connect(
-  ({ user, orders }) => ({
-    isFetching: user.isFetching || orders.isFetching ? true : false,
-    orders: orders.items.filter(item => item.user === user._id),
-    user
-  })
-)(UserProfilePage)
+export default userProfileContainer(UserProfilePage)

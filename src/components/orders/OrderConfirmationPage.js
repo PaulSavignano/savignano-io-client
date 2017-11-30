@@ -15,9 +15,9 @@ const OrderConfirmationPage = ({ dispatch, order }) => {
     <div className="page">
       <ScrollToTopOnMount/>
       <section>
-        <div className="page-text">
-          <H2 className="page-heading">Order {order._id}</H2>
-          <P className="page-paragraph">Hi {order.firstName}, thank you for your order {order._id}!</P>
+        <div className="padding-8px">
+          <H2 className="padding-8px">Order {order._id}</H2>
+          <P className="padding-8px">Hi {order.firstName}, thank you for your order {order._id}!</P>
         </div>
         <OrderDetail
           dispatch={dispatch}

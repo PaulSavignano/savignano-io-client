@@ -7,16 +7,15 @@ import PrivateRoute from './PrivateRoute'
 import CartPage from '../cart/CartPage'
 import CheckoutPage from '../checkout/CheckoutPage'
 import NotFoundPage from '../not-found/NotFoundPage'
-import OrderAdd from '../orders/OrderAdd'
 import OrderConfirmationPage from '../orders/OrderConfirmationPage'
 import OrderDetailPage from '../orders/OrderDetailPage'
 import Page from '../pages/Page'
 import ProductPage from '../products/ProductPage'
-import Recovery from '../user/Recovery'
-import Reset from '../user/Reset'
-import Signin from '../user/Signin'
-import Signup from '../user/Signup'
-import UserProfilePage from '../../containers/user/UserProfilePage'
+import RecoveryPage from '../user/RecoveryPage'
+import ResetPage from '../user/ResetPage'
+import SigninPage from '../user/SigninPage'
+import SignupPage from '../user/SignupPage'
+import UserProfilePage from '../user/UserProfilePage'
 
 import RequestEstimate from '../../moverbase/components/RequestEstimate'
 
@@ -24,12 +23,11 @@ const AdminOrderDetailPage = asyncComponent(() => import('../orders/AdminOrderDe
 const AdminOrderPage = asyncComponent(() => import('../orders/AdminOrderPage'))
 const AdminPage = asyncComponent(() => import('../pages/AdminPage'))
 const AdminPagesListPage = asyncComponent(() => import('../pages/AdminPagesListPage'))
-const AdminUsersEditUserPage = asyncComponent(() => import('../../containers/users/AdminUsersEditUserPage'))
+const AdminUsersEditUserPage = asyncComponent(() => import('../users/AdminUsersEditUserPage'))
 const AdminUsersPage = asyncComponent(() => import('../users/AdminUsersPage'))
 const ApiConfigPage = asyncComponent(() => import('../apiConfig/ApiConfigPage'))
 const BrandAdminAddPage = asyncComponent(() => import('../brands/BrandAdminAddPage'))
 const BrandAdminPage = asyncComponent(() => import('../brands/BrandAdminPage'))
-
 
 
 const Routes = ({ roles }) => (
@@ -51,10 +49,10 @@ const Routes = ({ roles }) => (
     <Route exact path="/" component={Page} />
     <Route exact path="/products/:productSlug/:productId" component={ProductPage} />
     <Route exact path="/user/cart" component={CartPage} />
-    <Route exact path="/user/recovery" component={Recovery} />
-    <Route exact path="/user/reset/:resetToken" component={Reset} />
-    <Route exact path="/user/signin" component={Signin} />
-    <Route exact path="/user/signup" component={Signup} />
+    <Route exact path="/user/recovery" component={RecoveryPage} />
+    <Route exact path="/user/reset/:resetToken" component={ResetPage} />
+    <Route exact path="/user/signin" component={SigninPage} />
+    <Route exact path="/user/signup" component={SignupPage} />
 
     <Route exact path="/user/request-estimate" component={RequestEstimate} />
     <Route component={NotFoundPage} />

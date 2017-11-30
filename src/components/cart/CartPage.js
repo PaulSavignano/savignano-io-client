@@ -4,32 +4,42 @@ import { Card, CardTitle } from 'material-ui/Card'
 
 import cartContainer from '../../containers/cart/cartContainer'
 import withTracker from '../../containers/google-analytics/withTracker'
+import H2 from '../typography/H2'
 import CartList from './CartList'
 import CartTotal from './CartTotal'
 import CheckoutButton from './CheckoutButton'
 
-const CartPage = ({ cart, dispatch, user }) => (
+const CartPage = ({
+  canvasColor,
+  cart,
+  dispatch,
+  user
+}) => (
   !cart.items.length ?
-  <Card zDepth={0} className="section page">
-    <CardTitle title="Nothing in your cart yet" />
-  </Card>
+  <div className="page">
+    <section className="section" style={{ backgroundColor: canvasColor }}>
+      <H2 className="padding-16px">Nothing in your cart yet</H2>
+    </section>
+  </div>
   :
-  <Card zDepth={0} className="section page">
-    <CardTitle title="Cart" />
-    <CartList
-      cart={cart}
-      dispatch={dispatch}
-    />
-    <CartTotal
-      cart={cart}
-      dispatch={dispatch}
-      user={user}
-    />
-    <CheckoutButton
-      dispatch={dispatch}
-      user={user}
-    />
-  </Card>
+  <div className="page">
+    <section className="section" style={{ backgroundColor: canvasColor }}>
+      <H2 className="padding-16px">Cart</H2>
+      <CartList
+        cart={cart}
+        dispatch={dispatch}
+      />
+      <CartTotal
+        cart={cart}
+        dispatch={dispatch}
+        user={user}
+      />
+      <CheckoutButton
+        dispatch={dispatch}
+        user={user}
+      />
+    </section>
+  </div>
 )
 
 CartPage.propTypes = {

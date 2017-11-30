@@ -35,20 +35,18 @@ const OrderDetail = ({
   }
 }) => (
   <section className="OrderDetail">
-    <div className="page-text">
-      <div className="page-heading">
-        <H2>Order Detail</H2>
-        <div style={styles.orderDetail}>
-          <P>{`Ordered On ${moment(createdAt).format("dddd, MMMM Do YYYY, h:mm a")}`}</P>
-          <P>{`Order #${_id}`}</P>
-        </div>
+    <div className="padding-16px">
+      <H2>Order Detail</H2>
+      <div style={styles.orderDetail}>
+        <P>{`Ordered On ${moment(createdAt).format("dddd, MMMM Do YYYY, h:mm a")}`}</P>
+        <P>{`Order #${_id}`}</P>
       </div>
     </div>
 
 
 
-    <div className="page-text order-address-and-summary">
-      <div className="page-paragraph">
+    <div className="padding-8px order-address-and-summary">
+      <div className="padding-8px">
         <P><strong>Address</strong></P>
         <div className="order-address">
           <P>{name}</P>
@@ -57,7 +55,7 @@ const OrderDetail = ({
           <P>{city}, {state} {zip}</P>
         </div>
       </div>
-      <div className="page-paragraph">
+      <div className="padding-8px">
         <P><strong>Order Summary</strong></P>
         <div className="order-summary">
           <div className="order-subtotal">

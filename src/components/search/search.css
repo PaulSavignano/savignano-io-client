@@ -15,3 +15,21 @@
 .search-item-text {
   margin: 8px
 }
+
+.SearchBar {
+  display: flex;
+  flex-flow: row nowrap;
+  min-height: 64px;
+  align-items: center;
+}
+
+.searchbar-search-icon-button {
+  display: flex !important;
+  flex-flow: column !important;
+  justify-content: center !important;
+  padding: 4px 8px 0 !important;
+  width: auto !important;
+}
+.searchbar-search-icon {
+  vertical-align: bottom !important;
+}

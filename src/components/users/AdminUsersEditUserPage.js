@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import './users.css'
+import adminUsersContainer from '../../containers/users/adminUsersContainer'
 import AddressesForm from '../../components/addresses/AddressesForm'
 import OrderList from '../../components/orders/OrderList'
 import H3 from '../../components/typography/H3'
@@ -103,19 +104,4 @@ AdminUsersEditUserPage.propTypes = {
   user: PropTypes.object,
 }
 
-export default connect(
-  ({
-    orders,
-    users
-  }, {
-    match: {
-      params: {
-        userId
-      }
-    }
-  }) => ({
-    isFetching: orders.isFetching || users.isFetching,
-    orders: orders.items.filter(item => item.user === userId),
-    user: users.items.find(item => item._id === userId)
-  })
-)(AdminUsersEditUserPage)
+export default adminUsersContainer(AdminUsersEditUserPage)

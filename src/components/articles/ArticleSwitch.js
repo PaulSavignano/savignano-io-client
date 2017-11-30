@@ -17,7 +17,7 @@ const ArticleSwitch = (props) => {
       return <ArticleMediaAboveText {...props} />
     case 'belowText':
       return <ArticleMediaBelowText {...props} />
-    case 'betweenTextAndParagraph':
+    case 'betweenHeadingAndParagraph':
       return <ArticleMediaBetweenHeadingAndParagraph {...props} />
     case 'leftOfParagraph':
       return <ArticleMediaLeftOfParagraph {...props} />

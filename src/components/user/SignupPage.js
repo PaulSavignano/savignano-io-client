@@ -30,7 +30,7 @@ const validate = values => {
   return errors
 }
 
-class Signup extends Component {
+class SignupPage extends Component {
   state = { open: false }
   handleClose = () => {
     this.setState({ open: false })
@@ -58,7 +58,7 @@ class Signup extends Component {
       <div className="page">
         <section className="section">
           <Card className="card">
-            <CardTitle title="Signup" subtitle="Enter your information" />
+            <CardTitle title="SignupPage" subtitle="Enter your information" />
             <form onSubmit={handleSubmit(this.handleFormSubmit)} >
               <CardText>
                 <Field name="firstName" component={renderTextField} label="First Name" fullWidth={true} />
@@ -106,7 +106,7 @@ class Signup extends Component {
   }
 }
 
-Signup.propTypes = {
+SignupPage.propTypes = {
   destroy: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired,
   error: PropTypes.string,
@@ -121,4 +121,4 @@ export default userContainer(
   reduxForm({
   form: 'signup',
   validate
-})(withRouter(withTracker(Signup))))
+})(withRouter(withTracker(SignupPage))))

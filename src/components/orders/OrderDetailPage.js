@@ -10,10 +10,10 @@ class OrderDetailPage extends Component {
     window.scrollTo(0,0)
   }
   render() {
-    const { dispatch, order } = this.props
+    const { dispatch, order, canvasColor } = this.props
     return (
       <div className="page">
-        <section className="section">
+        <section className="section" style={{ backgroundColor: canvasColor }}>
           <OrderDetail
             dispatch={dispatch}
             order={order}

@@ -35,10 +35,10 @@ const admimComponentForms = [{
         'aboveText',
         'belowText',
         'betweenHeadingAndParagraph',
-        'leftOfText',
         'leftOfParagraph',
+        'leftOfText',
+        'rightOfParagraph',
         'rightOfText',
-        'rightOfParagraph'
       ]
     },
     { name: 'mediaBorder', type: 'text' },

@@ -27,7 +27,7 @@ const Text = ({
   h3TextShadow
 }) => (
   <div>
-    <div className="text">
+    <div className="Text">
       {h1Text &&
         <H1 textAlign={h1Align} color={h1Color} textShadow={h1TextShadow}>
           {h1Text}
@@ -45,7 +45,7 @@ const Text = ({
       }
     </div>
     {pText.length < 10 ? null :
-    <div className="text">
+    <div className="Text">
       <P color={pColor}>{renderHTML(pText)}</P>
     </div>
     }

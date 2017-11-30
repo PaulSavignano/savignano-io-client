@@ -6,12 +6,14 @@ const cartContainer = (ComposedComponent) => {
   class CartContainer extends Component {
     render() {
       const {
+        canvasColor,
         cart,
         dispatch,
         isFetching,
         user
       } = this.props
       const props = {
+        canvasColor,
         cart,
         dispatch,
         user
@@ -22,14 +24,17 @@ const cartContainer = (ComposedComponent) => {
     }
   }
   const mapStateToProps = ({
+    brand: { palette: { values: { canvasColor }}},
     carts: { cart, isFetching },
     user
   }) => ({
+    canvasColor,
     cart,
     isFetching: isFetching || user.isFetching ? true : false,
     user
   })
   CartContainer.propTypes = {
+    canvasColor: PropTypes.string,
     cart: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
     isFetching: PropTypes.bool.isRequired,

@@ -12,6 +12,7 @@ const footerContainer = (ComposedComponent) => {
         item,
         pages,
         primary1Color,
+        socialMedia,
       } = this.props
       const {
         backgroundImage,
@@ -38,6 +39,7 @@ const footerContainer = (ComposedComponent) => {
         pages,
         primary1Color,
         propsForParent,
+        socialMedia,
       }
       return (
         !isFetching && item && <ComposedComponent {...props} />
@@ -53,7 +55,8 @@ const footerContainer = (ComposedComponent) => {
         values: {
           primary1Color
         }
-      }
+      },
+      socialMedia
     },
     pages: { isFetching: pagesIsFetching, items },
   }) => ({
@@ -66,7 +69,8 @@ const footerContainer = (ComposedComponent) => {
          name: page.values.name
        }
     }),
-    primary1Color
+    primary1Color,
+    socialMedia
   })
   FooterContainer.propTypes = {
     dispatch: PropTypes.func.isRequired,

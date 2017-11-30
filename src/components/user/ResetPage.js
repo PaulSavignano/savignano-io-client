@@ -26,7 +26,7 @@ const validate = values => {
   return errors
 }
 
-class Reset extends Component {
+class ResetPage extends Component {
   state = {
     open: false,
     message: null
@@ -61,7 +61,7 @@ class Reset extends Component {
       <div className="page">
         <section className="section">
           <Card className="card">
-            <CardTitle title="Reset" subtitle="Enter your email to recover your account" />
+            <CardTitle title="ResetPage" subtitle="Enter your email to recover your account" />
             <form onSubmit={handleSubmit(this.handleFormSubmit)} className="">
               <CardText>
                 <Field name="password" component={renderTextField} label="Password" type="password" fullWidth={true}/>
@@ -71,11 +71,11 @@ class Reset extends Component {
                 <SuccessableButton
                   disabled={pristine || invalid}
                   error={error}
-                  label="Reset"
+                  label="ResetPage"
                   reset={null}
                   submitSucceeded={submitSucceeded}
                   submitting={submitting}
-                  successLabel="Reset Success!"
+                  successLabel="ResetPage Success!"
                 />
               </div>
             </form>
@@ -102,7 +102,7 @@ class Reset extends Component {
   }
 }
 
-Reset.propTypes = {
+ResetPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired
 }
@@ -110,4 +110,4 @@ Reset.propTypes = {
 export default resetHOC(reduxForm({
   form: 'reset',
   validate
-})(Reset))
+})(ResetPage))
