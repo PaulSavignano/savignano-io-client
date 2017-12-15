@@ -55,7 +55,6 @@ class RequestEstimate extends Component {
       .then(res => res.json())
       .then(json => {
         if (json.error) return Promise.reject(json.error)
-        console.log('moverbase contacted')
       })
       .catch(error => console.error(error))
   }

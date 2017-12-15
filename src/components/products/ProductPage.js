@@ -6,7 +6,7 @@ import './product.css'
 import withTracker from '../../containers/google-analytics/withTracker'
 import productPageContainer from '../../containers/products/productPageContainer'
 import Media from '../media/Media'
-import H3 from '../typography/H3'
+import H2 from '../typography/H2'
 import P from '../typography/P'
 import ProductButtons from './ProductButtons'
 import formatPrice from '../../utils/formatPrice'
@@ -60,8 +60,8 @@ class ProductPage extends Component {
                 style={{ color: nameColor, textShadow: nameTextShadow }}
                 className="product-heading"
               >
-                <H3>{name}</H3>
-                <H3>{formatPrice(price)}</H3>
+                <H2>{name}</H2>
+                <H2>{formatPrice(price)}</H2>
               </div>
               {description.length < 10 ? null :
               <div style={{ color: descriptionColor }} className="product-description">

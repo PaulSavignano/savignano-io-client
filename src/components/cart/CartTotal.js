@@ -3,15 +3,14 @@ import PropTypes from 'prop-types'
 import { CardTitle } from 'material-ui/Card'
 
 import formatPrice from '../../utils/formatPrice'
+import H3 from '../typography/H3'
 
 const CartTotal = ({ dispatch, cart, user }) => (
   cart.total &&
-  <div style={{ margin: 8 }}>
-    <div style={{ margin: 8 }}>
-      <CardTitle title={`Subtotal ${formatPrice(cart.subTotal)}`} style={{ textAlign: 'right', padding: '8px 8px' }}/>
-      <CardTitle title={`Taxes ${cart.tax * 100}%`} style={{ textAlign: 'right', padding: '0 8px' }}/>
-      <CardTitle title={`Total ${formatPrice(cart.total)}`} style={{ textAlign: 'right', padding: '8px 8px' }}/>
-    </div>
+  <div className="padding-16px text-align-right">
+    <H3>Subtotal {formatPrice(cart.subTotal)}</H3>
+    <H3>Taxes {cart.tax * 100}%</H3>
+    <H3>Total {formatPrice(cart.total)}</H3>
   </div>
 )
 

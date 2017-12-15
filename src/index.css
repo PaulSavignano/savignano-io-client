@@ -12,7 +12,6 @@ h1, h2, h3, p {
   margin: 0;
 }
 .page {
-  min-height: 85vh;
   max-width: 1044px;
   margin: 0 auto;
   padding: 40px 0
@@ -40,6 +39,9 @@ h1, h2, h3, p {
 }
 .margin-16px {
   margin: 16px;
+}
+.text-align-right {
+  text-align: right;
 }
 
 

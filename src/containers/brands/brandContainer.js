@@ -40,7 +40,6 @@ const brandContainer = (ComposedComponent) => {
         {socialMedia},
         {typography},
       ]
-      console.log(socialMedia)
       const matchedBrandItem = forms.find(f => f[brandItem])[brandItem]
       const matchedBrandForm = adminBrandForms.find(form => form.name === brandItem)
       const props = {

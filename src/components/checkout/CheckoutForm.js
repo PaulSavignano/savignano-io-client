@@ -31,7 +31,6 @@ class CheckoutForm extends Component {
   }
   handleFormSubmit = async (values) => {
     const { dispatch, cart, history } = this.props
-    console.log(values)
     return this.props.stripe.createToken()
     .then(payload => {
       const { token: { id: stripeToken }} = payload

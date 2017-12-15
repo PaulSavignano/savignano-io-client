@@ -12,6 +12,7 @@ class Page extends Component {
     description: null,
   }
   getPageMetaData = (page) => {
+    if (page.slug === 'home') return this.setState({ description: null })
     const description = getPageDescription(page)
     this.setState({ description })
   }

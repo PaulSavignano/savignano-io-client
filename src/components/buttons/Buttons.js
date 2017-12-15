@@ -22,7 +22,7 @@ class Buttons extends Component {
     } = this.props
     return (
       <div className={className ? `Buttons ${className}` : 'Buttons'}>
-        {button1Link.includes('http') ?
+        {button1Link && button1Link.includes('http') ?
           <a href={button1Link}>
             <RaisedButton
               backgroundColor={button1BackgroundColor}
@@ -40,8 +40,8 @@ class Buttons extends Component {
           style={{ border: button1Border  }}
         />
         }
-
-        {!button2Text ? null : button2Link.includes('http') ?
+        
+        {!button2Text ? null : button2Link && button2Link.includes('http') ?
           <a href={button2Link}>
             <RaisedButton
               backgroundColor={button2BackgroundColor}

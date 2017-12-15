@@ -9,12 +9,12 @@ const adminUsersContainer = (ComposedComponent) => {
         dispatch,
         isFetching,
         orders,
-        users,
+        user,
       } = this.props
       const props = {
         dispatch,
         orders,
-        users
+        user
       }
       return (
         isFetching ? null :  <ComposedComponent {...props} />
