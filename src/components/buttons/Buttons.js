@@ -40,7 +40,7 @@ class Buttons extends Component {
           style={{ border: button1Border  }}
         />
         }
-        
+
         {!button2Text ? null : button2Link && button2Link.includes('http') ?
           <a href={button2Link}>
             <RaisedButton

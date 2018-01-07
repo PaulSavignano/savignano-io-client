@@ -19,7 +19,6 @@ class SiteHead extends Component {
     return (
       isFetching ? null :
       <Helmet>
-        <link rel="canonical" href={brandName} />
         {image && image.src ? <link rel="apple-touch-icon" sizes="180x180" href={`${imageEndpoint}${image.src}`} /> : null }
         {image && image.src ? <link rel="icon" type="image/png" href={`${imageEndpoint}${image.src}`} sizes="16x16" /> : null }
         {image && image.src ? <link rel="icon" type="image/png" href={`${imageEndpoint}${image.src}`} sizes="32x32" /> : null }
@@ -29,26 +28,6 @@ class SiteHead extends Component {
         {description && <meta property="og:description" content={description} />}
         <meta name="keywords" content={keywords} />
         <meta property="og:site_name" content={name} />
-        <meta property="og:type" content="website" />
-        <script type="application/ld+json">
-          {`{
-            "@context": "http://schema.org",
-            "@type": "Product",
-            "name": "${brandName}",
-            "url": "${brandName}",
-            "image": "${image && image.src ? `${imageEndpoint}${image.src}` : null}",
-            "aggregateRating": {
-              "@type": "AggregateRating",
-              "ratingValue": "4.5",
-              "reviewCount": "15"
-            },
-            "contactPoint": {
-              "@type": "ContactPoint",
-              "telephone": "${phone}",
-              "contactType": "Customer service"
-            }
-          }`}
-        </script>
       </Helmet>
     )
   }
