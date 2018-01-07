@@ -17,7 +17,7 @@ const cardContainer = (ComposedComponent) => {
     handleMouseLeave = () => this.setState({ elevation: this.props.cardStyle.values.elevation || 1 })
     handleNavigation = () => {
       const { item: { values: { link }}} = this.props
-      if (link.indexOf('http')) {
+      if (link.includes('http')) {
         return window.location.href = link
       }
       return history.push(link)
